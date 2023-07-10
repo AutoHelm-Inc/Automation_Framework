@@ -49,6 +49,18 @@ namespace Automation_Project.src.ast{
             this.arguments.Add(argumentToAdd);
         }
 
+        public void removeArgument(dynamic argumentToRemove){
+            this.arguments.Remove(argumentToRemove);
+        }
+
+        public void removeArgumentByIndex(int index){
+            this.arguments.RemoveAt(index);
+        }
+
+        public void removeLastArgument(){
+            this.arguments.RemoveAt(this.arguments.Count() - 1);
+        }
+
         public override string toAHILCode(){
             string AHILCodeInterpretation = function.ToString() + " ";
             for(int i = 0; i < arguments.Count; i++){
