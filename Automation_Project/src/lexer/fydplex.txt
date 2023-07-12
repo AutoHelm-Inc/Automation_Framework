@@ -1,0 +1,9 @@
+Run "This Docu"
+
+For(5) {
+	
+	If(True){
+		WrtLine "Hello World"
+	}	
+
+}
