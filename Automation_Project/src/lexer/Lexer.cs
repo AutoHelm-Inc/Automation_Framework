@@ -50,10 +50,8 @@ namespace Automation_Project.src.ast
             this.tokensListLength = 0;
             this.index = 0;
 
-
-            String[] nonFunctionKeywords = { "for", "if", "elif", "else", "true", "false" };
             this.keywords = new List<String>(Functions.GetNames(typeof(Functions)));
-            this.keywords.AddRange(nonFunctionKeywords);
+            this.keywords.AddRange(new List<String>(Keywords.GetNames(typeof(Keywords))));
             
         }
 

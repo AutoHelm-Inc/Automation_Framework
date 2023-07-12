@@ -6,24 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Automation_Project.src.ast{
-    public enum Functions{
-        run,
-        switchWindow,
-        close,
-        create,
-        save,
-        move,
-        del,
-        writeLine,
-        write,
-        pressKey,
-        getEmails,
-        getFiles,
-        click,
-        saveAs,
-        open,
-        type,
-    }
 
     public class SimpleStatement : StatementAbstract{
         private Functions function;

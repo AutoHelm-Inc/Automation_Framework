@@ -1,9 +1,9 @@
-open "This Docu"
+Run "This Docu"
 
-for(5) {
+For(5) {
 	
-	if(true){
-		type "Hello World"
+	If(True){
+		WrtLine "Hello World"
 	}	
 
 }
