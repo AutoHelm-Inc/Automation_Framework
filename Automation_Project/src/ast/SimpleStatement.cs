@@ -21,6 +21,8 @@ namespace Automation_Project.src.ast{
         getFiles,
         click,
         saveAs,
+        open,
+        type,
     }
 
     public class SimpleStatement : StatementAbstract{

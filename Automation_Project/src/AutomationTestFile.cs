@@ -18,5 +18,14 @@ public class AutomationTestFile
         testProgram.removeLastStatement();
 
         System.Console.WriteLine(testProgram.generateProgramAHILCode());
+
+        Lexer lex = new Lexer("../../../src/lexer/fydplex.txt");
+        System.Console.WriteLine("testing lexer...");
+        lex.tokenize();
+        lex.printTokens();
+        System.Console.WriteLine("Is open the next token? " + lex.inspect("open"));
+        lex.consume("open");
+        System.Console.WriteLine("Is filename a next token? " + lex.inspectString());
+        lex.consumeString();
     }
 }

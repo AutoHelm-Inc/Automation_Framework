@@ -1,0 +1,9 @@
+open "This Docu"
+
+for(5) {
+	
+	if(true){
+		type "Hello World"
+	}	
+
+}
