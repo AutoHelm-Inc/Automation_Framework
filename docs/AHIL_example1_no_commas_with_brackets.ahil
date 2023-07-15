@@ -1,0 +1,9 @@
+Run "excel_example.xlsx"
+PressKey "^{Home}"
+PressKey "{Right}"
+For (5) {
+    PressKey "{Down}"
+    Write "100"
+}
+Save "excel_example.xlsx"
+Close "excel_example.xlsx"
