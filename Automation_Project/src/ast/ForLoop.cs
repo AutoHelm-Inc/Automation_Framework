@@ -28,12 +28,12 @@ namespace Automation_Project.src.ast
 
         public override string toAHILCode()
         {
-            string AHILCodeInterpretation = "for " + repititionCount.ToString() + "{\n";
+            string AHILCodeInterpretation = "For (" + repititionCount.ToString() + "){\n";
             for (int i = 0; i < statements.Count; i++)
             {
                 AHILCodeInterpretation += "  " + statements[i].toAHILCode();
             }
-            AHILCodeInterpretation += "}";
+            AHILCodeInterpretation += "}\n";
             return AHILCodeInterpretation;
 
         }
