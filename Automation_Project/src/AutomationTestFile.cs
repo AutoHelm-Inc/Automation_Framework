@@ -29,7 +29,7 @@ public class AutomationTestFile
         //System.Console.WriteLine("Is filename a next token? " + lex.inspectString());
         //lex.consumeString();
 
-        Console.WriteLine("Parser Testing");
+        System.Console.WriteLine("Parser Testing");
         Parser parser = new Parser("../../../../docs/AHIL_example1_no_commas_with_brackets.ahil");
         System.Console.WriteLine(parser.parse().generateProgramAHILCode());
     }

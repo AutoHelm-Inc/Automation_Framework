@@ -90,6 +90,10 @@ namespace Automation_Project.src.parser
                 {
                     lexer.consume(",");
                 }
+                else
+                {
+                    break;
+                }
             }
             return simple;
         }
