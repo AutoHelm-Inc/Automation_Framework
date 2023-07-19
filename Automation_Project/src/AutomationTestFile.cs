@@ -31,6 +31,8 @@ public class AutomationTestFile
 
         System.Console.WriteLine("Parser Testing");
         Parser parser = new Parser("../../../../docs/AHIL_example1_no_commas_with_brackets.ahil");
-        System.Console.WriteLine(parser.parse().generateProgramAHILCode());
+        AHILProgram program = parser.parse();
+        //System.Console.WriteLine(program.generateProgramAHILCode());
+        System.Console.WriteLine(program.generateAutomationCode());
     }
 }

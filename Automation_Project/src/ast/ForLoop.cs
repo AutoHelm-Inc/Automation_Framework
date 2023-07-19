@@ -31,15 +31,20 @@ namespace Automation_Project.src.ast
             string AHILCodeInterpretation = "For (" + repititionCount.ToString() + "){\n";
             for (int i = 0; i < statements.Count; i++)
             {
-                AHILCodeInterpretation += "  " + statements[i].toAHILCode();
+                AHILCodeInterpretation += "    " + statements[i].toAHILCode();
             }
             AHILCodeInterpretation += "}\n";
             return AHILCodeInterpretation;
 
         }
 
-        public override string toCSharpOrAHK(){
-            return "";
+        public override string toCSharpCode(){
+            string csharpCode = $"for (int i = 0; i < {repititionCount.ToString()}; i++) {{\n";
+            for (int i = 0; i < statements.Count; i++) {
+                csharpCode += "    " + statements[i].toCSharpCode();
+            }
+            csharpCode += "}\n";
+            return csharpCode;
         }
 
         public void setRepititionCount(int repititionCount){

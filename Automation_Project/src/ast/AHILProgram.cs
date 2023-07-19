@@ -27,6 +27,28 @@ namespace Automation_Project.src.ast
             return programAHILCode;
         }
 
+        public string generateAutomationCode() {
+            string platform = getPlatform();
+            return platform switch {
+                "Windows" => generateCSharpCode(),
+                _ => "",
+            };
+        }
+
+        private string generateCSharpCode() {
+            string csharpCode = "";
+
+            for (int i = 0; i < statements.Count; i++) {
+                csharpCode += statements[i].toCSharpCode();
+            }
+            return csharpCode;
+        }
+
+        private string getPlatform() {
+            // just returns "Windows" for now but in the future can include system checks to include "MacOS" or "Linux" or "Web" etc.
+            return "Windows";
+        }
+
         public List<StatementAbstract> getStatements(){
             return statements;
         }

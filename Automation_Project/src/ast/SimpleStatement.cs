@@ -62,8 +62,12 @@ namespace Automation_Project.src.ast{
             return AHILCodeInterpretation;
         }
 
-        public override string toCSharpOrAHK(){
-            return "";
+        public override string toCSharpCode(){
+            return function switch {
+                Functions.None => "",
+                Functions.Run => Run.toCSharpCode(arguments),
+                _ => "",
+            };
         }
     }
 }
