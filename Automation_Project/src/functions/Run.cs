@@ -1,11 +1,12 @@
 ﻿using Automation_Project.src.ast;
 
 namespace Automation_Project.src.ast {
-    public class Run {
-        public static string toCSharpCode(List<dynamic> arguments) {
-            string output = "";
+    //public class Run {
+    //    public static string toWindowsCode(List<dynamic> arguments) {
+    //        string output = "Run";
 
-            return "Run";
-        }
-    }
+    //        output = WindowsFunctions.withAHKWrapper(output);
+    //        return output;
+    //    }
+    //}
 }

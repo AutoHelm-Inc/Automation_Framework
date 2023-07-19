@@ -30,18 +30,18 @@ namespace Automation_Project.src.ast
         public string generateAutomationCode() {
             string platform = getPlatform();
             return platform switch {
-                "Windows" => generateCSharpCode(),
+                "Windows" => toWindowsCode(),
                 _ => "",
             };
         }
 
-        private string generateCSharpCode() {
-            string csharpCode = "";
+        private string toWindowsCode() {
+            string windowsCode = "";
 
             for (int i = 0; i < statements.Count; i++) {
-                csharpCode += statements[i].toCSharpCode();
+                windowsCode += statements[i].toWindowsCode();
             }
-            return csharpCode;
+            return windowsCode;
         }
 
         private string getPlatform() {

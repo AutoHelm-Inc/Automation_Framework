@@ -35,13 +35,12 @@ namespace Automation_Project.src.ast
             }
             AHILCodeInterpretation += "}\n";
             return AHILCodeInterpretation;
-
         }
 
-        public override string toCSharpCode(){
+        public override string toWindowsCode(){
             string csharpCode = $"for (int i = 0; i < {repititionCount.ToString()}; i++) {{\n";
             for (int i = 0; i < statements.Count; i++) {
-                csharpCode += "    " + statements[i].toCSharpCode();
+                csharpCode += "    " + statements[i].toWindowsCode();
             }
             csharpCode += "}\n";
             return csharpCode;
