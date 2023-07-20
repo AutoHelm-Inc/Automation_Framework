@@ -1,5 +1,6 @@
 ﻿using Automation_Project.src.ast;
 using Automation_Project.src.parser;
+using AutoHotkey.Interop;
 
 public class AutomationTestFile
 {
@@ -9,7 +10,7 @@ public class AutomationTestFile
         //AHILProgram testProgram = new AHILProgram();
         //testProgram.addStatement(new SimpleStatement(Functions.Run, "Notepad.exe"));
         //testProgram.addStatement(new SimpleStatement(Functions.Click, 5));
-        
+
         //ForLoop loop = new ForLoop(3);
         //loop.addStatement(new SimpleStatement(Functions.WrtLine, "Hello world"));
         //loop.addStatement(new SimpleStatement(Functions.Close, "Notepad.exe"));
@@ -29,10 +30,12 @@ public class AutomationTestFile
         //System.Console.WriteLine("Is filename a next token? " + lex.inspectString());
         //lex.consumeString();
 
-        System.Console.WriteLine("Parser Testing");
         Parser parser = new Parser("../../../../docs/AHIL_example1_no_commas_with_brackets.ahil");
         AHILProgram program = parser.parse();
         //System.Console.WriteLine(program.generateProgramAHILCode());
+
+        var ahk = AutoHotkeyEngine.Instance;
+        ahk.ExecRaw(@"Run C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\hello.txt");
         System.Console.WriteLine(program.generateAutomationCode());
     }
 }

@@ -28,3 +28,5 @@ C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_
 C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\obj\Debug\net6.0\Automation_Project.pdb
 C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\obj\Debug\net6.0\Automation_Project.genruntimeconfig.cache
 C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\obj\Debug\net6.0\ref\Automation_Project.dll
+C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\bin\Debug\net6.0\AutoHotkey.Interop.dll
+C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\obj\Debug\net6.0\Automation_Project.csproj.CopyComplete

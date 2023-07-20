@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoHotkey.Interop;
 
 namespace Automation_Project.src.ast
 {
     public class AHILProgram{
+        private static AutoHotkeyEngine ahk = AutoHotkeyEngine.Instance;
         private List<StatementAbstract> statements;
 
         public AHILProgram(){
@@ -41,7 +43,7 @@ namespace Automation_Project.src.ast
             for (int i = 0; i < statements.Count; i++) {
                 windowsCode += statements[i].toWindowsCode();
             }
-            return windowsCode;
+            return AutomationFunctions.formatAsCSharpFile(windowsCode);
         }
 
         private string getPlatform() {

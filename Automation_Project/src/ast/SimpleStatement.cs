@@ -9,7 +9,7 @@ namespace Automation_Project.src.ast{
 
     public class SimpleStatement : StatementAbstract{
         private Functions function;
-        private List<dynamic>arguments;
+        private List<dynamic> arguments;
 
         public SimpleStatement(Functions function)
         {
@@ -66,6 +66,19 @@ namespace Automation_Project.src.ast{
             string windowsCode = function switch {
                 Functions.None => "",
                 Functions.Run => Run.toWindowsCode(arguments),
+                Functions.SwitchWindow => SwitchWindow.toWindowsCode(arguments),
+                Functions.Close => Close.toWindowsCode(arguments),
+                Functions.Create => Create.toWindowsCode(arguments),
+                Functions.Save => Save.toWindowsCode(arguments),
+                Functions.Move => Move.toWindowsCode(arguments),
+                Functions.Del => Del.toWindowsCode(arguments),
+                Functions.WrtLine => WrtLine.toWindowsCode(arguments),
+                Functions.Write => Write.toWindowsCode(arguments),
+                Functions.PressKey => PressKey.toWindowsCode(arguments),
+                Functions.EmailsGet => EmailsGet.toWindowsCode(arguments),
+                Functions.FilesGet => FilesGet.toWindowsCode(arguments),
+                Functions.Click => Click.toWindowsCode(arguments),
+                Functions.SaveAs => SaveAs.toWindowsCode(arguments),
                 _ => "",
             };
             return windowsCode + "\n";
