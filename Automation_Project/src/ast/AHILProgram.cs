@@ -45,7 +45,7 @@ namespace Automation_Project.src.ast
             for (int i = 0; i < statements.Count; i++) {
                 code += statements[i].toWindowsCode();
             }
-            return code;
+            return AutomationHandler.formatAsPythonFile(code);
             //return AutomationHandler.formatAsCSharpFile(windowsCode);
         }
 
@@ -56,8 +56,8 @@ namespace Automation_Project.src.ast
 
         // Compile and run the generated automation code
         public void saveToFile() {
-            //string code = generateAutomationCode();
-            string code = AutomationHandler.testPythonProgram;
+            string code = generateAutomationCode();
+            //string code = AutomationHandler.testPythonProgram;
             auto.saveToFile(code);
         }
         //public void saveToFile() {
