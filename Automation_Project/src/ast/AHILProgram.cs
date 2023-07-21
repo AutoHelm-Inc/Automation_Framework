@@ -53,7 +53,8 @@ namespace Automation_Project.src.ast
 
         // Compile and run the generated automation code
         public void execute() {
-            
+            string code = generateAutomationCode();
+            AutomationFunctions.compileToFile(code);
         }
 
         public List<StatementAbstract> getStatements(){

@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "JNaOw/jcwXiNQd0C6UABF97djn1Ih69hibcfizcSn7/lp0L0KhQFsEC8kRMZ1KspSvQZoxuIgvLcOu1RdI3vvQ==",
+  "dgSpecHash": "/nDKmcbkJIFLQEJoRjVAU2SmvSbIFTzD9ZRsdrA9pcj+bt9ZuFlu9asTAwAuHHhVLsUcIImQF6xk7sZj9UvDow==",
   "success": true,
   "projectFilePath": "C:\\Users\\HansW\\Desktop\\Stuff\\School\\4A\\ECE 498A\\Automation_Framework\\Automation_Project\\Automation_Project.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HansW\\.nuget\\packages\\luojunyuan.autohotkey\\1.0.0\\luojunyuan.autohotkey.1.0.0.nupkg.sha512",
     "C:\\Users\\HansW\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
+    "C:\\Users\\HansW\\.nuget\\packages\\system.codedom\\7.0.0\\system.codedom.7.0.0.nupkg.sha512",
     "C:\\Users\\HansW\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512"
   ],
   "logs": []

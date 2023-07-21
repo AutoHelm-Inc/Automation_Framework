@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Microsoft.CSharp;
+using System.Reflection;
+using System.CodeDom.Compiler;
+
 namespace Automation_Project.src.ast {
     public static class AutomationFunctions {
         const string AHKWrapperInstanceName = "ahk";
@@ -34,6 +38,32 @@ namespace Automation_Project.src.ast {
 
         public static string wrapWithQuotations(string str) {
             return '"' + str + '"';
+        }
+
+        public static bool compileToFile(string code) {
+            CSharpCodeProvider provider = new CSharpCodeProvider();
+            //ICodeCompiler icc = provider.CreateCompiler();
+            String exeName = String.Format(@"{0}\{1}.exe", System.Environment.CurrentDirectory, "out");
+            CompilerParameters cp = new CompilerParameters();
+
+            cp.GenerateExecutable = true;
+            cp.OutputAssembly = exeName;
+            cp.GenerateInMemory = false;
+            cp.TreatWarningsAsErrors = false;
+
+            CompilerResults cr = provider.CompileAssemblyFromSource(cp, code);
+
+            if (cr.Errors.Count > 0) {
+                Console.WriteLine($"Errors building automation executable");
+                foreach (CompilerError ce in cr.Errors) {
+                    Console.WriteLine("  {0}", ce.ToString());
+                    Console.WriteLine();
+                }
+                return false;
+            } else {
+                Console.WriteLine("Successfully built automation executable");
+                return true;
+            }
         }
     }
     public static class Run {

@@ -36,6 +36,8 @@ public class AutomationTestFile
         System.Console.WriteLine("----------------\n");
         System.Console.WriteLine(program.generateAutomationCode());
 
+        program.execute();
+
         var ahk = AutoHotkeyEngine.Instance;
         //ahk.ExecRaw(@"Run Notepad.exe C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\hello.txt");
     }
