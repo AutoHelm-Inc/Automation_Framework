@@ -27,6 +27,9 @@ namespace Automation_Project.src.ast {
             "\t}\n" +
             "}";
 
+        public static string testPythonProgram =
+            "print(\"Hello world!\")";
+
         public static string withAHKWrapper(string code) {
             return $"{AHKWrapperInstanceName}.ExecRaw(@\"{code}\");";
         }
@@ -131,6 +134,16 @@ namespace Automation_Project.src.ast {
                 }
                 return null;
             }
+        }
+
+        public static string savePythonScriptToFile(string code) {
+            string outputDirectory = System.Environment.CurrentDirectory;
+            string fileName = "out.py";
+            string outputPath = Path.Combine(outputDirectory, fileName);
+            using (StreamWriter writer = new StreamWriter(outputPath)) {
+                writer.Write(code);
+            }
+            return outputPath;
         }
     }
     public static class Run {

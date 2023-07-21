@@ -8,11 +8,12 @@ using AutoHotkey.Interop;
 namespace Automation_Project.src.ast
 {
     public class AHILProgram{
-        private static AutoHotkeyEngine ahk = AutoHotkeyEngine.Instance;
         private List<StatementAbstract> statements;
+        private string? automationScriptLocation;
 
         public AHILProgram(){
             this.statements = new List<StatementAbstract>();
+            this.automationScriptLocation = null;
         }
 
         public AHILProgram(List<StatementAbstract> statements){
@@ -52,14 +53,30 @@ namespace Automation_Project.src.ast
         }
 
         // Compile and run the generated automation code
-        public void execute() {
+        public void saveToFile() {
             //string code = generateAutomationCode();
-            string code = AutomationFunctions.testProgram;
-            string? outputFile = AutomationFunctions.compileToFile(code);
-            if (outputFile != null) { 
-                Console.WriteLine("Automation executable saved to:");
-                Console.WriteLine("  " + outputFile);
+            //string code = AutomationFunctions.testProgram;
+            //string? outputFile = AutomationFunctions.compileToFile(code);
+            //if (outputFile != null) { 
+            //    Console.WriteLine("Automation executable saved to:");
+            //    Console.WriteLine("  " + outputFile);
+            //}
+
+            string code = AutomationFunctions.testPythonProgram;
+            string outputPath = AutomationFunctions.savePythonScriptToFile(code);
+            //Console.WriteLine("Generated python script saved to:");
+            //Console.WriteLine("  " + outputPath);
+            automationScriptLocation = outputPath;
+        }
+
+        public bool execute() {
+            if (automationScriptLocation == null) {
+                return false;
             }
+
+            Console.WriteLine("Executing generated automation script");
+
+            return true;
         }
 
         public List<StatementAbstract> getStatements(){

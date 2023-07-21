@@ -36,6 +36,7 @@ public class AutomationTestFile
         System.Console.WriteLine("----------------\n");
         System.Console.WriteLine(program.generateAutomationCode());
 
+        program.saveToFile();
         program.execute();
 
         var ahk = AutoHotkeyEngine.Instance;
