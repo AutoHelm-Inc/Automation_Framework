@@ -9,7 +9,7 @@ namespace Automation_Project.src.ast {
         const string AHKWrapperInstanceName = "ahk";
 
         public static string withAHKWrapper(string code) {
-            return $"{AHKWrapperInstanceName}.ExecRaw(\"{code}\");";
+            return $"{AHKWrapperInstanceName}.ExecRaw(@\"{code}\");";
         }
 
         public static string formatAsCSharpFile(string code) {
@@ -31,14 +31,19 @@ namespace Automation_Project.src.ast {
             }
             return String.Join("\n", splitByLine);
         }
+
+        public static string wrapWithQuotations(string str) {
+            return '"' + str + '"';
+        }
     }
     public static class Run {
         public static string toWindowsCode(List<dynamic> args) {
             string output = "Run ";
 
-            for (int i = 0; i < args.Count(); i++) {
-                output += args[i].ToString();
+            if (args.Count > 1) {
+                output += args[1].ToString() + " ";
             }
+            output += args[0].ToString();
 
             output = AutomationFunctions.withAHKWrapper(output);
             return output;

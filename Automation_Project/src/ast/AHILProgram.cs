@@ -51,6 +51,11 @@ namespace Automation_Project.src.ast
             return "Windows";
         }
 
+        // Compile and run the generated automation code
+        public void execute() {
+            
+        }
+
         public List<StatementAbstract> getStatements(){
             return statements;
         }

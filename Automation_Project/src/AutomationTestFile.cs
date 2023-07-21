@@ -30,12 +30,13 @@ public class AutomationTestFile
         //System.Console.WriteLine("Is filename a next token? " + lex.inspectString());
         //lex.consumeString();
 
-        Parser parser = new Parser("../../../../docs/AHIL_example1_no_commas_with_brackets.ahil");
+        Parser parser = new Parser("../../../tests/functions/run/Run.ahil");
         AHILProgram program = parser.parse();
-        //System.Console.WriteLine(program.generateProgramAHILCode());
+        System.Console.WriteLine(program.generateProgramAHILCode());
+        System.Console.WriteLine("----------------\n");
+        System.Console.WriteLine(program.generateAutomationCode());
 
         var ahk = AutoHotkeyEngine.Instance;
-        ahk.ExecRaw(@"Run C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\hello.txt");
-        System.Console.WriteLine(program.generateAutomationCode());
+        //ahk.ExecRaw(@"Run Notepad.exe C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\hello.txt");
     }
 }
