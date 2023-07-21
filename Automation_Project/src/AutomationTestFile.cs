@@ -1,6 +1,5 @@
 ﻿using Automation_Project.src.ast;
 using Automation_Project.src.parser;
-using AutoHotkey.Interop;
 
 public class AutomationTestFile
 {
@@ -38,8 +37,5 @@ public class AutomationTestFile
 
         program.saveToFile();
         program.execute();
-
-        var ahk = AutoHotkeyEngine.Instance;
-        //ahk.ExecRaw(@"Run Notepad.exe C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\hello.txt");
     }
 }

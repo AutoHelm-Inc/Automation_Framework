@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AutoHotkey.Interop;
 
 using Automation_Project.src.automation;
 
@@ -59,15 +58,6 @@ namespace Automation_Project.src.ast
         public void saveToFile() {
             string code = generateAutomationCode();
             auto.saveToFile(code);
-        }
-        public void saveToFileCSharp() {
-            string code = generateAutomationCode();
-            //string code = AutomationHandler.testProgram; 
-            string? outputFile = AutomationHandler.compileToFile(code);
-            if (outputFile != null) {
-                Console.WriteLine("Automation executable saved to:");
-                Console.WriteLine("  " + outputFile);
-            }
         }
 
         public bool execute() {

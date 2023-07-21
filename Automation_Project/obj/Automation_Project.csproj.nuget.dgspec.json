@@ -39,28 +39,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "Microsoft.CodeAnalysis.CSharp": {
-              "target": "Package",
-              "version": "[4.6.0, )"
-            },
-            "Microsoft.CodeAnalysis.Common": {
-              "target": "Package",
-              "version": "[4.6.0, )"
-            },
-            "NETStandard.Library": {
-              "target": "Package",
-              "version": "[2.0.3, )"
-            },
-            "System.CodeDom": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            },
-            "luojunyuan.autohotkey": {
-              "target": "Package",
-              "version": "[1.0.0, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
