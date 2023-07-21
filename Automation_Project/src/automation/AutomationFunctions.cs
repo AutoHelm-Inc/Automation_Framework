@@ -7,10 +7,25 @@ using System.Threading.Tasks;
 using Microsoft.CSharp;
 using System.Reflection;
 using System.CodeDom.Compiler;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+
+
+
+
+using AutoHotkey.Interop;
 
 namespace Automation_Project.src.ast {
     public static class AutomationFunctions {
         const string AHKWrapperInstanceName = "ahk";
+
+        public static string testProgram =
+            "public class AutoHelmWindowsAutomation {\n" +
+            "\tstatic void Main(string[] args) {\n" +
+            //"\t\tSystem.Console.WriteLine(\"Hello World!\");" +
+            //"\t\tSystem.Console.ReadKey();" +
+            "\t}\n" +
+            "}";
 
         public static string withAHKWrapper(string code) {
             return $"{AHKWrapperInstanceName}.ExecRaw(@\"{code}\");";
@@ -21,17 +36,21 @@ namespace Automation_Project.src.ast {
                 "using AutoHotkey.Interop;\n" +
                 "\n" +
                 "public class AutoHelmWindowsAutomation {\n" +
-                "\tAutoHotkeyEngine ahk = AutoHotkeyEngine.Instance;\n" +
-                $"{indentOnce(code)}\n" +
+                "\tstatic void Main(string[] args) {\n" +
+                "\t\tAutoHotkeyEngine ahk = AutoHotkeyEngine.Instance;\n" +
+                $"{indentCode(code, 2)}\n" +
+                "\t}\n" +
                 "}";
             return output;
         }
 
-        public static string indentOnce(string code) {
+        public static string indentCode(string code, int n) {
             string[] splitByLine = code.Trim().Split("\n");
             //if (splitByLine[splitByLine.Length-1].tri)
             for (int i = 0; i < splitByLine.Length; i++) {
-                splitByLine[i] = $"\t{splitByLine[i]}";
+                //for (int j = 0; j < n; j++) { 
+                //}
+                splitByLine[i] = $"{String.Concat(Enumerable.Repeat("\t", n))}{splitByLine[i]}";
             }
             return String.Join("\n", splitByLine);
         }
@@ -40,7 +59,7 @@ namespace Automation_Project.src.ast {
             return '"' + str + '"';
         }
 
-        public static bool compileToFile(string code) {
+        public static bool compileToFileold(string code) {
             CSharpCodeProvider provider = new CSharpCodeProvider();
             //ICodeCompiler icc = provider.CreateCompiler();
             String exeName = String.Format(@"{0}\{1}.exe", System.Environment.CurrentDirectory, "out");
@@ -63,6 +82,54 @@ namespace Automation_Project.src.ast {
             } else {
                 Console.WriteLine("Successfully built automation executable");
                 return true;
+            }
+        }
+
+        public static string? compileToFile(string code) {
+            string outputDirectory = System.Environment.CurrentDirectory;
+            string exeName = "out.exe";
+            string outputPath = Path.Combine(outputDirectory, exeName);
+
+            List<SyntaxTree> trees = new List<SyntaxTree>();
+            trees.Add(CSharpSyntaxTree.ParseText(code));
+
+            var assemblyPath = Path.GetDirectoryName(typeof(object).Assembly.Location);
+            if (assemblyPath == null) {
+                return null;
+            }
+            //Console.WriteLine(assemblyPath);
+
+            MetadataReference AHKLib = MetadataReference.CreateFromFile(typeof(AutoHotkeyEngine).Assembly.Location);
+            //MetadataReference PrivateCoreLib = MetadataReference.CreateFromFile(typeof(object).Assembly.Location);
+            MetadataReference MSCoreLib = MetadataReference.CreateFromFile(Path.Combine(assemblyPath, "mscorlib.dll"));
+            MetadataReference SystemLib = MetadataReference.CreateFromFile(typeof(Console).Assembly.Location);
+            MetadataReference codeAnalysisLib = MetadataReference.CreateFromFile(typeof(SyntaxTree).Assembly.Location);
+            MetadataReference netstandard = MetadataReference.CreateFromFile(Assembly.Load("netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51").Location);
+            MetadataReference PrivateCoreLib = MetadataReference.CreateFromFile(Assembly.Load("System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e").Location);
+            List<MetadataReference> references = new List<MetadataReference> { AHKLib, PrivateCoreLib, MSCoreLib, SystemLib, codeAnalysisLib, netstandard};
+            Assembly.GetEntryAssembly()?.GetReferencedAssemblies().ToList()
+                .ForEach(a => {
+                    references.Add(MetadataReference.CreateFromFile(Assembly.Load(a).Location));
+                    //Console.WriteLine(a.ToString());
+                });
+
+            CSharpCompilation compilation = CSharpCompilation.Create(
+                "out.exe",
+                trees,
+                references,
+                new CSharpCompilationOptions(OutputKind.ConsoleApplication));
+
+            var result = compilation.Emit(outputPath);
+
+            if (result.Success) {
+                Console.WriteLine("Successfully built automation executable");
+                return outputPath;
+            } else {
+                Console.WriteLine($"Errors building automation executable");
+                foreach (Diagnostic diagnostic in result.Diagnostics) { 
+                    Console.WriteLine(diagnostic.ToString());
+                }
+                return null;
             }
         }
     }

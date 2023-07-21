@@ -53,8 +53,13 @@ namespace Automation_Project.src.ast
 
         // Compile and run the generated automation code
         public void execute() {
-            string code = generateAutomationCode();
-            AutomationFunctions.compileToFile(code);
+            //string code = generateAutomationCode();
+            string code = AutomationFunctions.testProgram;
+            string? outputFile = AutomationFunctions.compileToFile(code);
+            if (outputFile != null) { 
+                Console.WriteLine("Automation executable saved to:");
+                Console.WriteLine("  " + outputFile);
+            }
         }
 
         public List<StatementAbstract> getStatements(){
