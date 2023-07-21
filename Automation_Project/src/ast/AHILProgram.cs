@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoHotkey.Interop;
 
+using Automation_Project.src.automation;
+
 namespace Automation_Project.src.ast
 {
     public class AHILProgram{
