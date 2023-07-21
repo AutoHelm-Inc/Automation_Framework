@@ -48,7 +48,6 @@ namespace Automation_Project.src.ast
                 code += statements[i].toWindowsCode();
             }
             return AutomationHandler.formatAsPythonFile(code);
-            //return AutomationHandler.formatAsCSharpFile(windowsCode);
         }
 
         private string getPlatform() {
@@ -59,24 +58,17 @@ namespace Automation_Project.src.ast
         // Compile and run the generated automation code
         public void saveToFile() {
             string code = generateAutomationCode();
-            //string code = AutomationHandler.testPythonProgram;
             auto.saveToFile(code);
         }
-        //public void saveToFile() {
-        //    //string code = generateAutomationCode();
-        //    //string code = AutomationFunctions.testProgram;
-        //    //string? outputFile = AutomationFunctions.compileToFile(code);
-        //    //if (outputFile != null) { 
-        //    //    Console.WriteLine("Automation executable saved to:");
-        //    //    Console.WriteLine("  " + outputFile);
-        //    //}
-
-        //    string code = AutomationHandler.testPythonProgram;
-        //    string outputPath = AutomationHandler.saveToFile(code);
-        //    //Console.WriteLine("Generated python script saved to:");
-        //    //Console.WriteLine("  " + outputPath);
-        //    automationScriptLocation = outputPath;
-        //}
+        public void saveToFileCSharp() {
+            string code = generateAutomationCode();
+            //string code = AutomationHandler.testProgram; 
+            string? outputFile = AutomationHandler.compileToFile(code);
+            if (outputFile != null) {
+                Console.WriteLine("Automation executable saved to:");
+                Console.WriteLine("  " + outputFile);
+            }
+        }
 
         public bool execute() {
             return auto.execute();

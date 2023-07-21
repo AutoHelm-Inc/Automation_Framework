@@ -6,189 +6,207 @@ using System.Threading.Tasks;
 using Automation_Project.src.ast;
 
 namespace Automation_Project.src.automation {
-    public abstract class Function {
 
-        public abstract string toWindowsCode(List<dynamic> args);
+    public interface Function {
+        public string toWindowsCode(List<dynamic> args);
+    }
+    public static class FunctionFactory {
+        private static readonly Run runInstance = new Run();
+        private static readonly SwitchWindow switchWindowInstance = new SwitchWindow();
+        private static readonly Close closeInstance = new Close();
+        private static readonly Create createInstance = new Create();
+        private static readonly Save saveInstance = new Save();
+        private static readonly Move moveInstance = new Move();
+        private static readonly Del delInstance = new Del();
+        private static readonly WrtLine wrtLineInstance = new WrtLine();
+        private static readonly Write writeInstance = new Write();
+        private static readonly PressKey pressKeyInstance = new PressKey();
+        private static readonly EmailsGet emailsGetInstance = new EmailsGet();
+        private static readonly FilesGet filesGetInstance = new FilesGet();
+        private static readonly Click clickInstance = new Click();
+        private static readonly SaveAs saveAsInstance = new SaveAs();
 
         public static Function? fromEnum(Functions @enum) {
             return @enum switch {
                 Functions.None => null,
-                Functions.Run => Run.getInstance(),
+                Functions.Run => runInstance,
+                Functions.SwitchWindow => switchWindowInstance,
+                Functions.Close => closeInstance,
+                Functions.Create => createInstance,
+                Functions.Save => saveAsInstance,
+                Functions.Move => moveInstance,
+                Functions.Del => delInstance,
+                Functions.WrtLine => wrtLineInstance,
+                Functions.Write => writeInstance,
+                Functions.PressKey => pressKeyInstance,
+                Functions.EmailsGet => emailsGetInstance,
+                Functions.FilesGet => filesGetInstance,
+                Functions.Click => clickInstance,
+                Functions.SaveAs => saveAsInstance,
                 _ => null,
             };
         }
-    }
 
-    public sealed class Run : Function{
-        private Run() { }
+        private class Run : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "Run ";
 
-        private static Run? instance;
+                if (args.Count > 1) {
+                    output += args[1].ToString() + " ";
+                }
+                output += args[0].ToString();
 
-        public static Run getInstance() {
-            if (instance == null) {
-                instance = new Run();
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
             }
-            return instance;
         }
 
-        public override string toWindowsCode(List<dynamic> args) {
-            string output = "Run ";
+        private class SwitchWindow : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "SwitchWindow";
 
-            if (args.Count > 1) {
-                output += args[1].ToString() + " ";
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
             }
-            output += args[0].ToString();
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
         }
-    }
 
-    public static class SwitchWindow {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "SwitchWindow";
+        private class Close : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "Close";
 
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
-        }
-    }
-
-    public static class Close {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "Close";
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
-        }
-    }
-
-    public static class Create {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "Create";
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
-        }
-    }
-
-    public static class Save {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "Save";
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
-        }
-    }
-
-    public static class Move {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "Move";
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
-        }
-    }
-
-    public static class Del {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "Del";
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
-        }
-    }
-
-    public static class WrtLine {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "SendText ";
-
-            for (int i = 0; i < args.Count(); i++) {
-                output += args[i].ToString();
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
             }
-
-            output += "\n" +
-                "SendText `n";
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
         }
-    }
 
-    public static class Write {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "SendText ";
+        private class Create : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "Create";
 
-            for (int i = 0; i < args.Count(); i++) {
-                output += args[i].ToString();
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
             }
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
         }
-    }
 
-    public static class PressKey {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "Send ";
+        private class Save : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "Save";
 
-            for (int i = 0; i < args.Count(); i++) {
-                output += args[i].ToString();
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
             }
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
         }
-    }
 
-    public static class EmailsGet {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "GetEmails ";
+        private class Move : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "Move";
 
-            for (int i = 0; i < args.Count(); i++) {
-                output += args[i].ToString();
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
             }
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
         }
-    }
 
-    public static class FilesGet {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "GetFiles ";
+        private class Del : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "Del";
 
-            for (int i = 0; i < args.Count(); i++) {
-                output += args[i].ToString();
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
             }
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
         }
-    }
 
-    public static class Click {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "Click ";
+        private class WrtLine : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "SendText ";
 
-            for (int i = 0; i < args.Count(); i++) {
-                output += args[i].ToString();
+                for (int i = 0; i < args.Count(); i++) {
+                    output += args[i].ToString();
+                }
+
+                output += "\n" +
+                    "SendText `n";
+
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
             }
-
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
         }
-    }
 
-    public static class SaveAs {
-        public static string toWindowsCode(List<dynamic> args) {
-            string output = "SaveAs ";
+        private class Write : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "SendText ";
 
-            for (int i = 0; i < args.Count(); i++) {
-                output += args[i].ToString();
+                for (int i = 0; i < args.Count(); i++) {
+                    output += args[i].ToString();
+                }
+
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
             }
+        }
 
-            output = AutomationHandler.withAHKWrapper(output);
-            return output;
+        private class PressKey : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "Send ";
+
+                for (int i = 0; i < args.Count(); i++) {
+                    output += args[i].ToString();
+                }
+
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
+            }
+        }
+
+        private class EmailsGet : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "GetEmails ";
+
+                for (int i = 0; i < args.Count(); i++) {
+                    output += args[i].ToString();
+                }
+
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
+            }
+        }
+
+        private class FilesGet : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "GetFiles ";
+
+                for (int i = 0; i < args.Count(); i++) {
+                    output += args[i].ToString();
+                }
+
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
+            }
+        }
+
+        private class Click : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "Click ";
+
+                for (int i = 0; i < args.Count(); i++) {
+                    output += args[i].ToString();
+                }
+
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
+            }
+        }
+
+        private class SaveAs : Function {
+            public string toWindowsCode(List<dynamic> args) {
+                string output = "SaveAs ";
+
+                for (int i = 0; i < args.Count(); i++) {
+                    output += args[i].ToString();
+                }
+
+                output = AutomationHandler.withAHKWrapper(output);
+                return output;
+            }
         }
     }
 }

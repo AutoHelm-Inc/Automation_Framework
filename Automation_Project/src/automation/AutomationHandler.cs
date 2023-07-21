@@ -38,8 +38,11 @@ namespace Automation_Project.src.automation {
             "print(\"Hello world!\")";
 
         public static string withAHKWrapper(string code) {
-            //return $"{AHKWrapperInstanceName}.ExecRaw(@\"{code}\");";
             return $"{AHKWrapperInstanceName}.run_script(\"{code}\")";
+        }
+
+        public static string withAHKWrapperCSharp(string code) {
+            return $"{AHKWrapperInstanceName}.ExecRaw(@\"{code}\");";
         }
 
         public static string formatAsCSharpFile(string code) {

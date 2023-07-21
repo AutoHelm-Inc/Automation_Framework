@@ -16,7 +16,7 @@ namespace Automation_Project.src.ast{
 
         public SimpleStatement(Functions function)
         {
-            this.function = Function.fromEnum(function);
+            this.function = FunctionFactory.fromEnum(function);
             this.functionType = function;
             this.arguments = new List<dynamic>();
         }
@@ -65,28 +65,6 @@ namespace Automation_Project.src.ast{
             AHILCodeInterpretation += "\n";
             return AHILCodeInterpretation;
         }
-
-        //public override string toWindowsCode(){
-        //    string windowsCode = functionType switch {
-        //        Functions.None => "",
-        //        Functions.Run => Run.toWindowsCode(arguments),
-        //        Functions.SwitchWindow => SwitchWindow.toWindowsCode(arguments),
-        //        Functions.Close => Close.toWindowsCode(arguments),
-        //        Functions.Create => Create.toWindowsCode(arguments),
-        //        Functions.Save => Save.toWindowsCode(arguments),
-        //        Functions.Move => Move.toWindowsCode(arguments),
-        //        Functions.Del => Del.toWindowsCode(arguments),
-        //        Functions.WrtLine => WrtLine.toWindowsCode(arguments),
-        //        Functions.Write => Write.toWindowsCode(arguments),
-        //        Functions.PressKey => PressKey.toWindowsCode(arguments),
-        //        Functions.EmailsGet => EmailsGet.toWindowsCode(arguments),
-        //        Functions.FilesGet => FilesGet.toWindowsCode(arguments),
-        //        Functions.Click => Click.toWindowsCode(arguments),
-        //        Functions.SaveAs => SaveAs.toWindowsCode(arguments),
-        //        _ => "",
-        //    };
-        //    return windowsCode + "\n";
-        //}
 
         public override string toWindowsCode() {
             if (function == null) {
