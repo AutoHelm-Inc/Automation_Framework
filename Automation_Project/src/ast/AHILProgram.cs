@@ -9,15 +9,16 @@ namespace Automation_Project.src.ast
 {
     public class AHILProgram{
         private List<StatementAbstract> statements;
-        private string? automationScriptLocation;
+        private AutomationHandler auto;
 
         public AHILProgram(){
             this.statements = new List<StatementAbstract>();
-            this.automationScriptLocation = null;
+            this.auto = new AutomationHandler();
         }
 
         public AHILProgram(List<StatementAbstract> statements){
             this.statements = statements;
+            this.auto = new AutomationHandler();
         }
 
         public string generateProgramAHILCode(){
@@ -39,12 +40,13 @@ namespace Automation_Project.src.ast
         }
 
         private string toWindowsCode() {
-            string windowsCode = "";
+            string code = "";
 
             for (int i = 0; i < statements.Count; i++) {
-                windowsCode += statements[i].toWindowsCode();
+                code += statements[i].toWindowsCode();
             }
-            return AutomationFunctions.formatAsCSharpFile(windowsCode);
+            return code;
+            //return AutomationHandler.formatAsCSharpFile(windowsCode);
         }
 
         private string getPlatform() {
@@ -55,28 +57,27 @@ namespace Automation_Project.src.ast
         // Compile and run the generated automation code
         public void saveToFile() {
             //string code = generateAutomationCode();
-            //string code = AutomationFunctions.testProgram;
-            //string? outputFile = AutomationFunctions.compileToFile(code);
-            //if (outputFile != null) { 
-            //    Console.WriteLine("Automation executable saved to:");
-            //    Console.WriteLine("  " + outputFile);
-            //}
-
-            string code = AutomationFunctions.testPythonProgram;
-            string outputPath = AutomationFunctions.savePythonScriptToFile(code);
-            //Console.WriteLine("Generated python script saved to:");
-            //Console.WriteLine("  " + outputPath);
-            automationScriptLocation = outputPath;
+            string code = AutomationHandler.testPythonProgram;
+            auto.saveToFile(code);
         }
+        //public void saveToFile() {
+        //    //string code = generateAutomationCode();
+        //    //string code = AutomationFunctions.testProgram;
+        //    //string? outputFile = AutomationFunctions.compileToFile(code);
+        //    //if (outputFile != null) { 
+        //    //    Console.WriteLine("Automation executable saved to:");
+        //    //    Console.WriteLine("  " + outputFile);
+        //    //}
+
+        //    string code = AutomationHandler.testPythonProgram;
+        //    string outputPath = AutomationHandler.saveToFile(code);
+        //    //Console.WriteLine("Generated python script saved to:");
+        //    //Console.WriteLine("  " + outputPath);
+        //    automationScriptLocation = outputPath;
+        //}
 
         public bool execute() {
-            if (automationScriptLocation == null) {
-                return false;
-            }
-
-            Console.WriteLine("Executing generated automation script");
-
-            return true;
+            return auto.execute();
         }
 
         public List<StatementAbstract> getStatements(){

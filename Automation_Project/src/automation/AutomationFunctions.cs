@@ -16,8 +16,14 @@ using Microsoft.CodeAnalysis.CSharp;
 using AutoHotkey.Interop;
 
 namespace Automation_Project.src.ast {
-    public static class AutomationFunctions {
+    public class AutomationHandler {
         const string AHKWrapperInstanceName = "ahk";
+        public static string pythonSourceLocation = @"C:\Users\HansW\AppData\Local\Programs\Python\Python39\python.exe";
+        private string? automationScriptLocation;
+
+        public AutomationHandler() {
+            this.automationScriptLocation = null;
+        }
 
         public static string testProgram =
             "public class AutoHelmWindowsAutomation {\n" +
@@ -28,7 +34,7 @@ namespace Automation_Project.src.ast {
             "}";
 
         public static string testPythonProgram =
-            "print(\"Hello world!\")";
+            "print(\"Hello world!asdfjaskldfj\")";
 
         public static string withAHKWrapper(string code) {
             return $"{AHKWrapperInstanceName}.ExecRaw(@\"{code}\");";
@@ -136,14 +142,26 @@ namespace Automation_Project.src.ast {
             }
         }
 
-        public static string savePythonScriptToFile(string code) {
+        public void saveToFile(string code) {
             string outputDirectory = System.Environment.CurrentDirectory;
             string fileName = "out.py";
             string outputPath = Path.Combine(outputDirectory, fileName);
             using (StreamWriter writer = new StreamWriter(outputPath)) {
                 writer.Write(code);
             }
-            return outputPath;
+            automationScriptLocation = outputPath;
+        }
+
+        public bool execute() {
+            if (automationScriptLocation == null) {
+                return false;
+            }
+
+            Console.WriteLine("Executing generated automation script");
+
+
+
+            return true;
         }
     }
     public static class Run {
@@ -155,7 +173,7 @@ namespace Automation_Project.src.ast {
             }
             output += args[0].ToString();
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -164,7 +182,7 @@ namespace Automation_Project.src.ast {
         public static string toWindowsCode(List<dynamic> args) {
             string output = "SwitchWindow";
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -173,7 +191,7 @@ namespace Automation_Project.src.ast {
         public static string toWindowsCode(List<dynamic> args) {
             string output = "Close";
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -182,7 +200,7 @@ namespace Automation_Project.src.ast {
         public static string toWindowsCode(List<dynamic> args) {
             string output = "Create";
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -191,7 +209,7 @@ namespace Automation_Project.src.ast {
         public static string toWindowsCode(List<dynamic> args) {
             string output = "Save";
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -200,7 +218,7 @@ namespace Automation_Project.src.ast {
         public static string toWindowsCode(List<dynamic> args) {
             string output = "Move";
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -209,7 +227,7 @@ namespace Automation_Project.src.ast {
         public static string toWindowsCode(List<dynamic> args) {
             string output = "Del";
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -225,7 +243,7 @@ namespace Automation_Project.src.ast {
             output += "\n" +
                 "SendText `n";
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -238,7 +256,7 @@ namespace Automation_Project.src.ast {
                 output += args[i].ToString();
             }
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -251,7 +269,7 @@ namespace Automation_Project.src.ast {
                 output += args[i].ToString();
             }
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -264,7 +282,7 @@ namespace Automation_Project.src.ast {
                 output += args[i].ToString();
             }
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -277,7 +295,7 @@ namespace Automation_Project.src.ast {
                 output += args[i].ToString();
             }
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -290,7 +308,7 @@ namespace Automation_Project.src.ast {
                 output += args[i].ToString();
             }
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
@@ -303,7 +321,7 @@ namespace Automation_Project.src.ast {
                 output += args[i].ToString();
             }
 
-            output = AutomationFunctions.withAHKWrapper(output);
+            output = AutomationHandler.withAHKWrapper(output);
             return output;
         }
     }
