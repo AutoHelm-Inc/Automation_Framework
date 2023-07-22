@@ -23,9 +23,10 @@ public class AutomationTestFile
         System.Console.WriteLine("testing lexer...");
         lex.tokenize();
         lex.printTokens();
-        System.Console.WriteLine("Is open the next token? " + lex.inspect("Run"));
-        lex.consume("Run");
-        System.Console.WriteLine("Is filename a next token? " + lex.inspectString());
-        lex.consumeString();
+        System.Console.WriteLine("Is Run the next token? " + lex.inspect("Run"));
+        if (lex.inspect("Run"))
+        {
+            lex.consume("Run");
+        }
     }
 }
