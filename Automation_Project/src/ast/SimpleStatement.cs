@@ -8,23 +8,23 @@ using System.Threading.Tasks;
 namespace Automation_Project.src.ast{
 
     public class SimpleStatement : StatementAbstract{
-        private Functions function;
+        private Functions? function;
         private List<dynamic>arguments;
 
-        public SimpleStatement(Functions function)
+        public SimpleStatement(Functions? function)
         {
             this.function = function;
             this.arguments = new List<dynamic>();
         }
 
-        public SimpleStatement(Functions function, dynamic argument)
+        public SimpleStatement(Functions? function, dynamic argument)
         {
             this.function = function;
             this.arguments = new List<dynamic>();
             addArgument(argument);
         }
 
-        public SimpleStatement(Functions function, List<dynamic> arguments){
+        public SimpleStatement(Functions? function, List<dynamic> arguments){
             this.function = function;
             this.arguments = arguments;
         }

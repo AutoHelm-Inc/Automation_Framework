@@ -4,7 +4,6 @@ namespace Automation_Project.src.ast
 {
     public enum Functions
     {
-        None = 0,
         Run,
         SwitchWindow,
         Close,
