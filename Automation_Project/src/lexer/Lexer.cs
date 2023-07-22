@@ -228,7 +228,6 @@ namespace Automation_Project.src.ast
             else
             {
                 throw new Exception("Consume failed, your String is not a token or no tokens to consume!");
-                return null;
             }
 
         }
@@ -244,7 +243,6 @@ namespace Automation_Project.src.ast
             else
             {
                 throw new Exception("Consume failed, your String is not a number or no tokens to consume!");
-                return -1;
             }
         }
 
@@ -260,7 +258,6 @@ namespace Automation_Project.src.ast
             else
             {
                 throw new Exception("Consume failed, your String is not a String or no tokens to consume!");
-                return null;
             }
         }
 

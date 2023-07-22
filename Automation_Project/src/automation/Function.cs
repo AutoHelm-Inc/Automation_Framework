@@ -45,14 +45,27 @@ namespace Automation_Project.src.automation {
             };
         }
 
+        public static void assertType(dynamic arg, Type type) {
+            if (!arg.GetType().Equals(type)) {
+                throw new AHILIllegalArgumentTypeException(arg, type);
+            }
+        }
+
         private class Run : Function {
             public string toPythonCode(List<dynamic> args) {
+                if (args.Count == 0 || args.Count > 2) {
+                    throw new AHILIncorrectArgumentsCountException(args.Count, "1 or 2");
+                }
+                args.ForEach(a => {
+                    assertType(a, typeof(string));
+                });
+
                 string ahkCode = "Run ";
 
                 if (args.Count > 1) {
-                    ahkCode += args[1].ToString() + " ";
+                    ahkCode += args[1] + " ";
                 }
-                ahkCode += args[0].ToString();
+                ahkCode += args[0];
 
                 return AutomationHandler.AHKExecRaw(ahkCode);
             }
@@ -60,20 +73,42 @@ namespace Automation_Project.src.automation {
 
         private class SwitchWindow : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "SwitchWindow";
+                if (args.Count == 0 || args.Count > 1) {
+                    throw new AHILIncorrectArgumentsCountException(args.Count, "1");
+                }
+                if (!args[0].GetType().Equals(typeof(string))) {
+                    throw new AHILIllegalArgumentTypeException(args[0], typeof(string));
+                }
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                string pyCode = "";
+
+                if (args.Count > 0) {
+                    // assume first arg is a filename or process id to get the window
+                    pyCode += $"win = {AHK}.win_get(title='{args[0]}')\n";
+                }
+                else {
+                    // no args, get the window in focus
+                    pyCode += $"win = {AHK}.active_window\n";
+                }
+                pyCode += "win.close()\n";
+
+                return pyCode;
             }
         }
 
         private class Close : Function {
             public string toPythonCode(List<dynamic> args) {
+                if (args.Count > 1) {
+                    throw new AHILIncorrectArgumentsCountException(args.Count, "0 or 1");
+                }
+
                 string pyCode = "";
 
                 if (args.Count > 0) {
                     // assume first arg is a filename or process id to get the window
-                    pyCode += $"win = {AHK}.win_get(title='{args[0].ToString()}')\n";
+                    assertType(args[0], typeof(string));
+                    Console.WriteLine("here");
+                    pyCode += $"win = {AHK}.win_get(title='{args[0]}')\n";
                 } else {
                     // no args, get the window in focus
                     pyCode += $"win = {AHK}.active_window\n";
@@ -230,11 +265,9 @@ namespace Automation_Project.src.automation {
         private class Sleep : Function {
             public string toPythonCode(List<dynamic> args) {
                 if (args.Count == 0 || args.Count > 1) {
-                    throw new AHILIncorrectArgumentsCountException(args.Count, 1);
+                    throw new AHILIncorrectArgumentsCountException(args.Count, "1");
                 }
-                if (!args[0].GetType().Equals(typeof(int))) {
-                    throw new AHILIllegalArgumentTypeException(args[0], typeof(int));
-                }
+                assertType(args[0], typeof(int));
                 string pycode = $"time.sleep({args[0]}/1000)";
 
                 return pycode;
@@ -248,8 +281,8 @@ namespace Automation_Project.src.automation {
         public AHILIncorrectArgumentsCountException(string message)
             : base($"Incorrect Arguments Count: {message}") { }
 
-        public AHILIncorrectArgumentsCountException(int count, int expected)
-            : base($"Incorrect Arguments Count: {count.ToString()}. Expected: {expected.ToString()}") { }
+        public AHILIncorrectArgumentsCountException(int count, string expected)
+            : base($"Incorrect Arguments Count: {count.ToString()}. Expected: {expected}") { }
     }
 
     public class AHILIllegalArgumentTypeException : Exception {

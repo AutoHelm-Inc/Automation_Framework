@@ -31,9 +31,12 @@ public class AutomationTestFile
 
         Parser parser = new Parser("../../../tests/functions/Close/Close.ahil");
         AHILProgram program = parser.parse();
+
+        System.Console.WriteLine("----------------\n");
         System.Console.WriteLine(program.generateProgramAHILCode());
         System.Console.WriteLine("----------------\n");
         System.Console.WriteLine(program.generateAutomationCode());
+        System.Console.WriteLine("----------------\n");
 
         program.saveToFile();
         program.execute();
