@@ -17,7 +17,8 @@ namespace Automation_Project.src.ast
         EmailsGet,
         FilesGet,
         Click,
-        SaveAs,
+        SavAs,
+        Sleep
     };
 
     public enum Keywords
