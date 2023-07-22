@@ -66,11 +66,11 @@ namespace Automation_Project.src.ast{
             return AHILCodeInterpretation;
         }
 
-        public override string toWindowsCode() {
+        public override string toPythonCode() {
             if (function == null) {
                 return "";
             }
-            return function.toWindowsCode(arguments) + "\n";
+            return function.toPythonCode(arguments) + "\n";
         }
     }
 }

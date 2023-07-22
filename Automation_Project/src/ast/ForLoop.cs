@@ -37,10 +37,10 @@ namespace Automation_Project.src.ast
             return AHILCodeInterpretation;
         }
 
-        public override string toWindowsCode(){
+        public override string toPythonCode(){
             string csharpCode = $"for (int i = 0; i < {repititionCount.ToString()}; i++) {{\n";
             for (int i = 0; i < statements.Count; i++) {
-                csharpCode += "    " + statements[i].toWindowsCode();
+                csharpCode += "    " + statements[i].toPythonCode();
             }
             csharpCode += "}\n";
             return csharpCode;

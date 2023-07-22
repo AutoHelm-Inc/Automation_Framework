@@ -17,8 +17,10 @@ namespace Automation_Project.src.ast
         PressKey,
         EmailsGet,
         FilesGet,
+        MoveMouse,
         Click,
         SaveAs,
+        Sleep,
     };
 
     public enum Keywords
@@ -29,5 +31,10 @@ namespace Automation_Project.src.ast
         For,
         True,
         False
+    }
+
+    public static class Constants {
+        // Python AHK instance name
+        public const string AHK = "ahk";
     }
 }

@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using System.Diagnostics;
+
+using static Automation_Project.src.ast.Constants;
 
 namespace Automation_Project.src.automation {
     public class AutomationHandler {
-        const string AHKWrapperInstanceName = "ahk";
-        public static string? pythonSourceLocation;
+        private static string? pythonSourceLocation;
         private string? pythonScriptLocation;
+        private static string pythonImports =
+            "from ahk import AHK\n" +
+            "import time\n";
 
         public AutomationHandler() {
             this.pythonScriptLocation = null;
@@ -36,15 +39,15 @@ namespace Automation_Project.src.automation {
         public static string testPythonProgram =
             "print(\"Hello world!\")";
 
-        public static string withAHKWrapper(string code) {
-            return $"{AHKWrapperInstanceName}.run_script(\"{code}\")";
+        public static string AHKExecRaw(string code) {
+            return $"{AHK}.run_script(\"{code}\")";
         }
 
         public static string formatAsPythonFile(string code) {
             string output =
-                "from ahk import AHK\n" +
+                $"{pythonImports}" +
                 "\n" +
-                $"{AHKWrapperInstanceName} = AHK()\n" +
+                $"{AHK} = AHK()\n" +
                 "\n" +
                 $"{code}\n";
             return output;

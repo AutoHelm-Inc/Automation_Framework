@@ -35,16 +35,16 @@ namespace Automation_Project.src.ast
         public string generateAutomationCode() {
             string platform = getPlatform();
             return platform switch {
-                "Windows" => toWindowsCode(),
+                "Windows" => toPythonCode(),
                 _ => "",
             };
         }
 
-        private string toWindowsCode() {
+        private string toPythonCode() {
             string code = "";
 
             for (int i = 0; i < statements.Count; i++) {
-                code += statements[i].toWindowsCode();
+                code += statements[i].toPythonCode();
             }
             return AutomationHandler.formatAsPythonFile(code);
         }

@@ -8,7 +8,7 @@ namespace Automation_Project.src.ast
 {
     public abstract class StatementAbstract{
         public abstract string toAHILCode();
-        public abstract string toWindowsCode();
+        public abstract string toPythonCode();
 
     }
 }
