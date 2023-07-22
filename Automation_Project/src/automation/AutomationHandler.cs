@@ -9,11 +9,28 @@ using System.Diagnostics;
 namespace Automation_Project.src.automation {
     public class AutomationHandler {
         const string AHKWrapperInstanceName = "ahk";
-        public static string pythonSourceLocation = @"C:\Users\HansW\AppData\Local\Programs\Python\Python39\python.exe";
+        public static string? pythonSourceLocation;
         private string? pythonScriptLocation;
 
         public AutomationHandler() {
             this.pythonScriptLocation = null;
+            if (pythonSourceLocation == null) {
+                pythonSourceLocation = findPythonSource();
+            }
+        }
+
+        private static string findPythonSource() {
+            Process p = new Process();
+            p.StartInfo = new ProcessStartInfo("cmd.exe", "/c where python") {
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+            p.Start();
+
+            string output = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            return output;
         }
 
         public static string testPythonProgram =
@@ -49,6 +66,9 @@ namespace Automation_Project.src.automation {
                 return;
             }
             string outputDirectory = Path.Combine(binDirectory, "automation");
+            if (!File.Exists(outputDirectory)) {
+                Directory.CreateDirectory(outputDirectory);
+            }
             string fileName = "out.py";
             string outputPath = Path.Combine(outputDirectory, fileName);
 
@@ -60,7 +80,7 @@ namespace Automation_Project.src.automation {
         }
 
         public bool execute() {
-            if (pythonScriptLocation == null) {
+            if (pythonScriptLocation == null || pythonSourceLocation == null) {
                 return false;
             }
 
