@@ -63,7 +63,7 @@ namespace Automation_Project.src.parser
         SimpleStatement simpleStatement()
         {
 
-            Functions function = Functions.None;
+            Functions? function = null;
 
             foreach (Functions functions in Enum.GetValues(typeof(Functions)))
             {

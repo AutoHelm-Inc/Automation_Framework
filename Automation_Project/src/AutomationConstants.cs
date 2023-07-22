@@ -4,7 +4,6 @@ namespace Automation_Project.src.ast
 {
     public enum Functions
     {
-        None = 0,
         Run,
         SwitchWindow,
         Close,
@@ -19,8 +18,8 @@ namespace Automation_Project.src.ast
         FilesGet,
         MoveMouse,
         Click,
-        SaveAs,
-        Sleep,
+        SavAs,
+        Sleep
     };
 
     public enum Keywords

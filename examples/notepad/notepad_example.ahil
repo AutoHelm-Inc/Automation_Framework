@@ -1,5 +1,5 @@
-run "Notepad.exe"
-for (5) {
-    writeLine "Hello World!"
+Run "Notepad.exe"
+For (5) {
+    WrtLine "Hello World!"
 }
-saveAs "hello.txt"
+SavAs "hello.txt"

@@ -11,24 +11,24 @@ namespace Automation_Project.src.ast{
 
     public class SimpleStatement : StatementAbstract{
         private Function? function;
-        private Functions functionType;
+        private Functions? functionType;
         private List<dynamic> arguments;
 
-        public SimpleStatement(Functions function)
+        public SimpleStatement(Functions? function)
         {
             this.function = FunctionFactory.fromEnum(function);
             this.functionType = function;
             this.arguments = new List<dynamic>();
         }
 
-        public SimpleStatement(Functions function, dynamic argument)
+        public SimpleStatement(Functions? function, dynamic argument)
         {
             this.functionType = function;
             this.arguments = new List<dynamic>();
             addArgument(argument);
         }
 
-        public SimpleStatement(Functions function, List<dynamic> arguments){
+        public SimpleStatement(Functions? function, List<dynamic> arguments){
             this.functionType = function;
             this.arguments = arguments;
         }

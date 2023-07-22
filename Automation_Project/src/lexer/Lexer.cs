@@ -120,6 +120,13 @@ namespace Automation_Project.src.ast
                             //If we are still getting digits keep creating the number
                             currentState = State.NUMBER;
                             sb.Append(this.inputString[charIndex]);
+                            //To handle the condition where are are iterating the numbers but we suddenly hit end of file
+                            if (charIndex == (inputString.Length - 1))
+                            {
+                                String tokenString = sb.ToString();
+                                Token token = new Token(tokenString, Token.Type.NUMBER);
+                                tokensList.Add(token);
+                            }
                         }
 
                     }

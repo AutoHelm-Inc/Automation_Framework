@@ -20,12 +20,11 @@ namespace Automation_Project.src.automation {
         private static readonly EmailsGet emailsGetInstance = new EmailsGet();
         private static readonly FilesGet filesGetInstance = new FilesGet();
         private static readonly Click clickInstance = new Click();
-        private static readonly SaveAs saveAsInstance = new SaveAs();
+        private static readonly SavAs savAsInstance = new SavAs();
         private static readonly Sleep sleepInstance = new Sleep();
 
-        public static Function? fromEnum(Functions @enum) {
+        public static Function? fromEnum(Functions? @enum) {
             return @enum switch {
-                Functions.None => null,
                 Functions.Run => runInstance,
                 Functions.SwitchWindow => switchWindowInstance,
                 Functions.Close => closeInstance,
@@ -39,7 +38,7 @@ namespace Automation_Project.src.automation {
                 Functions.EmailsGet => emailsGetInstance,
                 Functions.FilesGet => filesGetInstance,
                 Functions.Click => clickInstance,
-                Functions.SaveAs => saveAsInstance,
+                Functions.SavAs => savAsInstance,
                 Functions.Sleep => sleepInstance,
                 _ => null,
             };
@@ -249,9 +248,9 @@ namespace Automation_Project.src.automation {
             }
         }
 
-        private class SaveAs : Function {
+        private class SavAs : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "SaveAs ";
+                string output = "SavAs ";
 
                 for (int i = 0; i < args.Count(); i++) {
                     output += args[i].ToString();

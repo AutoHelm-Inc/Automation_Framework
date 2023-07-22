@@ -1,9 +1,9 @@
-run "excel_example.xlsx", "Excel.exe"
-pressKey "^{Home}"
-pressKey "{Right}"
-for 5 {
-    pressKey "{Down}"
-    write "100"
+Run "excel_example.xlsx", "Excel.exe"
+PressKey "^{Home}"
+PressKey "{Right}"
+For (5) {
+    PressKey "{Down}"
+    Write "100"
 }
-save "excel_example.xlsx"
-close "excel_example.xlsx"
+Save "excel_example.xlsx"
+Close "excel_example.xlsx"
