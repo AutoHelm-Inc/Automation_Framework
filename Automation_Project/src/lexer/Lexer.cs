@@ -52,6 +52,7 @@ namespace Automation_Project.src.ast
 
             this.keywords = new List<String>(Functions.GetNames(typeof(Functions)));
             this.keywords.AddRange(new List<String>(Keywords.GetNames(typeof(Keywords))));
+            this.tokenize();
             
         }
 
@@ -243,8 +244,9 @@ namespace Automation_Project.src.ast
         {
             if (tokensList[index].type == Token.Type.NUMBER && index < tokensListLength)
             {
+                Int32 num = Int32.Parse(tokensList[index].tokenText);
                 this.index += 1;
-                return Int32.Parse(tokensList[index].tokenText);
+                return num;
             }
             else
             {
@@ -258,8 +260,9 @@ namespace Automation_Project.src.ast
             if (tokensList[index].type == Token.Type.STRING && index < tokensListLength)
             {
                 //Remove the first and last character because they are just quotation marks
+                String s = tokensList[index].tokenText.Substring(1, tokensList[index].tokenText.Length - 2);
                 this.index += 1;
-                return tokensList[index].tokenText.Substring(1, tokensList[index].tokenText.Length - 2);
+                return s;
             }
             else
             {
@@ -280,7 +283,7 @@ namespace Automation_Project.src.ast
             }
         }
 
-        public int checkKeywords(String compare)
+        private int checkKeywords(String compare)
         {
             for (int i = 0; i < this.keywords.Count; i++)
             {
