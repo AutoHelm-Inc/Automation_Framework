@@ -159,7 +159,7 @@ namespace Automation_Project.src.automation {
                 pyCode +=
                     $"{AHK}.send_input(\"^s\")\n" +
                     $"{AHK}.win_wait(title=\"Save As\", timeout=1)\n" +
-                    $"{AHK}.type(\"{_filepath}\")\n" +
+                    $"{AHK}.type(r\"{_filepath}\")\n" +
                     $"{AHK}.send_input(\"{{Enter}}\")\n";
 
                 // create helper function to convert paths format for windows

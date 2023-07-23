@@ -63,6 +63,8 @@ namespace Automation_Project.src.automation {
             return String.Join("\n", splitByLine);
         }
 
+        //public static string linux
+
         public void saveToFile(string code) {
             string workingDirectory = System.Environment.CurrentDirectory;
             string? binDirectory = Directory.GetParent(workingDirectory)?.Parent?.FullName;
