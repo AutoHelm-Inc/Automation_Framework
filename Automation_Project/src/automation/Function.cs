@@ -44,27 +44,40 @@ namespace Automation_Project.src.automation {
             };
         }
 
-        public static void assertType(dynamic arg, Type type) {
-            if (!arg.GetType().Equals(type)) {
-                throw new AHILIllegalArgumentTypeException(arg, type);
+        public static void assertType(dynamic arg, Type expected) {
+            if (!arg.GetType().Equals(expected)) {
+                throw new AHILIllegalArgumentTypeException(arg, expected);
+            }
+        }
+
+        public static void assertArgsCount(int count, int lower, int upper) {
+            if (count < lower || count > upper) {
+                throw new AHILIncorrectArgumentsCountException(count, $"{lower}-{upper}");
+            }
+        }
+
+        public static void assertArgsCount(int count, int expected) {
+            if (count != expected) {
+                throw new AHILIncorrectArgumentsCountException(count, $"{expected}");
             }
         }
 
         private class Run : Function {
             public string toPythonCode(List<dynamic> args) {
-                if (args.Count == 0 || args.Count > 2) {
-                    throw new AHILIncorrectArgumentsCountException(args.Count, "1 or 2");
-                }
+                assertArgsCount(args.Count, 1, 2);
                 args.ForEach(a => {
                     assertType(a, typeof(string));
                 });
 
+                string _filename = args[0];
+                string? _program = args.Count == 2 ? args[1] : null;
+
                 string ahkCode = "Run ";
 
                 if (args.Count > 1) {
-                    ahkCode += args[1] + " ";
+                    ahkCode += _program + " ";
                 }
-                ahkCode += args[0];
+                ahkCode += _filename;
 
                 return AutomationHandler.AHKExecRaw(ahkCode);
             }
@@ -72,15 +85,15 @@ namespace Automation_Project.src.automation {
 
         private class SwitchWindow : Function {
             public string toPythonCode(List<dynamic> args) {
-                if (args.Count == 0 || args.Count > 1) {
-                    throw new AHILIncorrectArgumentsCountException(args.Count, "1");
-                }
+                assertArgsCount(args.Count, 1);
                 assertType(args[0], typeof(string));
+                
+                string _filename = args[0];
 
                 string pyCode = "";
 
                 pyCode +=
-                    $"win = {AHK}.win_wait(title='{args[0]}',timeout=1)\n" +
+                    $"win = {AHK}.win_wait(title='{_filename}',timeout=1)\n" +
                     "win.activate()\n";
 
                 return pyCode;
@@ -89,9 +102,9 @@ namespace Automation_Project.src.automation {
 
         private class Close : Function {
             public string toPythonCode(List<dynamic> args) {
-                if (args.Count > 1) {
-                    throw new AHILIncorrectArgumentsCountException(args.Count, "0 or 1");
-                }
+                assertArgsCount(args.Count, 0, 1);
+
+                string? _filename = args.Count == 1 ? args[0] : null;
 
                 string pyCode = "";
 
@@ -99,7 +112,7 @@ namespace Automation_Project.src.automation {
                     // assume first arg is a filename or process id to get the window
                     assertType(args[0], typeof(string));
                     Console.WriteLine("here");
-                    pyCode += $"win = {AHK}.win_wait(title='{args[0]}', timeout=1)\n";
+                    pyCode += $"win = {AHK}.win_wait(title='{_filename}', timeout=1)\n";
                 } else {
                     // no args, get the window in focus
                     pyCode += $"win = {AHK}.active_window\n";
@@ -148,43 +161,46 @@ namespace Automation_Project.src.automation {
 
         private class WrtLine : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "SendText ";
+                assertArgsCount(args.Count, 1);
+                assertType(args[0], typeof(string));
 
-                for (int i = 0; i < args.Count(); i++) {
-                    output += args[i].ToString();
-                }
+                string _str = args[0];
+                string pyCode = "";
 
-                output += "\n" +
-                    "SendText `n";
+                pyCode +=
+                    $"{AHK}.type(\"{_str}\\n\")";
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                return pyCode;
             }
         }
 
         private class Write : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "SendText ";
+                assertArgsCount(args.Count, 1);
+                assertType(args[0], typeof(string));
 
-                for (int i = 0; i < args.Count(); i++) {
-                    output += args[i].ToString();
-                }
+                string _str = args[0];
+                string pyCode = "";
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                pyCode +=
+                    $"{AHK}.type(\"{_str}\")";
+
+                return pyCode;
             }
         }
 
         private class PressKey : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "Send ";
+                assertArgsCount(args.Count, 1);
+                assertType(args[0], typeof(string));
 
-                for (int i = 0; i < args.Count(); i++) {
-                    output += args[i].ToString();
-                }
+                string keystrokes = args[0];
+                string pyCode = "";
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                pyCode +=
+                    $"{AHK}.send_input(\"{keystrokes}\")";
+
+                return pyCode;
             }
         }
 
@@ -255,9 +271,7 @@ namespace Automation_Project.src.automation {
 
         private class Sleep : Function {
             public string toPythonCode(List<dynamic> args) {
-                if (args.Count == 0 || args.Count > 1) {
-                    throw new AHILIncorrectArgumentsCountException(args.Count, "1");
-                }
+                assertArgsCount(args.Count, 1);
                 assertType(args[0], typeof(int));
                 string pycode = $"time.sleep({args[0]}/1000)";
 
