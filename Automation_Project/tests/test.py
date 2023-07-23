@@ -1,11 +1,10 @@
 from ahk import AHK
 import time
+import os
+import shutil
 
 ahk = AHK()
 
-ahk.run_script("Run Notepad.exe c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/hello.txt")
-ahk.run_script("Run Notepad.exe c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/hello2.txt")
-win = ahk.win_wait("hello.txt - Notepad", timeout=1)
-win2 = ahk.win_wait("hello2.txt - Notepad", timeout=1)
-
-win.activate()
+ahk.mouse_move(0, 1080, relative=False)
+ahk.mouse_move(-1920, 0, relative=True)
+ahk.click()

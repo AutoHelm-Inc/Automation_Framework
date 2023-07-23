@@ -1,0 +1,14 @@
+MouseMove 960, 540
+Sleep 500
+MouseMove 100, 100
+Sleep 500
+MouseMove 1820, 100
+Sleep 500
+MouseMove 1820, 980
+Sleep 500
+MouseMove 100, 980
+
+Sleep 500
+MouseMove 0, 0, "False"
+Sleep 500
+MouseMove 10, 10, "True"

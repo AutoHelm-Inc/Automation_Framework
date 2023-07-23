@@ -13,7 +13,9 @@ namespace Automation_Project.src.automation {
         private string? pythonScriptLocation;
         private static string pythonImports =
             "from ahk import AHK\n" +
-            "import time\n";
+            "import time\n" +
+            "import os\n" +
+            "import shutil\n";
 
         public AutomationHandler() {
             this.pythonScriptLocation = null;

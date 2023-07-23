@@ -7,7 +7,8 @@ namespace Automation_Project.src.ast
         Run,
         SwitchWindow,
         Close,
-        Create,
+        FileCreate,
+        DirCreate,
         Save,
         Move,
         Del,
@@ -16,7 +17,7 @@ namespace Automation_Project.src.ast
         PressKey,
         EmailsGet,
         FilesGet,
-        MoveMouse,
+        MouseMove,
         Click,
         SavAs,
         Sleep

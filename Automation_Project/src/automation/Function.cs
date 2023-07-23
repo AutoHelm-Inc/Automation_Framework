@@ -7,39 +7,43 @@ namespace Automation_Project.src.automation {
         public string toPythonCode(List<dynamic> args);
     }
     public static class FunctionFactory {
-        private static readonly Run runInstance = new Run();
-        private static readonly SwitchWindow switchWindowInstance = new SwitchWindow();
-        private static readonly Close closeInstance = new Close();
-        private static readonly Create createInstance = new Create();
-        private static readonly Save saveInstance = new Save();
-        private static readonly Move moveInstance = new Move();
-        private static readonly Del delInstance = new Del();
-        private static readonly WrtLine wrtLineInstance = new WrtLine();
-        private static readonly Write writeInstance = new Write();
-        private static readonly PressKey pressKeyInstance = new PressKey();
-        private static readonly EmailsGet emailsGetInstance = new EmailsGet();
-        private static readonly FilesGet filesGetInstance = new FilesGet();
-        private static readonly Click clickInstance = new Click();
-        private static readonly SavAs savAsInstance = new SavAs();
-        private static readonly Sleep sleepInstance = new Sleep();
+        private static readonly Run _runInstance = new Run();
+        private static readonly SwitchWindow _switchWindowInstance = new SwitchWindow();
+        private static readonly Close _closeInstance = new Close();
+        private static readonly FileCreate _fileCreateInstance = new FileCreate();
+        private static readonly DirCreate _dirCreateInstance = new DirCreate();
+        private static readonly Save _saveInstance = new Save();
+        private static readonly Move _moveInstance = new Move();
+        private static readonly Del _delInstance = new Del();
+        private static readonly WrtLine _wrtLineInstance = new WrtLine();
+        private static readonly Write _writeInstance = new Write();
+        private static readonly PressKey _pressKeyInstance = new PressKey();
+        private static readonly EmailsGet _emailsGetInstance = new EmailsGet();
+        private static readonly FilesGet _filesGetInstance = new FilesGet();
+        private static readonly MouseMove _mouseMoveInstance = new MouseMove();
+        private static readonly Click _clickInstance = new Click();
+        private static readonly SavAs _savAsInstance = new SavAs();
+        private static readonly Sleep _sleepInstance = new Sleep();
 
         public static Function? fromEnum(Functions? @enum) {
             return @enum switch {
-                Functions.Run => runInstance,
-                Functions.SwitchWindow => switchWindowInstance,
-                Functions.Close => closeInstance,
-                Functions.Create => createInstance,
-                Functions.Save => saveInstance,
-                Functions.Move => moveInstance,
-                Functions.Del => delInstance,
-                Functions.WrtLine => wrtLineInstance,
-                Functions.Write => writeInstance,
-                Functions.PressKey => pressKeyInstance,
-                Functions.EmailsGet => emailsGetInstance,
-                Functions.FilesGet => filesGetInstance,
-                Functions.Click => clickInstance,
-                Functions.SavAs => savAsInstance,
-                Functions.Sleep => sleepInstance,
+                Functions.Run => _runInstance,
+                Functions.SwitchWindow => _switchWindowInstance,
+                Functions.Close => _closeInstance,
+                Functions.FileCreate => _fileCreateInstance,
+                Functions.DirCreate => _dirCreateInstance,
+                Functions.Save => _saveInstance,
+                Functions.Move => _moveInstance,
+                Functions.Del => _delInstance,
+                Functions.WrtLine => _wrtLineInstance,
+                Functions.Write => _writeInstance,
+                Functions.PressKey => _pressKeyInstance,
+                Functions.EmailsGet => _emailsGetInstance,
+                Functions.FilesGet => _filesGetInstance,
+                Functions.MouseMove => _mouseMoveInstance,
+                Functions.Click => _clickInstance,
+                Functions.SavAs => _savAsInstance,
+                Functions.Sleep => _sleepInstance,
                 _ => null,
             };
         }
@@ -105,39 +109,106 @@ namespace Automation_Project.src.automation {
             }
         }
 
-        private class Create : Function {
+        private class FileCreate : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "Create";
+                assertArgsCount(args.Count, 1);
+                assertType(args[0], typeof(string));
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                string _filepath = args[0];
+
+                string pyCode = "";
+
+                pyCode +=
+                    "try:\n" +
+                    $"\topen(\"{_filepath}\", 'x')\n" +
+                    "except FileExistsError:\n" +
+                    "\tpass";
+
+                return pyCode;
+            }
+        }
+
+        private class DirCreate : Function {
+            public string toPythonCode(List<dynamic> args) {
+                assertArgsCount(args.Count, 1);
+                assertType(args[0], typeof(string));
+
+                string _dirpath = args[0];
+
+                string pyCode = "";
+
+                pyCode +=
+                    "try:\n" +
+                    $"\tos.mkdir(\"{_dirpath}\")\n" +
+                    "except FileExistsError:\n" +
+                    "\tpass";
+
+                return pyCode;
             }
         }
 
         private class Save : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "Save";
+                assertArgsCount(args.Count, 1);
+                assertType(args[0], typeof(string));
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                string _filepath = args[0];
+
+                string pyCode = "";
+
+                pyCode +=
+                    $"{AHK}.send_input(\"^s\")\n" +
+                    $"{AHK}.win_wait(title=\"Save As\", timeout=1)\n" +
+                    $"{AHK}.type(\"{_filepath}\")\n" +
+                    $"{AHK}.send_input(\"{{Enter}}\")\n";
+
+                // create helper function to convert paths format for windows
+
+                return pyCode;
             }
         }
 
         private class Move : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "Move";
+                assertArgsCount(args.Count, 2);
+                args.ForEach(a => {
+                    assertType(a, typeof(string));
+                });
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                string _srcpath = args[0];
+                string _destpath = args[1];
+
+                string pyCode = "";
+
+                pyCode +=
+                    $"srcpath = \"{_srcpath}\"\n" +
+                    $"destpath = \"{_destpath}\"\n" +
+                    "try:\n" +
+                    "\tshutil.move(srcpath, destpath)\n" +
+                    "except:\n" +
+                    "\tpass";
+
+                return pyCode;
             }
         }
 
         private class Del : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "Del";
+                assertArgsCount(args.Count, 1);
+                assertType(args[0], typeof(string));
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                string _path = args[0];
+
+                string pyCode = "";
+
+                pyCode +=
+                    $"path = \"{_path}\"\n" +
+                    $"if (os.path.isfile(path)):\n" +
+                    "\tos.remove(path)\n" +
+                    "elif (os.path.isdir(path)):\n" +
+                    "\tshutil.rmtree(path)";
+
+                return pyCode;
             }
         }
 
@@ -147,6 +218,7 @@ namespace Automation_Project.src.automation {
                 assertType(args[0], typeof(string));
 
                 string _str = args[0];
+
                 string pyCode = "";
 
                 pyCode +=
@@ -162,6 +234,7 @@ namespace Automation_Project.src.automation {
                 assertType(args[0], typeof(string));
 
                 string _str = args[0];
+
                 string pyCode = "";
 
                 pyCode +=
@@ -177,6 +250,7 @@ namespace Automation_Project.src.automation {
                 assertType(args[0], typeof(string));
 
                 string keystrokes = args[0];
+
                 string pyCode = "";
 
                 pyCode +=
@@ -212,29 +286,57 @@ namespace Automation_Project.src.automation {
             }
         }
 
-        private class MoveMouse : Function {
+        private class MouseMove : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "MoveMouse ";
-
-                for (int i = 0; i < args.Count(); i++) {
-                    output += args[i].ToString();
+                assertArgsCount(args.Count, 2, 3);
+                assertType(args[0], typeof(int));
+                assertType(args[1], typeof(int));
+                if (args.Count == 3) { 
+                    assertType(args[2], typeof(string));
                 }
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                int _x = args[0];
+                int _y = args[1];
+                string _relative = args.Count == 3 ? args[2] : "False";
+
+                string pyCode = "";
+
+                pyCode +=
+                    $"{AHK}.mouse_move({_x.ToString()}, {_y.ToString()}, relative={_relative})";
+
+                return pyCode;
             }
         }
 
         private class Click : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "Click ";
-
-                for (int i = 0; i < args.Count(); i++) {
-                    output += args[i].ToString();
+                int? _x = null; 
+                int? _y = null;
+                string _button = "L";
+                assertArgsCount(args.Count, 0, 3);
+                if (args.Count == 1) {
+                    assertType(args[0], typeof(string));
+                    _button = args[0];
+                } 
+                if (args.Count > 1) {
+                    assertType(args[1], typeof(int));
+                    assertType(args[0], typeof(int));
+                    _x = args[0];
+                    _y = args[1];
+                }
+                if (args.Count == 3) {
+                    assertType(args[2], typeof(string));
+                    _button = args[2];
                 }
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                string pyCode = $"{AHK}.click(";
+
+                if (_x != null & _y != null) {
+                    pyCode += $"{_x.ToString()}, {_y.ToString()}, ";
+                }
+                pyCode += $"button=\"{_button}\")\n";
+
+                return pyCode;
             }
         }
 
