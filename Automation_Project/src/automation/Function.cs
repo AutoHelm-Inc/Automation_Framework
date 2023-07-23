@@ -342,14 +342,26 @@ namespace Automation_Project.src.automation {
 
         private class SavAs : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "SavAs ";
+                assertArgsCount(args.Count, 1);
+                assertType(args[0], typeof(string));
 
-                for (int i = 0; i < args.Count(); i++) {
-                    output += args[i].ToString();
-                }
+                string _filepath = args[0];
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                string pyCode = "";
+
+                pyCode +=
+                    $"{AHK}.send_input(\"^+s\")\n" +
+                    $"{AHK}.win_wait(title=\"Save As\", timeout=1)\n" +
+                    $"{AHK}.type(r\"{_filepath}\")\n" +
+                    $"{AHK}.send_input(\"{{Enter}}\")\n" +
+                    "try:\n" +
+                    $"\t{AHK}.win_wait(title=\"Confirm Save As\", timeout=1)\n" +
+                    $"\t{AHK}.send_input(\"{{Left}}\")\n" +
+                    $"\t{AHK}.send_input(\"{{Enter}}\")\n" +
+                    $"except TimeoutError:\n" +
+                    $"\tpass";
+
+                return pyCode;
             }
         }
 
