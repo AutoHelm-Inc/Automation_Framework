@@ -3,9 +3,21 @@ using static Automation_Project.src.ast.Constants;
 using System.Diagnostics;
 
 namespace Automation_Project.src.automation {
+    /// <summary>
+    /// Interface each AHIL Function must implement.
+    /// </summary>
     public interface Function {
+        /// <summary>
+        /// Generate Python code for this AHIL Function.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public string toPythonCode(List<dynamic> args);
     }
+
+    /// <summary>
+    /// Main purpose is to convert Function Enums into Function class instances.
+    /// </summary>
     public static class FunctionFactory {
         private static readonly Run _runInstance = new Run();
         private static readonly SwitchWindow _switchWindowInstance = new SwitchWindow();
@@ -65,7 +77,7 @@ namespace Automation_Project.src.automation {
                 }
                 ahkCode += _filename;
 
-                return AutomationHandler.AHKExecRaw(ahkCode);
+                return AutomationHandler.AHKRunScriptWrapper(ahkCode);
             }
         }
 

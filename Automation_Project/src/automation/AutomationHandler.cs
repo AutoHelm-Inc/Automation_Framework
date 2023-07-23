@@ -24,6 +24,10 @@ namespace Automation_Project.src.automation {
             }
         }
 
+        /// <summary>
+        /// Find the location of Python source.
+        /// </summary>
+        /// <returns></returns>
         private static string findPythonSource() {
             Process p = new Process();
             p.StartInfo = new ProcessStartInfo("cmd.exe", "/c where python") {
@@ -41,10 +45,20 @@ namespace Automation_Project.src.automation {
         public static string testPythonProgram =
             "print(\"Hello world!\")";
 
-        public static string AHKExecRaw(string code) {
+        /// <summary>
+        /// Wrap code into commonly used ahk.run_script() call.
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static string AHKRunScriptWrapper(string code) {
             return $"{AHK}.run_script(r\"{code}\")";
         }
 
+        /// <summary>
+        /// Format code into a python program with imports and AHK instance declaration.
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public static string formatAsPythonFile(string code) {
             string output =
                 $"{pythonImports}" +
@@ -55,6 +69,12 @@ namespace Automation_Project.src.automation {
             return output;
         }
 
+        /// <summary>
+        /// Indent code n times.
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
         public static string indentCode(string code, int n) {
             string[] splitByLine = code.Trim().Split("\n");
             for (int i = 0; i < splitByLine.Length; i++) {
@@ -63,15 +83,20 @@ namespace Automation_Project.src.automation {
             return String.Join("\n", splitByLine);
         }
 
-        //public static string linux
-
-        public void saveToFile(string code) {
+        /// <summary>
+        /// Save generated python code to bin.
+        /// </summary>
+        /// <param name="code"></param>
+        public bool saveToFile(string code) {
+            // Find bin directory
             string workingDirectory = System.Environment.CurrentDirectory;
             string? binDirectory = Directory.GetParent(workingDirectory)?.Parent?.FullName;
             if (binDirectory == null) {
                 Console.WriteLine("failed to find bin directory");
-                return;
+                return false;
             }
+
+            // Find or make output directory within /bin
             string outputDirectory = Path.Combine(binDirectory, "automation");
             if (!File.Exists(outputDirectory)) {
                 Directory.CreateDirectory(outputDirectory);
@@ -79,13 +104,20 @@ namespace Automation_Project.src.automation {
             string fileName = "out.py";
             string outputPath = Path.Combine(outputDirectory, fileName);
 
+            // Write to output file
             using (StreamWriter writer = new StreamWriter(outputPath)) {
                 writer.Write(code);
             }
             Console.WriteLine("saved to: " + outputPath);
             pythonScriptLocation = outputPath;
+
+            return true;
         }
 
+        /// <summary>
+        /// Execute generated python code in a new process.
+        /// </summary>
+        /// <returns></returns>
         public bool execute() {
             if (pythonScriptLocation == null || pythonSourceLocation == null) {
                 return false;
@@ -93,18 +125,24 @@ namespace Automation_Project.src.automation {
 
             Console.WriteLine("Executing generated automation script");
 
+            // Run generated python script with a new c# process
             Process p = new Process();
             p.StartInfo = new ProcessStartInfo(pythonSourceLocation, '"'+pythonScriptLocation+'"') {
                 RedirectStandardOutput = true,
+                RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
             p.Start();
 
+            // Capture output and errors to c# console
             string output = p.StandardOutput.ReadToEnd();
+            string errors = p.StandardError.ReadToEnd();
+
             p.WaitForExit();
 
             Console.WriteLine(output);
+            Console.WriteLine(errors);
 
             return true;
         }

@@ -1,0 +1,5 @@
+Run "Notepad.exe"
+For (5) {
+    WrtLine "Hello World!"
+}
+SavAs "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\notepad_example\test.txt"

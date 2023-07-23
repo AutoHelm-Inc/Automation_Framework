@@ -32,6 +32,10 @@ namespace Automation_Project.src.ast
             return programAHILCode;
         }
 
+        /// <summary>
+        /// Generate automation code for this AHIL program depending on the platform (Windows, Web, MacOS, Linux etc.)
+        /// </summary>
+        /// <returns></returns>
         public string generateAutomationCode() {
             string platform = getPlatform();
             return platform switch {
@@ -40,6 +44,10 @@ namespace Automation_Project.src.ast
             };
         }
 
+        /// <summary>
+        /// Generate Python and AutoHotKey code for automating on Windows.
+        /// </summary>
+        /// <returns></returns>
         private string toPythonCode() {
             string code = "";
 
@@ -49,19 +57,33 @@ namespace Automation_Project.src.ast
             return AutomationHandler.formatAsPythonFile(code);
         }
 
-        private string getPlatform() {
-            // just returns "Windows" for now but in the future can include system checks to include "MacOS" or "Linux" or "Web" etc.
+        /// <summary>
+        /// Get the platform this code is running on. 
+        /// Just returns "Windows" for now but in the future can include system checks to include "MacOS" or "Linux" or "Web" etc.
+        /// </summary>
+        /// <returns></returns>
+        private string getPlatform() { 
             return "Windows";
         }
 
-        // Compile and run the generated automation code
+        /// <summary>
+        /// Generate automation code and save it to a file.
+        /// </summary>
         public void saveToFile() {
             string code = generateAutomationCode();
-            auto.saveToFile(code);
+            if (!auto.saveToFile(code)) {
+                throw new Exception("Failed to save generated file");
+            }
         }
 
-        public bool execute() {
-            return auto.execute();
+        /// <summary>
+        /// Call on the AutomationHandler to execute the automation code.
+        /// </summary>
+        /// <returns></returns>
+        public void execute() {
+            if (!auto.execute()) {
+                throw new Exception("Failed to execute generated code");
+            }
         }
 
         public List<StatementAbstract> getStatements(){
