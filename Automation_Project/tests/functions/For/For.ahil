@@ -1,0 +1,4 @@
+Run "Notepad.exe"
+For (5) {
+    WrtLine "Testing for loop"
+}
