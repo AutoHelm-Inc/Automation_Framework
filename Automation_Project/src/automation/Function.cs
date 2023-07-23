@@ -75,21 +75,13 @@ namespace Automation_Project.src.automation {
                 if (args.Count == 0 || args.Count > 1) {
                     throw new AHILIncorrectArgumentsCountException(args.Count, "1");
                 }
-                if (!args[0].GetType().Equals(typeof(string))) {
-                    throw new AHILIllegalArgumentTypeException(args[0], typeof(string));
-                }
+                assertType(args[0], typeof(string));
 
                 string pyCode = "";
 
-                if (args.Count > 0) {
-                    // assume first arg is a filename or process id to get the window
-                    pyCode += $"win = {AHK}.win_get(title='{args[0]}')\n";
-                }
-                else {
-                    // no args, get the window in focus
-                    pyCode += $"win = {AHK}.active_window\n";
-                }
-                pyCode += "win.close()\n";
+                pyCode +=
+                    $"win = {AHK}.win_wait(title='{args[0]}',timeout=1)\n" +
+                    "win.activate()\n";
 
                 return pyCode;
             }
@@ -107,7 +99,7 @@ namespace Automation_Project.src.automation {
                     // assume first arg is a filename or process id to get the window
                     assertType(args[0], typeof(string));
                     Console.WriteLine("here");
-                    pyCode += $"win = {AHK}.win_get(title='{args[0]}')\n";
+                    pyCode += $"win = {AHK}.win_wait(title='{args[0]}', timeout=1)\n";
                 } else {
                     // no args, get the window in focus
                     pyCode += $"win = {AHK}.active_window\n";
