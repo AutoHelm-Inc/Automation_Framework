@@ -23,12 +23,14 @@ namespace Automation_Project.src.ast{
 
         public SimpleStatement(Functions? function, dynamic argument)
         {
+            this.function = FunctionFactory.fromEnum(function);
             this.functionType = function;
             this.arguments = new List<dynamic>();
             addArgument(argument);
         }
 
         public SimpleStatement(Functions? function, List<dynamic> arguments){
+            this.function = FunctionFactory.fromEnum(function);
             this.functionType = function;
             this.arguments = arguments;
         }

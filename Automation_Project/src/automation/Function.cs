@@ -44,24 +44,6 @@ namespace Automation_Project.src.automation {
             };
         }
 
-        public static void assertType(dynamic arg, Type expected) {
-            if (!arg.GetType().Equals(expected)) {
-                throw new AHILIllegalArgumentTypeException(arg, expected);
-            }
-        }
-
-        public static void assertArgsCount(int count, int lower, int upper) {
-            if (count < lower || count > upper) {
-                throw new AHILIncorrectArgumentsCountException(count, $"{lower}-{upper}");
-            }
-        }
-
-        public static void assertArgsCount(int count, int expected) {
-            if (count != expected) {
-                throw new AHILIncorrectArgumentsCountException(count, $"{expected}");
-            }
-        }
-
         private class Run : Function {
             public string toPythonCode(List<dynamic> args) {
                 assertArgsCount(args.Count, 1, 2);
@@ -278,6 +260,24 @@ namespace Automation_Project.src.automation {
                 return pycode;
             }
         }
+
+        public static void assertType(dynamic arg, Type expected) {
+            if (!arg.GetType().Equals(expected)) {
+                throw new AHILIllegalArgumentTypeException(arg, expected);
+            }
+        }
+
+        public static void assertArgsCount(int count, int lower, int upper) {
+            if (count < lower || count > upper) {
+                throw new AHILIncorrectArgumentsCountException(count, $"{lower}-{upper}");
+            }
+        }
+
+        public static void assertArgsCount(int count, int expected) {
+            if (count != expected) {
+                throw new AHILIncorrectArgumentsCountException(count, $"{expected}");
+            }
+        }
     }
 
     public class AHILIncorrectArgumentsCountException : Exception {
@@ -298,6 +298,5 @@ namespace Automation_Project.src.automation {
 
         public AHILIllegalArgumentTypeException(dynamic arg, Type expected)
             : base($"Illegal Argument: {arg.ToString()} of type {arg.GetType().ToString()}. Expected {expected.ToString()}") { }
-
     }
 }
