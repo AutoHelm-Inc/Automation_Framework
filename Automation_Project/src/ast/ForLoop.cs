@@ -37,15 +37,6 @@ namespace Automation_Project.src.ast
             return AHILCodeInterpretation;
         }
 
-        //public override string toCSharpCode(){
-        //    string csharpCode = $"for (int i = 0; i < {repititionCount.ToString()}; i++) {{\n";
-        //    for (int i = 0; i < statements.Count; i++) {
-        //        csharpCode += "    " + statements[i].toCSharpCode();
-        //    }
-        //    csharpCode += "}\n";
-        //    return csharpCode;
-        //}
-
         public override string toPythonCode() {
             string pyCode = $"for i in range({repititionCount.ToString()}):\n";
             for (int i = 0; i < statements.Count; i++) {
