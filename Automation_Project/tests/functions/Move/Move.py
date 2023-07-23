@@ -5,33 +5,33 @@ import shutil
 
 ahk = AHK()
 
-path = "c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/functions/Move/dir1"
+path = r"C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Move\dir1"
 if (os.path.isfile(path)):
 	os.remove(path)
 elif (os.path.isdir(path)):
 	shutil.rmtree(path)
 try:
-	os.mkdir("c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/functions/Move/dir1")
+	os.mkdir(r"C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Move\dir1")
 except FileExistsError:
 	pass
 time.sleep(1000/1000)
 try:
-	os.mkdir("c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/functions/Move/dir2")
+	os.mkdir(r"C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Move\dir2")
 except FileExistsError:
 	pass
 try:
-	open("c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/functions/Move/dir2/file.txt", 'x')
+	open(r"C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Move\dir2\file.txt", 'x')
 except FileExistsError:
 	pass
 time.sleep(1000/1000)
-srcpath = "c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/functions/Move/dir2"
-destpath = "c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/functions/Move/dir1"
+srcpath = r"C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Move\dir2"
+destpath = r"C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Move\dir1"
 try:
 	shutil.move(srcpath, destpath)
 except:
 	pass
 time.sleep(1000/1000)
-path = "c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/functions/Move/dir1"
+path = r"C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Move\dir1"
 if (os.path.isfile(path)):
 	os.remove(path)
 elif (os.path.isdir(path)):

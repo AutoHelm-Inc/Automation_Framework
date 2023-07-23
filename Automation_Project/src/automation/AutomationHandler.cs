@@ -42,7 +42,7 @@ namespace Automation_Project.src.automation {
             "print(\"Hello world!\")";
 
         public static string AHKExecRaw(string code) {
-            return $"{AHK}.run_script(\"{code}\")";
+            return $"{AHK}.run_script(r\"{code}\")";
         }
 
         public static string formatAsPythonFile(string code) {

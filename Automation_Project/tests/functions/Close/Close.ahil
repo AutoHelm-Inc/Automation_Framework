@@ -1,3 +1,3 @@
-Run "c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/hello.txt", "Notepad.exe"
+Run "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\hello.txt", "Notepad.exe"
 Sleep 1000
 Close "hello.txt"

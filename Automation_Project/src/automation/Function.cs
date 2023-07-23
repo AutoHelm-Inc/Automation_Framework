@@ -98,7 +98,7 @@ namespace Automation_Project.src.automation {
                     // assume first arg is a filename or process id to get the window
                     assertType(args[0], typeof(string));
                     Console.WriteLine("here");
-                    pyCode += $"win = {AHK}.win_wait(title='{_filename}', timeout=1)\n";
+                    pyCode += $"win = {AHK}.win_wait(title=r\"{_filename}\", timeout=1)\n";
                 } else {
                     // no args, get the window in focus
                     pyCode += $"win = {AHK}.active_window\n";
@@ -120,7 +120,7 @@ namespace Automation_Project.src.automation {
 
                 pyCode +=
                     "try:\n" +
-                    $"\topen(\"{_filepath}\", 'x')\n" +
+                    $"\topen(r\"{_filepath}\", 'x')\n" +
                     "except FileExistsError:\n" +
                     "\tpass";
 
@@ -139,7 +139,7 @@ namespace Automation_Project.src.automation {
 
                 pyCode +=
                     "try:\n" +
-                    $"\tos.mkdir(\"{_dirpath}\")\n" +
+                    $"\tos.mkdir(r\"{_dirpath}\")\n" +
                     "except FileExistsError:\n" +
                     "\tpass";
 
@@ -181,8 +181,8 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"srcpath = \"{_srcpath}\"\n" +
-                    $"destpath = \"{_destpath}\"\n" +
+                    $"srcpath = r\"{_srcpath}\"\n" +
+                    $"destpath = r\"{_destpath}\"\n" +
                     "try:\n" +
                     "\tshutil.move(srcpath, destpath)\n" +
                     "except:\n" +
@@ -202,7 +202,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"path = \"{_path}\"\n" +
+                    $"path = r\"{_path}\"\n" +
                     $"if (os.path.isfile(path)):\n" +
                     "\tos.remove(path)\n" +
                     "elif (os.path.isdir(path)):\n" +
