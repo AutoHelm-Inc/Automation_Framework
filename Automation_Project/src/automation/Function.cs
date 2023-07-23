@@ -262,27 +262,31 @@ namespace Automation_Project.src.automation {
 
         private class EmailsGet : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "GetEmails ";
+                throw new NotImplementedException("EmailsGet not implemented");
 
-                for (int i = 0; i < args.Count(); i++) {
-                    output += args[i].ToString();
-                }
+                //assertArgsCount(args.Count, 1);
+                //assertType(args[0], typeof(string));
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                //string _email = args[0];
+
+
+                //string pyCode = "";
+
+                //return pyCode;
             }
         }
 
         private class FilesGet : Function {
             public string toPythonCode(List<dynamic> args) {
-                string output = "GetFiles ";
+                throw new NotImplementedException("FilesGet not implemented");
+                //assertArgsCount(args.Count, 1);
+                //assertType(args[0], typeof(string));
 
-                for (int i = 0; i < args.Count(); i++) {
-                    output += args[i].ToString();
-                }
+                //string _dirpath = args[0];
 
-                output = AutomationHandler.AHKExecRaw(output);
-                return output;
+                //string pyCode = "";
+
+                //return pyCode;
             }
         }
 
