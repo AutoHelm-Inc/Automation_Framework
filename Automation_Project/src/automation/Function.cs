@@ -161,20 +161,24 @@ namespace Automation_Project.src.automation {
 
         private class Save : Function {
             public string toPythonCode(List<dynamic> args) {
-                assertArgsCount(args.Count, 1);
-                assertType(args[0], typeof(string));
+                assertArgsCount(args.Count, 0, 1);
+                if (args.Count == 1) {
+                    assertType(args[0], typeof(string));
+                }
 
-                string _filepath = args[0];
+                string? _filename = args.Count == 1 ? args[0] : null;
 
                 string pyCode = "";
 
-                pyCode +=
-                    $"{AHK}.send_input(\"^s\")\n" +
-                    $"{AHK}.win_wait(title=\"Save As\", timeout=1)\n" +
-                    $"{AHK}.type(r\"{_filepath}\")\n" +
-                    $"{AHK}.send_input(\"{{Enter}}\")\n";
+                if (_filename != null) {
+                    pyCode +=
+                        $"win = {AHK}.win_wait(title='{_filename}',timeout=1)\n" +
+                        "win.activate()\n";
+                }
 
-                // create helper function to convert paths format for windows
+                pyCode +=
+                    $"{AHK}.send_input(\"^s\")\n";
+
 
                 return pyCode;
             }
