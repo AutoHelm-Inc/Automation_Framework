@@ -37,8 +37,12 @@ namespace Automation_Project.src.automation {
             };
             p.Start();
 
-            string output = p.StandardOutput.ReadToEnd();
+            // Read only 1 line of output incase multiple installations of python are found
+            string? output = p.StandardOutput.ReadLine();
             p.WaitForExit();
+            if (output == null) {
+                output = "";
+            }
             return output;
         }
 
@@ -84,13 +88,13 @@ namespace Automation_Project.src.automation {
         }
 
         /// <summary>
-        /// Indent code n times with numSpaces spaces.
+        /// Indent code n times using numSpaces spaces.
         /// </summary>
         /// <param name="code"></param>
         /// <param name="n"></param>
         /// <param name="numSpaces"></param>
         /// <returns></returns>
-        public static string indentCodeBySpaces(string code, int n, int numSpaces = 4) {
+        public static string indentCodeBySpaces(string code, int n, int numSpaces=4) {
             string spaces = String.Concat(Enumerable.Repeat(" ", numSpaces));
             string[] splitByLine = code.Trim().Split("\n");
             for (int i = 0; i < splitByLine.Length; i++) {
@@ -135,9 +139,16 @@ namespace Automation_Project.src.automation {
         /// </summary>
         /// <returns></returns>
         public bool execute() {
-            if (pythonScriptLocation == null || pythonSourceLocation == null) {
+            if (pythonScriptLocation == null) {
                 return false;
             }
+            if (pythonSourceLocation == null) {
+                pythonSourceLocation = findPythonSource();
+            }
+            if (pythonSourceLocation.Equals("")) {
+                throw new Exception("Cannot find Python on this system");
+            }
+            
 
             Console.WriteLine("Executing generated automation script");
 
