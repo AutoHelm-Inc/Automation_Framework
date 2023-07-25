@@ -70,15 +70,31 @@ namespace Automation_Project.src.automation {
         }
 
         /// <summary>
-        /// Indent code n times.
+        /// Indent code n times with tabs.
         /// </summary>
         /// <param name="code"></param>
         /// <param name="n"></param>
         /// <returns></returns>
-        public static string indentCode(string code, int n) {
+        public static string indentCodeByTabs(string code, int n) {
             string[] splitByLine = code.Trim().Split("\n");
             for (int i = 0; i < splitByLine.Length; i++) {
                 splitByLine[i] = $"{String.Concat(Enumerable.Repeat("\t", n))}{splitByLine[i]}";
+            }
+            return String.Join("\n", splitByLine);
+        }
+
+        /// <summary>
+        /// Indent code n times with numSpaces spaces.
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="n"></param>
+        /// <param name="numSpaces"></param>
+        /// <returns></returns>
+        public static string indentCodeBySpaces(string code, int n, int numSpaces = 4) {
+            string spaces = String.Concat(Enumerable.Repeat(" ", numSpaces));
+            string[] splitByLine = code.Trim().Split("\n");
+            for (int i = 0; i < splitByLine.Length; i++) {
+                splitByLine[i] = $"{String.Concat(Enumerable.Repeat(spaces, n))}{splitByLine[i]}";
             }
             return String.Join("\n", splitByLine);
         }

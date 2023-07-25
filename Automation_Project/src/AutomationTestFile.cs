@@ -29,16 +29,34 @@ public class AutomationTestFile
         //System.Console.WriteLine("Is filename a next token? " + lex.inspectString());
         //lex.consumeString();
 
-        Parser parser = new Parser("../../../tests/functions/Save/Save.ahil");
-        AHILProgram program = parser.parse();
+        //Parser parser = new Parser("../../../tests/functions/For/For.ahil");
+        //AHILProgram program = parser.parse();
 
-        System.Console.WriteLine("----------------\n");
-        System.Console.WriteLine(program.generateProgramAHILCode());
-        System.Console.WriteLine("----------------\n");
-        System.Console.WriteLine(program.generateAutomationCode());
-        System.Console.WriteLine("----------------\n");
+        //System.Console.WriteLine("----------------\n");
+        //System.Console.WriteLine(program.generateProgramAHILCode());
+        //System.Console.WriteLine("----------------\n");
+        //System.Console.WriteLine(program.generateAutomationCode());
+        //System.Console.WriteLine("----------------\n");
 
-        program.saveToFile();
-        program.execute();
+        //program.saveToFile();
+        //program.execute();
+
+        AHILProgram program = new AHILProgram();
+        ForLoop fl = new ForLoop(1);
+        ForLoop fl2 = new ForLoop(2);
+        SimpleStatement run = new SimpleStatement(Functions.Run, "run 1");
+        SimpleStatement run2 = new SimpleStatement(Functions.Run, "run 2");
+        fl2.addStatement(run);
+        fl2.addStatement(run2);
+        fl.addStatement(fl2);
+        program.addStatement(fl);
+        Console.WriteLine(program.generateProgramAHILCode());
+        System.Console.WriteLine("----------------\n");
+        Console.WriteLine(program.generateAutomationCode());
+        System.Console.WriteLine("----------------\n");
+        program.removeStatementRecursive(run2);
+        Console.WriteLine(program.generateProgramAHILCode());
+        System.Console.WriteLine("----------------\n");
+        Console.WriteLine(program.generateAutomationCode());
     }
 }

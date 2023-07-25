@@ -8,16 +8,15 @@ using Automation_Project.src.automation;
 
 namespace Automation_Project.src.ast
 {
-    public class AHILProgram{
-        private List<StatementAbstract> statements;
+    public class AHILProgram : NestedStructure{
         private AutomationHandler auto;
 
         public AHILProgram(){
-            this.statements = new List<StatementAbstract>();
+            this.statements = new List<Statement>();
             this.auto = new AutomationHandler();
         }
 
-        public AHILProgram(List<StatementAbstract> statements){
+        public AHILProgram(List<Statement> statements){
             this.statements = statements;
             this.auto = new AutomationHandler();
         }
@@ -86,28 +85,6 @@ namespace Automation_Project.src.ast
             }
         }
 
-        public List<StatementAbstract> getStatements(){
-            return statements;
-        }
-
-        public void setStatements(List<StatementAbstract> statements){
-            this.statements=statements;
-        }
-
-        public void addStatement(StatementAbstract statementToAdd){
-            this.statements.Add(statementToAdd);
-        }
-
-        public void removeStatement(StatementAbstract statementToRemove){
-            this.statements.Remove(statementToRemove);
-        }
-
-        public void removeStatementByIndex(int index){
-            this.statements.RemoveAt(index);
-        }
-
-        public void removeLastStatement(){
-            this.statements.RemoveAt(this.statements.Count() - 1);
-        }
+        
     }
 }

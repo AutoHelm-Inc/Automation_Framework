@@ -32,7 +32,7 @@ namespace Automation_Project.src.parser
             return ahilProgram;
         }
 
-        StatementAbstract statements()
+        Statement statements()
         {
             if (lexer.inspect("For"))
             {

@@ -9,7 +9,7 @@ using Automation_Project.src.automation;
 
 namespace Automation_Project.src.ast{
 
-    public class SimpleStatement : StatementAbstract{
+    public class SimpleStatement : Statement{
         private Function? function;
         private Functions? functionType;
         private List<dynamic> arguments;
@@ -51,7 +51,7 @@ namespace Automation_Project.src.ast{
             this.arguments.RemoveAt(this.arguments.Count() - 1);
         }
 
-        public override string toAHILCode(){
+        public string toAHILCode(){
             string AHILCodeInterpretation = functionType.ToString() + " ";
             for(int i = 0; i < arguments.Count; i++){
                 if (i > 0){
@@ -68,7 +68,7 @@ namespace Automation_Project.src.ast{
             return AHILCodeInterpretation;
         }
 
-        public override string toPythonCode() {
+        public string toPythonCode() {
             if (function == null) {
                 return "";
             }
