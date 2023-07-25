@@ -35,6 +35,14 @@ namespace Automation_Project.src.ast{
             this.arguments = arguments;
         }
 
+        public List<dynamic> getArguments() {
+            return arguments;
+        }
+
+        public void setArguments(List<dynamic> arguments) {
+            this.arguments = arguments;
+        }
+
         public void addArgument(dynamic argumentToAdd){
             this.arguments.Add(argumentToAdd);
         }
