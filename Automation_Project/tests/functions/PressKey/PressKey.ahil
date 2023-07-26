@@ -1,0 +1,12 @@
+Run "Notepad.exe"
+WrtLine "PressKey Demo"
+WrtLine "Find this string"
+WrtLine "hello!"
+PressKey "^f"
+Sleep 500
+Write "find"
+Sleep 500
+PressKey "{Enter}"
+Sleep 500
+PressKey "{Esc}"
+PressKey "{Esc}"

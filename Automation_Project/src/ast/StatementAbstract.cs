@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Automation_Project.src.ast
 {
-    public abstract class StatementAbstract{
+    public interface Statement{
         public abstract string toAHILCode();
-        public abstract string toCSharpOrAHK();
+        public abstract string toPythonCode();
 
     }
 }

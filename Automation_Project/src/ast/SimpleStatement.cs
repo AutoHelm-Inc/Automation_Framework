@@ -5,27 +5,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Automation_Project.src.automation;
+
 namespace Automation_Project.src.ast{
 
-    public class SimpleStatement : StatementAbstract{
-        private Functions? function;
-        private List<dynamic>arguments;
+    public class SimpleStatement : Statement{
+        private Function? function;
+        private Functions? functionType;
+        private List<dynamic> arguments;
 
         public SimpleStatement(Functions? function)
         {
-            this.function = function;
+            this.function = FunctionFactory.fromEnum(function);
+            this.functionType = function;
             this.arguments = new List<dynamic>();
         }
 
         public SimpleStatement(Functions? function, dynamic argument)
         {
-            this.function = function;
+            this.function = FunctionFactory.fromEnum(function);
+            this.functionType = function;
             this.arguments = new List<dynamic>();
             addArgument(argument);
         }
 
         public SimpleStatement(Functions? function, List<dynamic> arguments){
-            this.function = function;
+            this.function = FunctionFactory.fromEnum(function);
+            this.functionType = function;
+            this.arguments = arguments;
+        }
+
+        public List<dynamic> getArguments() {
+            return arguments;
+        }
+
+        public void setArguments(List<dynamic> arguments) {
             this.arguments = arguments;
         }
 
@@ -45,8 +59,8 @@ namespace Automation_Project.src.ast{
             this.arguments.RemoveAt(this.arguments.Count() - 1);
         }
 
-        public override string toAHILCode(){
-            string AHILCodeInterpretation = function.ToString() + " ";
+        public string toAHILCode(){
+            string AHILCodeInterpretation = functionType.ToString() + " ";
             for(int i = 0; i < arguments.Count; i++){
                 if (i > 0){
                     AHILCodeInterpretation += ", ";
@@ -62,8 +76,11 @@ namespace Automation_Project.src.ast{
             return AHILCodeInterpretation;
         }
 
-        public override string toCSharpOrAHK(){
-            return "";
+        public string toPythonCode() {
+            if (function == null) {
+                return "";
+            }
+            return function.toPythonCode(arguments) + "\n";
         }
     }
 }

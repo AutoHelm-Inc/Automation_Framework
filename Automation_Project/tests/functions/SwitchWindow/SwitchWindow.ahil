@@ -1,0 +1,7 @@
+Run "c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/hello.txt", "Notepad.exe"
+Sleep 500
+Run "c:/Users/HansW/Desktop/Stuff/School/4A/ECE 498A/Automation_Framework/Automation_Project/tests/hello2.txt", "Notepad.exe"
+Sleep 500
+SwitchWindow "hello.txt - Notepad"
+Sleep 500
+Close "hello2.txt - Notepad"

@@ -1,0 +1,16 @@
+Del "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test1.txt"
+Del "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test2.txt"
+FileCreate "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test1.txt"
+FileCreate "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test2.txt"
+Run "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test1.txt"
+Run "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test2.txt"
+WrtLine "in test2"
+Sleep 500
+SwitchWindow "test1.txt - Notepad"
+Sleep 500
+WrtLine "in test1"
+Sleep 500
+Save
+Save "*test2.txt - Notepad"
+Close "test1.txt - Notepad"
+Close "test2.txt - Notepad"

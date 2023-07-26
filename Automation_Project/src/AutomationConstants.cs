@@ -7,7 +7,8 @@ namespace Automation_Project.src.ast
         Run,
         SwitchWindow,
         Close,
-        Create,
+        FileCreate,
+        DirCreate,
         Save,
         Move,
         Del,
@@ -16,6 +17,7 @@ namespace Automation_Project.src.ast
         PressKey,
         EmailsGet,
         FilesGet,
+        MouseMove,
         Click,
         SavAs,
         Sleep
@@ -29,5 +31,10 @@ namespace Automation_Project.src.ast
         For,
         True,
         False
+    }
+
+    public static class Constants {
+        // Python AHK instance name
+        public const string AHK = "ahk";
     }
 }

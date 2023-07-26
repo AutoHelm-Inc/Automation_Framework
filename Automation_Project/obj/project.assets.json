@@ -8,24 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\zaidl\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\HansW\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\zaidl\\Documents\\School\\Year 4\\ECE 498A\\AutoHelm\\Automation_Framework\\Automation_Project\\Automation_Project.csproj",
+      "projectUniqueName": "C:\\Users\\HansW\\Desktop\\Stuff\\School\\4A\\ECE 498A\\Automation_Framework\\Automation_Project\\Automation_Project.csproj",
       "projectName": "Automation_Project",
-      "projectPath": "C:\\Users\\zaidl\\Documents\\School\\Year 4\\ECE 498A\\AutoHelm\\Automation_Framework\\Automation_Project\\Automation_Project.csproj",
-      "packagesPath": "C:\\Users\\zaidl\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\zaidl\\Documents\\School\\Year 4\\ECE 498A\\AutoHelm\\Automation_Framework\\Automation_Project\\obj\\",
+      "projectPath": "C:\\Users\\HansW\\Desktop\\Stuff\\School\\4A\\ECE 498A\\Automation_Framework\\Automation_Project\\Automation_Project.csproj",
+      "packagesPath": "C:\\Users\\HansW\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\HansW\\Desktop\\Stuff\\School\\4A\\ECE 498A\\Automation_Framework\\Automation_Project\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\zaidl\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\HansW\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -56,8 +51,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -66,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.315\\RuntimeIdentifierGraph.json"
       }
     }
   }
