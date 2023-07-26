@@ -42,7 +42,7 @@ namespace Automation_Project.src.ast
             for (int i = 0; i < statements.Count; i++) {
                 body += $"{statements[i].toPythonCode()}";
             }
-            pyCode += AutomationHandler.indentCodeBySpaces(body, 1) + "\n";
+            pyCode += AutomationHandler.indentCodeByTabs(body, 1) + "\n";
             pyCode += "\n";
             return pyCode;
         }
