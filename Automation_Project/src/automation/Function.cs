@@ -155,7 +155,7 @@ namespace Automation_Project.src.automation {
 
                 pyCode +=
                     "try:\n" +
-                    $"\tos.mkdir(r\"{_dirpath}\")\n" +
+                    $"\tos.mkdir(rf\"{_dirpath}\")\n" +
                     "except FileExistsError:\n" +
                     "\tpass";
 
@@ -242,7 +242,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"{AHK}.type(\"{_str}\\n\")";
+                    $"{AHK}.type(f\"{_str}\\n\")";
 
                 return pyCode;
             }
@@ -258,7 +258,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"{AHK}.type(\"{_str}\")";
+                    $"{AHK}.type(f\"{_str}\")";
 
                 return pyCode;
             }

@@ -1,6 +1,6 @@
 Run "Notepad.exe"
-For (5) {
-    For (2) {
-        WrtLine "Testing for loop"
+For (2) {
+    For (5) {
+        WrtLine "Hello world {i}"
     }
 }
