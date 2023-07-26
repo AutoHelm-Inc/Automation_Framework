@@ -55,7 +55,7 @@ namespace Automation_Project.src.automation {
         /// <param name="code"></param>
         /// <returns></returns>
         public static string AHKRunScriptWrapper(string code) {
-            return $"{AHK}.run_script(r\"{code}\")";
+            return $"{AHK}.run_script(rf\"{code}\")";
         }
 
         /// <summary>

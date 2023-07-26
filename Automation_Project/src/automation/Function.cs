@@ -79,7 +79,7 @@ namespace Automation_Project.src.automation {
                 }
                 ahkCode += _filename;
                 pyCode = AutomationHandler.AHKRunScriptWrapper(ahkCode) + "\n";
-                pyCode += "time.sleep(1)";
+                pyCode += "time.sleep(0.5)";
 
                 return pyCode;
             }
@@ -136,7 +136,7 @@ namespace Automation_Project.src.automation {
 
                 pyCode +=
                     "try:\n" +
-                    $"\topen(r\"{_filepath}\", 'x')\n" +
+                    $"\topen(rf\"{_filepath}\", 'x')\n" +
                     "except FileExistsError:\n" +
                     "\tpass";
 

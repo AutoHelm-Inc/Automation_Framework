@@ -1,6 +1,6 @@
-Run "Notepad.exe"
-For (2) {
+For (1) {
     For (5) {
-        WrtLine "Hello world {i}"
+        FileCreate "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\For\file{i}.txt"
+        Run "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\For\file{i}.txt"
     }
 }
