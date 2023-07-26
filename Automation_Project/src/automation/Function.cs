@@ -95,7 +95,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"win = {AHK}.win_wait(title='{_filename}',timeout=1)\n" +
+                    $"win = {AHK}.win_wait(title=rf'{_filename}',timeout=1)\n" +
                     "win.activate()\n";
 
                 return pyCode;
@@ -114,7 +114,7 @@ namespace Automation_Project.src.automation {
                     // assume first arg is a filename or process id to get the window
                     assertType(args[0], typeof(string));
                     Console.WriteLine("here");
-                    pyCode += $"win = {AHK}.win_wait(title=r\"{_filename}\", timeout=1)\n";
+                    pyCode += $"win = {AHK}.win_wait(title=rf\"{_filename}\", timeout=1)\n";
                 } else {
                     // no args, get the window in focus
                     pyCode += $"win = {AHK}.active_window\n";
@@ -176,7 +176,7 @@ namespace Automation_Project.src.automation {
 
                 if (_filename != null) {
                     pyCode +=
-                        $"win = {AHK}.win_wait(title='{_filename}',timeout=1)\n" +
+                        $"win = {AHK}.win_wait(title=rf'{_filename}',timeout=1)\n" +
                         "win.activate()\n";
                 }
 
@@ -376,7 +376,7 @@ namespace Automation_Project.src.automation {
                 pyCode +=
                     $"{AHK}.send_input(\"^+s\")\n" +
                     $"{AHK}.win_wait(title=\"Save As\", timeout=1)\n" +
-                    $"{AHK}.type(r\"{_filepath}\")\n" +
+                    $"{AHK}.type(rf\"{_filepath}\")\n" +
                     $"{AHK}.send_input(\"{{Enter}}\")\n" +
                     "try:\n" +
                     $"\t{AHK}.win_wait(title=\"Confirm Save As\", timeout=1)\n" +
