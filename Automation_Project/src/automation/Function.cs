@@ -201,8 +201,8 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"srcpath = r\"{_srcpath}\"\n" +
-                    $"destpath = r\"{_destpath}\"\n" +
+                    $"srcpath = rf\"{_srcpath}\"\n" +
+                    $"destpath = rf\"{_destpath}\"\n" +
                     "try:\n" +
                     "\tshutil.move(srcpath, destpath)\n" +
                     "except:\n" +
@@ -222,7 +222,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"path = r\"{_path}\"\n" +
+                    $"path = rf\"{_path}\"\n" +
                     $"if (os.path.isfile(path)):\n" +
                     "\tos.remove(path)\n" +
                     "elif (os.path.isdir(path)):\n" +

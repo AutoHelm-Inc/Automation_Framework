@@ -1,8 +1,9 @@
 For (1) {
     For (5) {
-        Run "Notepad.exe"
-        WrtLine "hello in file{i+1}.txt"
-        SavAs "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\For\file{i+1}.txt"
-        Close
+        FileCreate "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\For\file{i+1}.txt"
+    }
+    Sleep 1000
+    For (5) {
+        Del "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\For\file{i+1}.txt"
     }
 }
