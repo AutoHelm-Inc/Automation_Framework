@@ -70,14 +70,18 @@ namespace Automation_Project.src.automation {
                 string _filename = args[0];
                 string? _program = args.Count == 2 ? args[1] : null;
 
-                string ahkCode = "Run ";
+                string ahkCode = "";
+                string pyCode = "";
 
+                ahkCode += "Run ";
                 if (args.Count > 1) {
                     ahkCode += _program + " ";
                 }
                 ahkCode += _filename;
+                pyCode = AutomationHandler.AHKRunScriptWrapper(ahkCode) + "\n";
+                pyCode += "time.sleep(1)";
 
-                return AutomationHandler.AHKRunScriptWrapper(ahkCode);
+                return pyCode;
             }
         }
 
