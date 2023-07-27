@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Automation_Project.src.parser
 {
-    internal class Parser
+    public class Parser
     {
         private Lexer lexer;
 

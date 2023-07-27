@@ -39,6 +39,11 @@ namespace Automation_Project.src.ast{
             return arguments;
         }
 
+        public Functions? getFunction()
+        {
+            return this.functionType;
+        }
+
         public void setArguments(List<dynamic> arguments) {
             this.arguments = arguments;
         }
