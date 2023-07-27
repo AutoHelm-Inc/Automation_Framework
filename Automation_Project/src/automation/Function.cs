@@ -79,7 +79,7 @@ namespace Automation_Project.src.automation {
                 }
                 ahkCode += _filename;
                 pyCode = AutomationHandler.AHKRunScriptWrapper(ahkCode) + "\n";
-                pyCode += "time.sleep(1)";
+                pyCode += "time.sleep(0.5)";
 
                 return pyCode;
             }
@@ -95,7 +95,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"win = {AHK}.win_wait(title='{_filename}',timeout=1)\n" +
+                    $"win = {AHK}.win_wait(title=rf'{_filename}',timeout=1)\n" +
                     "win.activate()\n";
 
                 return pyCode;
@@ -114,7 +114,7 @@ namespace Automation_Project.src.automation {
                     // assume first arg is a filename or process id to get the window
                     assertType(args[0], typeof(string));
                     Console.WriteLine("here");
-                    pyCode += $"win = {AHK}.win_wait(title=r\"{_filename}\", timeout=1)\n";
+                    pyCode += $"win = {AHK}.win_wait(title=rf\"{_filename}\", timeout=1)\n";
                 } else {
                     // no args, get the window in focus
                     pyCode += $"win = {AHK}.active_window\n";
@@ -136,7 +136,7 @@ namespace Automation_Project.src.automation {
 
                 pyCode +=
                     "try:\n" +
-                    $"\topen(r\"{_filepath}\", 'x')\n" +
+                    $"\topen(rf\"{_filepath}\", 'x')\n" +
                     "except FileExistsError:\n" +
                     "\tpass";
 
@@ -155,7 +155,7 @@ namespace Automation_Project.src.automation {
 
                 pyCode +=
                     "try:\n" +
-                    $"\tos.mkdir(r\"{_dirpath}\")\n" +
+                    $"\tos.mkdir(rf\"{_dirpath}\")\n" +
                     "except FileExistsError:\n" +
                     "\tpass";
 
@@ -176,7 +176,7 @@ namespace Automation_Project.src.automation {
 
                 if (_filename != null) {
                     pyCode +=
-                        $"win = {AHK}.win_wait(title='{_filename}',timeout=1)\n" +
+                        $"win = {AHK}.win_wait(title=rf'{_filename}',timeout=1)\n" +
                         "win.activate()\n";
                 }
 
@@ -201,8 +201,8 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"srcpath = r\"{_srcpath}\"\n" +
-                    $"destpath = r\"{_destpath}\"\n" +
+                    $"srcpath = rf\"{_srcpath}\"\n" +
+                    $"destpath = rf\"{_destpath}\"\n" +
                     "try:\n" +
                     "\tshutil.move(srcpath, destpath)\n" +
                     "except:\n" +
@@ -222,7 +222,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"path = r\"{_path}\"\n" +
+                    $"path = rf\"{_path}\"\n" +
                     $"if (os.path.isfile(path)):\n" +
                     "\tos.remove(path)\n" +
                     "elif (os.path.isdir(path)):\n" +
@@ -242,7 +242,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"{AHK}.type(\"{_str}\\n\")";
+                    $"{AHK}.type(f\"{_str}\\n\")";
 
                 return pyCode;
             }
@@ -258,7 +258,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"{AHK}.type(\"{_str}\")";
+                    $"{AHK}.type(f\"{_str}\")";
 
                 return pyCode;
             }
@@ -376,7 +376,7 @@ namespace Automation_Project.src.automation {
                 pyCode +=
                     $"{AHK}.send_input(\"^+s\")\n" +
                     $"{AHK}.win_wait(title=\"Save As\", timeout=1)\n" +
-                    $"{AHK}.type(r\"{_filepath}\")\n" +
+                    $"{AHK}.type(rf\"{_filepath}\")\n" +
                     $"{AHK}.send_input(\"{{Enter}}\")\n" +
                     "try:\n" +
                     $"\t{AHK}.win_wait(title=\"Confirm Save As\", timeout=1)\n" +
