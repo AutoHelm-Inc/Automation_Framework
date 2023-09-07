@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Collections;
 
 namespace Automation_Project.src.ast
 {
@@ -89,15 +90,42 @@ namespace Automation_Project.src.ast
                         String tokenString = sb.ToString();
 
                         //If we ever have a succesful matach with a keyword, we add that to the tokens list
-                        int foundKeyword = checkKeywords(tokenString);
-                        if (foundKeyword != -1)
+                        if (checkMatch(tokenString) >= 0)
                         {
-                            Token token = new Token(tokenString, Token.Type.KEYWORD);
-                            tokensList.Add(token);
+                            ArrayList checkKeywordsRet = checkSubstringMatch(tokenString);
+                            if (checkKeywordsRet.Count == 1 || (checkKeywordsRet.Count > 1 && (charIndex >= inputString.Length)))
+                            {
+                                Token token = new Token(tokenString, Token.Type.KEYWORD);
+                                tokensList.Add(token);
 
-                            //Clear string builder and state after we finish
-                            sb = sb.Clear();
-                            currentState = State.START;
+                                //Clear string builder and state after we finish
+                                sb = sb.Clear();
+                                currentState = State.START;
+                            }
+                            else if (checkKeywordsRet.Count > 1)
+                            {
+                                bool foundPossibleMatch = false;
+                                foreach (String str in checkKeywordsRet)
+                                {
+                                    if (str.Length > sb.Length && (this.inputString[charIndex + 1] == str[sb.Length]))
+                                    {
+                                        foundPossibleMatch = true;
+                                        break;
+                                    }
+
+                                }
+
+                                if (!foundPossibleMatch)
+                                {
+                                    Token token = new Token(tokenString, Token.Type.KEYWORD);
+                                    tokensList.Add(token);
+
+                                    //Clear string builder and state after we finish
+                                    sb = sb.Clear();
+                                    currentState = State.START;
+                                }
+
+                            }
                         }
                     }
                     //Handle the case where we have numbers
@@ -280,7 +308,7 @@ namespace Automation_Project.src.ast
             }
         }
 
-        private int checkKeywords(String compare)
+        private int checkMatch(String compare)
         {
             for (int i = 0; i < this.keywords.Count; i++)
             {
@@ -290,6 +318,18 @@ namespace Automation_Project.src.ast
                 }
             }
             return -1;
+        }
+        private ArrayList checkSubstringMatch(String compare)
+        {
+            ArrayList ret = new ArrayList();
+            for (int i = 0; i < this.keywords.Count; i++)
+            {
+                if ((this.keywords[i]).Equals(compare) || (this.keywords[i]).StartsWith(compare))
+                {
+                    ret.Add(this.keywords[i]);
+                }
+            }
+            return ret;
         }
         public void printTokens()
         {

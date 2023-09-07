@@ -12,14 +12,14 @@ namespace Automation_Project.src.ast
         Save,
         Move,
         Del,
-        WrtLine,
+        WriteLine,
         Write,
         PressKey,
         EmailsGet,
         FilesGet,
         MouseMove,
         Click,
-        SavAs,
+        SaveAs,
         Sleep
     };
 
