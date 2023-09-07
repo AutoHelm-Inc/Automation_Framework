@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Collections;
+using System.Net.Security;
 
 namespace Automation_Project.src.ast
 {
@@ -89,10 +90,14 @@ namespace Automation_Project.src.ast
                         sb.Append(this.inputString[charIndex]);
                         String tokenString = sb.ToString();
 
-                        //If we ever have a succesful matach with a keyword, we add that to the tokens list
+                        //If we ever have a succesful matach with a keyword, we also need to check if there are matches with other substrings
+                        //for instance, Write and WriteLine
                         if (checkMatch(tokenString) >= 0)
                         {
                             ArrayList checkKeywordsRet = checkSubstringMatch(tokenString);
+
+                            //Here, if we only have one match, it will be the root word, ex. Write, so we just add it to tokens
+                            //We also add if we are at the end of the inputString
                             if (checkKeywordsRet.Count == 1 || (checkKeywordsRet.Count > 1 && (charIndex >= inputString.Length)))
                             {
                                 Token token = new Token(tokenString, Token.Type.KEYWORD);
@@ -102,18 +107,12 @@ namespace Automation_Project.src.ast
                                 sb = sb.Clear();
                                 currentState = State.START;
                             }
+                            //However, if there are multiple matches, we check to see if there are any "future" matches, but
+                            //if not, we just add the original match token
                             else if (checkKeywordsRet.Count > 1)
                             {
-                                bool foundPossibleMatch = false;
-                                foreach (String str in checkKeywordsRet)
-                                {
-                                    if (str.Length > sb.Length && (this.inputString[charIndex + 1] == str[sb.Length]))
-                                    {
-                                        foundPossibleMatch = true;
-                                        break;
-                                    }
 
-                                }
+                                bool foundPossibleMatch = findAlternateMatches(tokenString, charIndex, checkKeywordsRet);
 
                                 if (!foundPossibleMatch)
                                 {
@@ -331,6 +330,43 @@ namespace Automation_Project.src.ast
             }
             return ret;
         }
+
+        private bool findAlternateMatches(String compare, int charIndex, ArrayList checkKeywordsRet)
+        {
+            foreach (String str in checkKeywordsRet)
+            {
+                if (!compare.Equals(str) && str.Length > compare.Length)
+                {
+                    //for each potential match, see if there is a full match for any of the strings
+                    int i = 0;
+                    bool isMatch = false;
+
+                    while (((charIndex + i) < this.inputString.Length) && (compare.Length + i < str.Length))
+                    {
+                        char Comp1 = this.inputString[charIndex + 1 + i];
+                        char Comp2 = str[compare.Length + i];
+                        if ((Comp1 != Comp2))
+                        {
+                            isMatch = false;
+                            break;
+                        }
+                        else
+                        {
+                            isMatch = true;
+                        }
+                        i += 1;
+                    }
+
+                    if (isMatch)
+                    {
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+
         public void printTokens()
         {
             for (int i = 0; i < this.tokensList.Count; i++)
