@@ -83,7 +83,7 @@ namespace Automation_Project.src.ast
                 else
                 {
                     //Handle the case where we have a keyword since keywords only have letters
-                    if ((currentState == State.START || currentState == State.KEYWORD) && Char.IsLetter(this.inputString[charIndex]))
+                    if ((currentState == State.START|| currentState == State.KEYWORD) && Char.IsLetter(this.inputString[charIndex]))
                     {
                         currentState = State.KEYWORD;
 
@@ -98,7 +98,7 @@ namespace Automation_Project.src.ast
 
                             //Here, if we only have one match, it will be the root word, ex. Write, so we just add it to tokens
                             //We also add if we are at the end of the inputString
-                            if (checkKeywordsRet.Count == 1 || (checkKeywordsRet.Count > 1 && (charIndex >= inputString.Length)))
+                            if (checkKeywordsRet.Count == 1 || (checkKeywordsRet.Count > 1 && (charIndex >= inputString.Length-1)))
                             {
                                 Token token = new Token(tokenString, Token.Type.KEYWORD);
                                 tokensList.Add(token);
@@ -128,33 +128,12 @@ namespace Automation_Project.src.ast
                         }
                     }
                     //Handle the case where we have numbers
-                    else if (currentState == State.NUMBER || (currentState == State.START && Char.IsDigit(this.inputString[charIndex])))
+                    else if ((currentState == State.NUMBER || currentState == State.START) && Char.IsDigit(this.inputString[charIndex]))
                     {
 
-                        if (currentState == State.NUMBER && !Char.IsDigit(this.inputString[charIndex]))
-                        {
-                            //If we are looking for a number, but get something that is not a digit, we know the number has ended
-                            String tokenString = sb.ToString();
-                            Token token = new Token(tokenString, Token.Type.NUMBER);
-                            tokensList.Add(token);
-
-                            sb = sb.Clear();
-                            currentState = State.START;
-                            charIndex -= 1;
-                        }
-                        else
-                        {
-                            //If we are still getting digits keep creating the number
-                            currentState = State.NUMBER;
-                            sb.Append(this.inputString[charIndex]);
-                            //To handle the condition where are are iterating the numbers but we suddenly hit end of file
-                            if (charIndex == (inputString.Length - 1))
-                            {
-                                String tokenString = sb.ToString();
-                                Token token = new Token(tokenString, Token.Type.NUMBER);
-                                tokensList.Add(token);
-                            }
-                        }
+                        //If we are still getting digits keep creating the number
+                        currentState = State.NUMBER;
+                        sb.Append(this.inputString[charIndex]);
 
                     }
                     else if ((currentState == State.STRING) || (currentState == State.START && this.inputString[charIndex] == '\"'))
@@ -179,9 +158,9 @@ namespace Automation_Project.src.ast
                             sb.Append(this.inputString[charIndex]);
                         }
                     }
-                    //Handle all other cases like special like { and ! and add them as their own tokens
-                    else
+                    else if (currentState == State.START && !Char.IsLetterOrDigit(this.inputString[charIndex]))
                     {
+                        //Handle all other cases like special like { and ! and add them as their own tokens
                         sb.Append(this.inputString[charIndex]);
                         String tokenString = sb.ToString();
                         Token token = new Token(tokenString, Token.Type.SYMBOL);
@@ -190,11 +169,87 @@ namespace Automation_Project.src.ast
                         sb = sb.Clear();
                         currentState = State.START;
                     }
+                
+                    else
+                    {
+                        //Here we handle boundary cases like when we are building a keyword but we suddenly get a number
+                        //We create the new keyword token and start building a number by changing the state
+                        if (currentState ==  State.KEYWORD)
+                        {
+                            String tokenString = sb.ToString();
+                            Token token = new Token(tokenString, Token.Type.KEYWORD);
+                            tokensList.Add(token);
+
+                            sb = sb.Clear();
+                            currentState = State.START;
+                            charIndex -= 1;
+                        }
+                        else if (currentState == State.NUMBER)
+                        {
+                            String tokenString = sb.ToString();
+                            Token token = new Token(tokenString, Token.Type.NUMBER);
+                            tokensList.Add(token);
+
+                            sb = sb.Clear();
+                            currentState = State.START;
+                            charIndex -= 1;
+                        }
+                        else if (currentState == State.STRING)
+                        {
+                            sb.Append("\"");
+                            String tokenString = sb.ToString();
+                            Token token = new Token(tokenString, Token.Type.STRING);
+                            tokensList.Add(token);
+
+                            sb = sb.Clear();
+                            currentState = State.START;
+                            charIndex -= 1;
+                        }
+                        else
+                        {
+                            char err = this.inputString[charIndex];
+                            throw new Exception("Lexer found an unexpected character: " + err);
+                        }
+                        
+                    }
 
                     charIndex += 1;
 
                 }
 
+            }
+
+            //In case we cannot finish building a token by the end of the input stream, we create the respective token
+            if (sb.Length > 0)
+            {
+                if (currentState == State.KEYWORD)
+                {
+                    String tokenString = sb.ToString();
+                    Token token = new Token(tokenString, Token.Type.KEYWORD);
+                    tokensList.Add(token);
+
+                    sb = sb.Clear();
+                    currentState = State.START;
+                }
+                else if (currentState == State.NUMBER)
+                {
+                    String tokenString = sb.ToString();
+                    Token token = new Token(tokenString, Token.Type.NUMBER);
+                    tokensList.Add(token);
+
+                    sb = sb.Clear();
+                    currentState = State.START;
+                }
+                else if (currentState == State.STRING)
+                {
+                    sb.Append("\"");
+                    String tokenString = sb.ToString();
+                    Token token = new Token(tokenString, Token.Type.STRING);
+                    tokensList.Add(token);
+
+                    sb = sb.Clear();
+                    currentState = State.START;
+                }
             }
             this.tokensListLength = tokensList.Count;
 
