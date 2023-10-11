@@ -8,23 +8,28 @@ using Automation_Project.src.automation;
 
 namespace Automation_Project.src.ast
 {
-    public class AHILProgram : NestedStructure{
+    public class AHILProgram : NestedStructure
+    {
         private AutomationHandler auto;
 
-        public AHILProgram(){
+        public AHILProgram()
+        {
             this.statements = new List<Statement>();
             this.auto = new AutomationHandler();
         }
 
-        public AHILProgram(List<Statement> statements){
+        public AHILProgram(List<Statement> statements)
+        {
             this.statements = statements;
             this.auto = new AutomationHandler();
         }
 
-        public string generateProgramAHILCode(){
+        public string generateProgramAHILCode()
+        {
             string programAHILCode = "";
 
-            for(int i =  0; i < statements.Count; i++){
+            for (int i = 0; i < statements.Count; i++)
+            {
                 programAHILCode += statements[i].toAHILCode();
             }
 
@@ -35,9 +40,11 @@ namespace Automation_Project.src.ast
         /// Generate automation code for this AHIL program depending on the platform (Windows, Web, MacOS, Linux etc.)
         /// </summary>
         /// <returns></returns>
-        public string generateAutomationCode() {
+        public string generateAutomationCode()
+        {
             string platform = getPlatform();
-            return platform switch {
+            return platform switch
+            {
                 "Windows" => toPythonCode(),
                 _ => "",
             };
@@ -47,10 +54,12 @@ namespace Automation_Project.src.ast
         /// Generate Python and AutoHotKey code for automating on Windows.
         /// </summary>
         /// <returns></returns>
-        private string toPythonCode() {
+        private string toPythonCode()
+        {
             string code = "";
 
-            for (int i = 0; i < statements.Count; i++) {
+            for (int i = 0; i < statements.Count; i++)
+            {
                 code += statements[i].toPythonCode();
             }
             return AutomationHandler.formatAsPythonFile(code);
@@ -61,16 +70,19 @@ namespace Automation_Project.src.ast
         /// Just returns "Windows" for now but in the future can include system checks to include "MacOS" or "Linux" or "Web" etc.
         /// </summary>
         /// <returns></returns>
-        private string getPlatform() { 
+        private string getPlatform()
+        {
             return "Windows";
         }
 
         /// <summary>
         /// Generate automation code and save it to a file.
         /// </summary>
-        public void saveToFile() {
+        public void saveToFile()
+        {
             string code = generateAutomationCode();
-            if (!auto.saveToFile(code)) {
+            if (!auto.saveToFile(code))
+            {
                 throw new Exception("Failed to save generated file");
             }
         }
@@ -79,12 +91,19 @@ namespace Automation_Project.src.ast
         /// Call on the AutomationHandler to execute the automation code.
         /// </summary>
         /// <returns></returns>
-        public void execute() {
-            if (!auto.execute()) {
+        public void execute()
+        {
+            if (!auto.execute())
+            {
                 throw new Exception("Failed to execute generated code");
             }
         }
 
-        
+        public void killRunningProgram()
+        {
+            auto.killWorkflow();
+        }
+
+
     }
 }
