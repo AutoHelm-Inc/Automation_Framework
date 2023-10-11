@@ -33,6 +33,11 @@ namespace Automation_Project.src.ast
         False
     }
 
+    public enum MacroKeyword
+    {
+        GlobalDelay
+    }
+
     public static class Constants {
         // Python AHK instance name
         public const string AHK = "ahk";

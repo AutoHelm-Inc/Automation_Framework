@@ -52,6 +52,7 @@ namespace Automation_Project.src.ast
 
             this.keywords = new List<String>(Functions.GetNames(typeof(Functions)));
             this.keywords.AddRange(new List<String>(Keywords.GetNames(typeof(Keywords))));
+            this.keywords.AddRange(new List<String>(MacroKeyword.GetNames(typeof(MacroKeyword))));
             this.tokenize();
             
         }
@@ -293,6 +294,7 @@ namespace Automation_Project.src.ast
         }
         public void printTokens()
         {
+            Console.WriteLine("here");
             for (int i = 0; i < this.tokensList.Count; i++)
             {
                 Console.WriteLine(this.tokensList[i].tokenText);
