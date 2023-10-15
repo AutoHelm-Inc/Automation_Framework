@@ -27,14 +27,14 @@ namespace Automation_Project.src.automation {
         private static readonly Save _saveInstance = new Save();
         private static readonly Move _moveInstance = new Move();
         private static readonly Del _delInstance = new Del();
-        private static readonly WrtLine _wrtLineInstance = new WrtLine();
+        private static readonly WriteLine _writeLineInstance = new WriteLine();
         private static readonly Write _writeInstance = new Write();
         private static readonly PressKey _pressKeyInstance = new PressKey();
         private static readonly EmailsGet _emailsGetInstance = new EmailsGet();
         private static readonly FilesGet _filesGetInstance = new FilesGet();
         private static readonly MouseMove _mouseMoveInstance = new MouseMove();
         private static readonly Click _clickInstance = new Click();
-        private static readonly SavAs _savAsInstance = new SavAs();
+        private static readonly SaveAs _saveAsInstance = new SaveAs();
         private static readonly Sleep _sleepInstance = new Sleep();
 
         public static Function? fromEnum(Functions? @enum) {
@@ -47,14 +47,14 @@ namespace Automation_Project.src.automation {
                 Functions.Save => _saveInstance,
                 Functions.Move => _moveInstance,
                 Functions.Del => _delInstance,
-                Functions.WriteLine => _wrtLineInstance,
+                Functions.WriteLine => _writeLineInstance,
                 Functions.Write => _writeInstance,
                 Functions.PressKey => _pressKeyInstance,
                 Functions.EmailsGet => _emailsGetInstance,
                 Functions.FilesGet => _filesGetInstance,
                 Functions.MouseMove => _mouseMoveInstance,
                 Functions.Click => _clickInstance,
-                Functions.SaveAs => _savAsInstance,
+                Functions.SaveAs => _saveAsInstance,
                 Functions.Sleep => _sleepInstance,
                 _ => null,
             };
@@ -232,7 +232,7 @@ namespace Automation_Project.src.automation {
             }
         }
 
-        private class WrtLine : Function {
+        private class WriteLine : Function {
             public string toPythonCode(List<dynamic> args) {
                 assertArgsCount(args.Count, 1);
                 assertType(args[0], typeof(string));
@@ -364,7 +364,7 @@ namespace Automation_Project.src.automation {
             }
         }
 
-        private class SavAs : Function {
+        private class SaveAs : Function {
             public string toPythonCode(List<dynamic> args) {
                 assertArgsCount(args.Count, 1);
                 assertType(args[0], typeof(string));

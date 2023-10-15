@@ -83,7 +83,7 @@ namespace Automation_Project.src.ast
                 else
                 {
                     //Handle the case where we have a keyword since keywords only have letters
-                    if ((currentState == State.START|| currentState == State.KEYWORD) && Char.IsLetter(this.inputString[charIndex]))
+                    if ((currentState == State.START || currentState == State.KEYWORD) && Char.IsLetter(this.inputString[charIndex]))
                     {
                         currentState = State.KEYWORD;
 
