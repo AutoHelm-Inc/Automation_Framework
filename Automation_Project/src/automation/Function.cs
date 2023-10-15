@@ -374,7 +374,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"{AHK}.send_input(\"^+s\")\n" +
+                    $"{AHK}.send_input(\"^s\")\n" +
                     $"{AHK}.win_wait(title=\"Save As\", timeout=1)\n" +
                     $"{AHK}.type(rf\"{_filepath}\")\n" +
                     $"{AHK}.send_input(\"{{Enter}}\")\n" +
