@@ -1,16 +1,16 @@
-Del "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test1.txt"
-Del "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test2.txt"
-FileCreate "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test1.txt"
-FileCreate "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test2.txt"
-Run "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test1.txt"
-Run "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\Save\test2.txt"
-WrtLine "in test2"
+Del "..\..\..\tests\functions\Save\test1.txt"
+Del "..\..\..\tests\functions\Save\test2.txt"
+FileCreate "..\..\..\tests\functions\Save\test1.txt"
+FileCreate "..\..\..\tests\functions\Save\test2.txt"
+Run "..\..\..\tests\functions\Save\test1.txt", "Wordpad.exe"
+Run "..\..\..\tests\functions\Save\test2.txt", "Wordpad.exe"
+WriteLine "in test2"
 Sleep 500
-SwitchWindow "test1.txt - Notepad"
+SwitchWindow "test1.txt"
 Sleep 500
-WrtLine "in test1"
+WriteLine "in test1"
 Sleep 500
 Save
-Save "*test2.txt - Notepad"
-Close "test1.txt - Notepad"
-Close "test2.txt - Notepad"
+Save "test2.txt"
+Close "test1.txt"
+Close "test2.txt"

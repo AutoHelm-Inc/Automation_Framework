@@ -27,14 +27,14 @@ namespace Automation_Project.src.automation {
         private static readonly Save _saveInstance = new Save();
         private static readonly Move _moveInstance = new Move();
         private static readonly Del _delInstance = new Del();
-        private static readonly WrtLine _wrtLineInstance = new WrtLine();
+        private static readonly WriteLine _writeLineInstance = new WriteLine();
         private static readonly Write _writeInstance = new Write();
         private static readonly PressKey _pressKeyInstance = new PressKey();
         private static readonly EmailsGet _emailsGetInstance = new EmailsGet();
         private static readonly FilesGet _filesGetInstance = new FilesGet();
         private static readonly MouseMove _mouseMoveInstance = new MouseMove();
         private static readonly Click _clickInstance = new Click();
-        private static readonly SavAs _savAsInstance = new SavAs();
+        private static readonly SaveAs _saveAsInstance = new SaveAs();
         private static readonly Sleep _sleepInstance = new Sleep();
 
         public static Function? fromEnum(Functions? @enum) {
@@ -47,14 +47,14 @@ namespace Automation_Project.src.automation {
                 Functions.Save => _saveInstance,
                 Functions.Move => _moveInstance,
                 Functions.Del => _delInstance,
-                Functions.WrtLine => _wrtLineInstance,
+                Functions.WriteLine => _writeLineInstance,
                 Functions.Write => _writeInstance,
                 Functions.PressKey => _pressKeyInstance,
                 Functions.EmailsGet => _emailsGetInstance,
                 Functions.FilesGet => _filesGetInstance,
                 Functions.MouseMove => _mouseMoveInstance,
                 Functions.Click => _clickInstance,
-                Functions.SavAs => _savAsInstance,
+                Functions.SaveAs => _saveAsInstance,
                 Functions.Sleep => _sleepInstance,
                 _ => null,
             };
@@ -113,7 +113,6 @@ namespace Automation_Project.src.automation {
                 if (args.Count > 0) {
                     // assume first arg is a filename or process id to get the window
                     assertType(args[0], typeof(string));
-                    Console.WriteLine("here");
                     pyCode += $"win = {AHK}.win_wait(title=rf\"{_filename}\", timeout=1)\n";
                 } else {
                     // no args, get the window in focus
@@ -232,7 +231,7 @@ namespace Automation_Project.src.automation {
             }
         }
 
-        private class WrtLine : Function {
+        private class WriteLine : Function {
             public string toPythonCode(List<dynamic> args) {
                 assertArgsCount(args.Count, 1);
                 assertType(args[0], typeof(string));
@@ -364,7 +363,7 @@ namespace Automation_Project.src.automation {
             }
         }
 
-        private class SavAs : Function {
+        private class SaveAs : Function {
             public string toPythonCode(List<dynamic> args) {
                 assertArgsCount(args.Count, 1);
                 assertType(args[0], typeof(string));
@@ -374,7 +373,7 @@ namespace Automation_Project.src.automation {
                 string pyCode = "";
 
                 pyCode +=
-                    $"{AHK}.send_input(\"^+s\")\n" +
+                    $"{AHK}.send_input(\"^s\")\n" +
                     $"{AHK}.win_wait(title=\"Save As\", timeout=1)\n" +
                     $"{AHK}.type(rf\"{_filepath}\")\n" +
                     $"{AHK}.send_input(\"{{Enter}}\")\n" +
