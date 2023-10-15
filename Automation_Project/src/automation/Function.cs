@@ -113,7 +113,6 @@ namespace Automation_Project.src.automation {
                 if (args.Count > 0) {
                     // assume first arg is a filename or process id to get the window
                     assertType(args[0], typeof(string));
-                    Console.WriteLine("here");
                     pyCode += $"win = {AHK}.win_wait(title=rf\"{_filename}\", timeout=1)\n";
                 } else {
                     // no args, get the window in focus
