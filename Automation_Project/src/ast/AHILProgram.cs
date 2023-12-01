@@ -49,6 +49,11 @@ namespace Automation_Project.src.ast
             };
         }
 
+        public void addMacros(Macro macro)
+        {
+            macros.Add(macro);
+        }
+
         public void registerMacros()
         {
             foreach (Macro macro in macros)
