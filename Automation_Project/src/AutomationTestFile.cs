@@ -29,15 +29,13 @@ public class AutomationTestFile
         //System.Console.WriteLine("Is filename a next token? " + lex.inspectString());
         //lex.consumeString();
 
-        Parser parser = new Parser("../../../tests/functions/Write/Write.ahil");
+        Parser parser = new Parser("../../../tests/macros/GlobalDelay/GlobalDelay.ahil");
         AHILProgram program = parser.parse();
-
         System.Console.WriteLine("----------------\n");
         System.Console.WriteLine(program.generateProgramAHILCode());
         System.Console.WriteLine("----------------\n");
         System.Console.WriteLine(program.generateAutomationCode());
         System.Console.WriteLine("----------------\n");
-
         program.saveToFile();
         program.execute();
 

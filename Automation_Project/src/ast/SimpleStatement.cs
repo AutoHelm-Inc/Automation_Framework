@@ -13,6 +13,7 @@ namespace Automation_Project.src.ast{
         private Function? function;
         private Functions? functionType;
         private List<dynamic> arguments;
+        private AHILProgram? program;
 
         public SimpleStatement(Functions? function)
         {
@@ -33,6 +34,11 @@ namespace Automation_Project.src.ast{
             this.function = FunctionFactory.fromEnum(function);
             this.functionType = function;
             this.arguments = arguments;
+        }
+
+        public void setAHILProgram(AHILProgram program)
+        {
+            this.program = program;
         }
 
         public List<dynamic> getArguments() {
@@ -85,7 +91,12 @@ namespace Automation_Project.src.ast{
             if (function == null) {
                 return "";
             }
-            return function.toPythonCode(arguments) + "\n";
+            string code = "";
+            if (program?.globalDelay != null) {
+                code += $"time.sleep({program?.globalDelay}/1000)\n";
+            }
+            code += function.toPythonCode(arguments) + "\n";
+            return code;
         }
     }
 }

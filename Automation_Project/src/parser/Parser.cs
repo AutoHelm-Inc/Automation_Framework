@@ -10,6 +10,7 @@ namespace Automation_Project.src.parser
     public class Parser
     {
         private Lexer lexer;
+        private AHILProgram? ahilProgram;
 
         public Parser(string fileName)
         {
@@ -24,12 +25,54 @@ namespace Automation_Project.src.parser
         AHILProgram program()
         {
             AHILProgram ahilProgram = new AHILProgram();
+            this.ahilProgram = ahilProgram;
+            while (lexer.inspect("#"))
+            {
+                lexer.consume("#");
+                ahilProgram.addMacros(macro());
+            }
             do
             {
                 ahilProgram.addStatement(statements());
             } while (!lexer.inspectEOF());
             lexer.consumeEOF();
             return ahilProgram;
+        }
+
+        Macro macro() {
+            MacroKeyword? macroKeyword = null;
+
+            foreach (MacroKeyword keyword in Enum.GetValues(typeof(MacroKeyword)))
+            {
+                if (lexer.inspect(keyword.ToString()))
+                {
+                    string macroName = lexer.consume(keyword.ToString());
+                    macroKeyword = (MacroKeyword)Enum.Parse(typeof(MacroKeyword), macroName);
+                    break;
+                }
+            }
+
+            Macro m = new Macro(macroKeyword);
+            while (lexer.inspectString() || lexer.inspectNumber())
+            {
+                if (lexer.inspectString())
+                {
+                    m.addArgument(lexer.consumeString());
+                }
+                else
+                {
+                    m.addArgument(lexer.consumeNumber());
+                }
+                if (lexer.inspect(","))
+                {
+                    lexer.consume(",");
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return m;
         }
 
         Statement statements()
@@ -76,6 +119,7 @@ namespace Automation_Project.src.parser
             }
 
             SimpleStatement simple = new SimpleStatement(function);
+            simple.setAHILProgram(this.ahilProgram);
             while (lexer.inspectString() || lexer.inspectNumber())
             {
                 if (lexer.inspectString())

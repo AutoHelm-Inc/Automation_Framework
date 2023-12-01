@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,25 +13,32 @@ namespace Automation_Project.src.ast
     public class AHILProgram : NestedStructure
     {
         private AutomationHandler auto;
+        private List<Macro> macros;
+        public int? globalDelay;
 
-        public AHILProgram()
-        {
+        public AHILProgram(){
             this.statements = new List<Statement>();
             this.auto = new AutomationHandler();
+            this.macros = new List<Macro>();
         }
 
-        public AHILProgram(List<Statement> statements)
-        {
+        public AHILProgram(List<Statement> statements){
             this.statements = statements;
             this.auto = new AutomationHandler();
+            this.macros = new List<Macro>();
         }
 
-        public string generateProgramAHILCode()
-        {
+        public string generateProgramAHILCode(){
             string programAHILCode = "";
 
-            for (int i = 0; i < statements.Count; i++)
+            for (int i = 0; i < macros.Count; i++)
             {
+                programAHILCode += macros[i].toAHILCode();
+            }
+
+            programAHILCode += "\n";
+
+            for (int i =  0; i < statements.Count; i++){
                 programAHILCode += statements[i].toAHILCode();
             }
 
@@ -40,14 +49,34 @@ namespace Automation_Project.src.ast
         /// Generate automation code for this AHIL program depending on the platform (Windows, Web, MacOS, Linux etc.)
         /// </summary>
         /// <returns></returns>
-        public string generateAutomationCode()
-        {
+        public string generateAutomationCode() {
+            registerMacros();
             string platform = getPlatform();
             return platform switch
             {
                 "Windows" => toPythonCode(),
                 _ => "",
             };
+        }
+
+        public void addMacros(Macro macro)
+        {
+            macros.Add(macro);
+        }
+
+        public void registerMacros()
+        {
+            foreach (Macro macro in macros)
+            {
+                switch (macro.getKeyword())
+                {
+                    case MacroKeyword.GlobalDelay:
+                        globalDelay = macro.getArguments()[0];
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
 
         /// <summary>

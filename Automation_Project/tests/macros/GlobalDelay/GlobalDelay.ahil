@@ -1,0 +1,7 @@
+#GlobalDelay 1000
+#GlobalDelay 2000
+
+Run "Wordpad.exe"
+For (5) {
+    Write "Testing GlobalDelay"
+}
