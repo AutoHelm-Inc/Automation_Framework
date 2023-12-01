@@ -19,17 +19,26 @@ namespace Automation_Project.src.ast
         public AHILProgram(){
             this.statements = new List<Statement>();
             this.auto = new AutomationHandler();
+            this.macros = new List<Macro>();
         }
 
         public AHILProgram(List<Statement> statements){
             this.statements = statements;
             this.auto = new AutomationHandler();
+            this.macros = new List<Macro>();
         }
 
         public string generateProgramAHILCode(){
             string programAHILCode = "";
 
-            for(int i =  0; i < statements.Count; i++){
+            for (int i = 0; i < macros.Count; i++)
+            {
+                programAHILCode += macros[i].toAHILCode();
+            }
+
+            programAHILCode += "\n";
+
+            for (int i =  0; i < statements.Count; i++){
                 programAHILCode += statements[i].toAHILCode();
             }
 
@@ -41,6 +50,7 @@ namespace Automation_Project.src.ast
         /// </summary>
         /// <returns></returns>
         public string generateAutomationCode() {
+            registerMacros();
             string platform = getPlatform();
             return platform switch
             {

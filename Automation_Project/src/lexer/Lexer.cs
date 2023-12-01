@@ -425,7 +425,6 @@ namespace Automation_Project.src.ast
 
         public void printTokens()
         {
-            Console.WriteLine("here");
             for (int i = 0; i < this.tokensList.Count; i++)
             {
                 Console.WriteLine(this.tokensList[i].tokenText);
