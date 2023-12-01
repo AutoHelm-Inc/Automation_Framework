@@ -1,1 +1,1 @@
-Run "C:\Users\HansW\Desktop\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\hello.txt", "Notepad.exe"
+Run "..\..\..\tests\hello.txt", "Wordpad.exe"

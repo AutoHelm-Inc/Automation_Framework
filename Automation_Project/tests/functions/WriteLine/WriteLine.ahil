@@ -1,0 +1,3 @@
+Run "Notepad.exe"
+WriteLine "Hello World!"
+WriteLine "Goodbye World!"

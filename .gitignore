@@ -405,3 +405,11 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio
 
 Automation_Project/tests/tests_output
+/Automation_Project/.vs/Automation_Project/v17/.suo
+/Automation_Project/bin/Debug/net6.0/Automation_Project.dll
+/Automation_Project/bin/Debug/net6.0/Automation_Project.pdb
+/Automation_Project/obj/Debug/net6.0/ref/Automation_Project.dll
+/Automation_Project/obj/Debug/net6.0/refint/Automation_Project.dll
+/Automation_Project/obj/Debug/net6.0/Automation_Project.csproj.CoreCompileInputs.cache
+/Automation_Project/obj/Debug/net6.0/Automation_Project.dll
+/Automation_Project/obj/Debug/net6.0/Automation_Project.pdb

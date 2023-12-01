@@ -2,6 +2,8 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.IO;
+using System.Collections;
+using System.Net.Security;
 
 namespace Automation_Project.src.ast
 {
@@ -89,46 +91,50 @@ namespace Automation_Project.src.ast
                         sb.Append(this.inputString[charIndex]);
                         String tokenString = sb.ToString();
 
-                        //If we ever have a succesful matach with a keyword, we add that to the tokens list
-                        int foundKeyword = checkKeywords(tokenString);
-                        if (foundKeyword != -1)
+                        //If we ever have a succesful matach with a keyword, we also need to check if there are matches with other substrings
+                        //for instance, Write and WriteLine
+                        if (checkMatch(tokenString) >= 0)
                         {
-                            Token token = new Token(tokenString, Token.Type.KEYWORD);
-                            tokensList.Add(token);
+                            ArrayList checkKeywordsRet = checkSubstringMatch(tokenString);
 
-                            //Clear string builder and state after we finish
-                            sb = sb.Clear();
-                            currentState = State.START;
+                            //Here, if we only have one match, it will be the root word, ex. Write, so we just add it to tokens
+                            //We also add if we are at the end of the inputString
+                            if (checkKeywordsRet.Count == 1 || (checkKeywordsRet.Count > 1 && (charIndex >= inputString.Length-1)))
+                            {
+                                Token token = new Token(tokenString, Token.Type.KEYWORD);
+                                tokensList.Add(token);
+
+                                //Clear string builder and state after we finish
+                                sb = sb.Clear();
+                                currentState = State.START;
+                            }
+                            //However, if there are multiple matches, we check to see if there are any "future" matches, but
+                            //if not, we just add the original match token
+                            else if (checkKeywordsRet.Count > 1)
+                            {
+
+                                bool foundPossibleMatch = findAlternateMatches(tokenString, charIndex, checkKeywordsRet);
+
+                                if (!foundPossibleMatch)
+                                {
+                                    Token token = new Token(tokenString, Token.Type.KEYWORD);
+                                    tokensList.Add(token);
+
+                                    //Clear string builder and state after we finish
+                                    sb = sb.Clear();
+                                    currentState = State.START;
+                                }
+
+                            }
                         }
                     }
                     //Handle the case where we have numbers
-                    else if (currentState == State.NUMBER || (currentState == State.START && Char.IsDigit(this.inputString[charIndex])))
+                    else if ((currentState == State.NUMBER || currentState == State.START) && Char.IsDigit(this.inputString[charIndex]))
                     {
 
-                        if (currentState == State.NUMBER && !Char.IsDigit(this.inputString[charIndex]))
-                        {
-                            //If we are looking for a number, but get something that is not a digit, we know the number has ended
-                            String tokenString = sb.ToString();
-                            Token token = new Token(tokenString, Token.Type.NUMBER);
-                            tokensList.Add(token);
-
-                            sb = sb.Clear();
-                            currentState = State.START;
-                            charIndex -= 1;
-                        }
-                        else
-                        {
-                            //If we are still getting digits keep creating the number
-                            currentState = State.NUMBER;
-                            sb.Append(this.inputString[charIndex]);
-                            //To handle the condition where are are iterating the numbers but we suddenly hit end of file
-                            if (charIndex == (inputString.Length - 1))
-                            {
-                                String tokenString = sb.ToString();
-                                Token token = new Token(tokenString, Token.Type.NUMBER);
-                                tokensList.Add(token);
-                            }
-                        }
+                        //If we are still getting digits keep creating the number
+                        currentState = State.NUMBER;
+                        sb.Append(this.inputString[charIndex]);
 
                     }
                     else if ((currentState == State.STRING) || (currentState == State.START && this.inputString[charIndex] == '\"'))
@@ -153,9 +159,9 @@ namespace Automation_Project.src.ast
                             sb.Append(this.inputString[charIndex]);
                         }
                     }
-                    //Handle all other cases like special like { and ! and add them as their own tokens
-                    else
+                    else if (currentState == State.START && !Char.IsLetterOrDigit(this.inputString[charIndex]))
                     {
+                        //Handle all other cases like special like { and ! and add them as their own tokens
                         sb.Append(this.inputString[charIndex]);
                         String tokenString = sb.ToString();
                         Token token = new Token(tokenString, Token.Type.SYMBOL);
@@ -164,11 +170,87 @@ namespace Automation_Project.src.ast
                         sb = sb.Clear();
                         currentState = State.START;
                     }
+                
+                    else
+                    {
+                        //Here we handle boundary cases like when we are building a keyword but we suddenly get a number
+                        //We create the new keyword token and start building a number by changing the state
+                        if (currentState ==  State.KEYWORD)
+                        {
+                            String tokenString = sb.ToString();
+                            Token token = new Token(tokenString, Token.Type.KEYWORD);
+                            tokensList.Add(token);
+
+                            sb = sb.Clear();
+                            currentState = State.START;
+                            charIndex -= 1;
+                        }
+                        else if (currentState == State.NUMBER)
+                        {
+                            String tokenString = sb.ToString();
+                            Token token = new Token(tokenString, Token.Type.NUMBER);
+                            tokensList.Add(token);
+
+                            sb = sb.Clear();
+                            currentState = State.START;
+                            charIndex -= 1;
+                        }
+                        else if (currentState == State.STRING)
+                        {
+                            sb.Append("\"");
+                            String tokenString = sb.ToString();
+                            Token token = new Token(tokenString, Token.Type.STRING);
+                            tokensList.Add(token);
+
+                            sb = sb.Clear();
+                            currentState = State.START;
+                            charIndex -= 1;
+                        }
+                        else
+                        {
+                            char err = this.inputString[charIndex];
+                            throw new Exception("Lexer found an unexpected character: " + err);
+                        }
+                        
+                    }
 
                     charIndex += 1;
 
                 }
 
+            }
+
+            //In case we cannot finish building a token by the end of the input stream, we create the respective token
+            if (sb.Length > 0)
+            {
+                if (currentState == State.KEYWORD)
+                {
+                    String tokenString = sb.ToString();
+                    Token token = new Token(tokenString, Token.Type.KEYWORD);
+                    tokensList.Add(token);
+
+                    sb = sb.Clear();
+                    currentState = State.START;
+                }
+                else if (currentState == State.NUMBER)
+                {
+                    String tokenString = sb.ToString();
+                    Token token = new Token(tokenString, Token.Type.NUMBER);
+                    tokensList.Add(token);
+
+                    sb = sb.Clear();
+                    currentState = State.START;
+                }
+                else if (currentState == State.STRING)
+                {
+                    sb.Append("\"");
+                    String tokenString = sb.ToString();
+                    Token token = new Token(tokenString, Token.Type.STRING);
+                    tokensList.Add(token);
+
+                    sb = sb.Clear();
+                    currentState = State.START;
+                }
             }
             this.tokensListLength = tokensList.Count;
 
@@ -281,7 +363,7 @@ namespace Automation_Project.src.ast
             }
         }
 
-        private int checkKeywords(String compare)
+        private int checkMatch(String compare)
         {
             for (int i = 0; i < this.keywords.Count; i++)
             {
@@ -292,6 +374,55 @@ namespace Automation_Project.src.ast
             }
             return -1;
         }
+        private ArrayList checkSubstringMatch(String compare)
+        {
+            ArrayList ret = new ArrayList();
+            for (int i = 0; i < this.keywords.Count; i++)
+            {
+                if ((this.keywords[i]).Equals(compare) || (this.keywords[i]).StartsWith(compare))
+                {
+                    ret.Add(this.keywords[i]);
+                }
+            }
+            return ret;
+        }
+
+        private bool findAlternateMatches(String compare, int charIndex, ArrayList checkKeywordsRet)
+        {
+            foreach (String str in checkKeywordsRet)
+            {
+                if (!compare.Equals(str) && str.Length > compare.Length)
+                {
+                    //for each potential match, see if there is a full match for any of the strings
+                    int i = 0;
+                    bool isMatch = false;
+
+                    while (((charIndex + i) < this.inputString.Length) && (compare.Length + i < str.Length))
+                    {
+                        char Comp1 = this.inputString[charIndex + 1 + i];
+                        char Comp2 = str[compare.Length + i];
+                        if ((Comp1 != Comp2))
+                        {
+                            isMatch = false;
+                            break;
+                        }
+                        else
+                        {
+                            isMatch = true;
+                        }
+                        i += 1;
+                    }
+
+                    if (isMatch)
+                    {
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+
         public void printTokens()
         {
             Console.WriteLine("here");

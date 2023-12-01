@@ -1,0 +1,3 @@
+Run "Wordpad.exe"
+Write "Hello!"
+SaveAs "C:\Users\Hans\Documents\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\functions\SaveAs\saved.txt"
