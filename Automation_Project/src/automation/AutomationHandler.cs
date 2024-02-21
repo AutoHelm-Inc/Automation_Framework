@@ -16,6 +16,7 @@ namespace Automation_Project.src.automation
         private static string? pythonSourceLocation;
         private string? pythonScriptLocation;
         private Process? workflowProcess;
+
         private static string pythonImports =
             "from ahk import AHK\n" +
             "import time\n" +
@@ -83,6 +84,7 @@ namespace Automation_Project.src.automation
                 $"{pythonImports}" +
                 "\n" +
                 $"{AHK} = AHK()\n" +
+                $"{AHK}.set_coord_mode('Mouse', 'Screen')\n" +
                 "\n" +
                 $"{code}\n";
             return output;
