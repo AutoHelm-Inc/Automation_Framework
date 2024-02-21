@@ -20,7 +20,10 @@ namespace Automation_Project.src.automation
             "from ahk import AHK\n" +
             "import time\n" +
             "import os\n" +
-            "import shutil\n";
+            "import shutil\n" +
+            "import sys\n" +
+            "sys.path.append(\'../../../src/ocr\')\n" +
+            "from ocr_controller import get_coords_of_word\n";
 
         public AutomationHandler()
         {
@@ -191,13 +194,13 @@ namespace Automation_Project.src.automation
             //commented out for now so the autohelm process isnt blocked while a workflow is run
             // TODO make in new thread
 
-            //string output = workflowProcess.StandardOutput.ReadToEnd();
-            //string errors = workflowProcess.StandardError.ReadToEnd();
+            string output = workflowProcess.StandardOutput.ReadToEnd();
+            string errors = workflowProcess.StandardError.ReadToEnd();
 
-            //workflowProcess.WaitForExit();
+            workflowProcess.WaitForExit();
 
-            //Console.WriteLine(output);
-            //Console.WriteLine(errors);
+            Console.WriteLine(output);
+            Console.WriteLine(errors);
 
             return true;
         }
