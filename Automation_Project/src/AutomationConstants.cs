@@ -21,7 +21,6 @@ namespace Automation_Project.src.ast
         Click,
         SaveAs,
         Sleep,
-        FindWord,
         MouseToWord
     };
 

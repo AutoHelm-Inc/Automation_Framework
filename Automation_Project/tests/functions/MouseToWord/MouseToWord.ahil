@@ -1,1 +1,3 @@
 MouseToWord "File", "True"
+Click
+MouseToWord "New", "True"
