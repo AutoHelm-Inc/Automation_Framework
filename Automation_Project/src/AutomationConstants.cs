@@ -20,7 +20,8 @@ namespace Automation_Project.src.ast
         MouseMove,
         Click,
         SaveAs,
-        Sleep
+        Sleep,
+        MouseToWord
     };
 
     public enum Keywords

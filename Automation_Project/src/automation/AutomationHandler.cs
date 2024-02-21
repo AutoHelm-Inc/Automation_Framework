@@ -16,11 +16,15 @@ namespace Automation_Project.src.automation
         private static string? pythonSourceLocation;
         private string? pythonScriptLocation;
         private Process? workflowProcess;
+
         private static string pythonImports =
             "from ahk import AHK\n" +
             "import time\n" +
             "import os\n" +
-            "import shutil\n";
+            "import shutil\n" +
+            "import sys\n" +
+            "sys.path.append(\'../../../src/ocr\')\n" +
+            "from ocr_controller import get_coords_of_word\n";
 
         public AutomationHandler()
         {
@@ -80,6 +84,7 @@ namespace Automation_Project.src.automation
                 $"{pythonImports}" +
                 "\n" +
                 $"{AHK} = AHK()\n" +
+                $"{AHK}.set_coord_mode('Mouse', 'Screen')\n" +
                 "\n" +
                 $"{code}\n";
             return output;

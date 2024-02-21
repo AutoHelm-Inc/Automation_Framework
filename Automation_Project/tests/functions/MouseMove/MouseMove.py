@@ -16,4 +16,3 @@ time.sleep(500/1000)
 ahk.mouse_move(0, 0, relative=False)
 time.sleep(500/1000)
 ahk.mouse_move(10, 10, relative=True)
-

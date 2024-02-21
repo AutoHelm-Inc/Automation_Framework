@@ -36,6 +36,7 @@ namespace Automation_Project.src.automation {
         private static readonly Click _clickInstance = new Click();
         private static readonly SaveAs _saveAsInstance = new SaveAs();
         private static readonly Sleep _sleepInstance = new Sleep();
+        private static readonly MouseToWord _mouseToWordInstance = new MouseToWord();
 
         public static Function? fromEnum(Functions? @enum) {
             return @enum switch {
@@ -56,6 +57,7 @@ namespace Automation_Project.src.automation {
                 Functions.Click => _clickInstance,
                 Functions.SaveAs => _saveAsInstance,
                 Functions.Sleep => _sleepInstance,
+                Functions.MouseToWord => _mouseToWordInstance,
                 _ => null,
             };
         }
@@ -395,6 +397,30 @@ namespace Automation_Project.src.automation {
                 string pycode = $"time.sleep({args[0]}/1000)";
 
                 return pycode;
+            }
+        }
+
+        private class MouseToWord : Function
+        {
+            public string toPythonCode(List<dynamic> args)
+            {
+                assertArgsCount(args.Count, 1, 2);
+                assertType(args[0], typeof(string));
+                if (args.Count == 2)
+                {
+                    assertType(args[1], typeof(string));
+                }
+
+                string _word = args[0];
+                string _isDarkMode = args.Count == 2 ? args[1] : "False";
+
+                string pyCode = "";
+
+                pyCode +=
+                    $"temp = get_coords_of_word(\"{_word}\", {_isDarkMode})\n" +
+                    $"{AHK}.mouse_move(temp[2], temp[3], relative=False)";
+
+                return pyCode;
             }
         }
 
