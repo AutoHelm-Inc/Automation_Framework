@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Automation_Project.src.ast
 {
-    public class Macro
+    public class Macro : Statement
     {
         private MacroKeyword? keyword;
         private List<dynamic> arguments;
@@ -32,6 +32,11 @@ namespace Automation_Project.src.ast
             arguments.Add(argument);
         }
 
+        public void setArguments(List<dynamic> arguments)
+        {
+            this.arguments = arguments;
+        }
+
         public MacroKeyword? getKeyword()
         {
             return keyword;
@@ -44,7 +49,7 @@ namespace Automation_Project.src.ast
 
         public string toAHILCode()
         {
-            string AHILCodeInterpretation = keyword.ToString() + " ";
+            string AHILCodeInterpretation = "#" + keyword.ToString() + " ";
             for (int i = 0; i < arguments.Count; i++)
             {
                 if (i > 0)
@@ -65,5 +70,9 @@ namespace Automation_Project.src.ast
             return AHILCodeInterpretation;
         }
 
+        public string toPythonCode()
+        {
+            return "";
+        }
     }
 }

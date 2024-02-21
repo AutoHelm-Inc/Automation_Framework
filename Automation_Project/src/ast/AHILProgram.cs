@@ -14,18 +14,22 @@ namespace Automation_Project.src.ast
     {
         private AutomationHandler auto;
         private List<Macro> macros;
-        public int? globalDelay;
+        public int globalDelay;
 
         public AHILProgram(){
             this.statements = new List<Statement>();
             this.auto = new AutomationHandler();
             this.macros = new List<Macro>();
+
+            this.globalDelay = 0;
         }
 
         public AHILProgram(List<Statement> statements){
             this.statements = statements;
             this.auto = new AutomationHandler();
             this.macros = new List<Macro>();
+
+            this.globalDelay = 0;
         }
 
         public string generateProgramAHILCode(){
@@ -59,13 +63,25 @@ namespace Automation_Project.src.ast
             };
         }
 
+        public List<Macro> getMacros()
+        {
+            return macros;
+        }
+
         public void addMacros(Macro macro)
         {
             macros.Add(macro);
         }
 
+        public bool removeMacro(Macro macro)
+        {
+            return macros.Remove(macro);
+        }
+
         public void registerMacros()
         {
+            this.globalDelay = 0;
+
             foreach (Macro macro in macros)
             {
                 switch (macro.getKeyword())
