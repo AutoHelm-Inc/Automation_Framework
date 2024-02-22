@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Input;
 
 using static Automation_Project.src.ast.Constants;
+using Automation_Project.src;
 
 namespace Automation_Project.src.automation
 {
@@ -17,21 +18,33 @@ namespace Automation_Project.src.automation
         private string? pythonScriptLocation;
         private Process? workflowProcess;
 
-        private static string pythonImports =
-            "from ahk import AHK\n" +
-            "import time\n" +
-            "import os\n" +
-            "import shutil\n" +
-            "import sys\n" +
-            "sys.path.append(\'../../../src/ocr\')\n" +
-            "from ocr_controller import get_coords_of_word\n";
+        private static string? ocrModuleLocation;
+
+        private static string? pythonImports;
 
         public AutomationHandler()
         {
             this.pythonScriptLocation = null;
-            if (pythonSourceLocation == null)
+            pythonSourceLocation ??= findPythonSource();
+            if (ocrModuleLocation == null)
             {
-                pythonSourceLocation = findPythonSource();
+                DirectoryInfo projectRoot = (new DirectoryInfo((Environment.CurrentDirectory))?.Parent?.Parent?.Parent) ?? throw new Exception("Project root not found");
+                string envFileLocation = Path.Combine(projectRoot.FullName, ".env");
+                DotEnv.Load(envFileLocation);
+                ocrModuleLocation = (Environment.GetEnvironmentVariable("ENTRYPOINT")) switch {
+                    "backend" => Path.Combine(projectRoot.FullName, "src", "ocr"),
+                    "desktop" => Path.Combine(projectRoot?.Parent?.FullName ?? throw new Exception("Expected valid directory"), "Automation_Framework", "Automation_Project", "src", "ocr"),
+                    _ => null,
+                } ?? throw new Exception(".env file not setup properly, ENTRYPOINT should be backend or desktop");
+                ocrModuleLocation = ocrModuleLocation.Replace("\\", "/");
+                Console.WriteLine(ocrModuleLocation);
+                pythonImports = "from ahk import AHK\n" +
+                                "import time\n" +
+                                "import os\n" +
+                                "import shutil\n" +
+                                "import sys\n" +
+                                $"sys.path.append(\"{ocrModuleLocation}\")\n" +
+                                "from ocr_controller import get_coords_of_word\n";
             }
         }
 
