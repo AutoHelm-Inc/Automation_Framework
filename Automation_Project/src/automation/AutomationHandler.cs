@@ -33,7 +33,7 @@ namespace Automation_Project.src.automation
                 DotEnv.Load(envFileLocation);
                 ocrModuleLocation = (Environment.GetEnvironmentVariable("ENTRYPOINT")) switch {
                     "backend" => Path.Combine(projectRoot.FullName, "src", "ocr"),
-                    "desktop" => Path.Combine(projectRoot?.Parent?.FullName ?? throw new Exception("Expected valid directory"), "Automation_Framework", "Automation_Project", "src", "ocr"),
+                    "desktop" => Path.Combine(projectRoot?.Parent?.Parent?.FullName ?? throw new Exception("Expected valid directory"), "Automation_Framework", "Automation_Project", "src", "ocr"),
                     _ => null,
                 } ?? throw new Exception(".env file not setup properly, ENTRYPOINT should be backend or desktop");
                 ocrModuleLocation = ocrModuleLocation.Replace("\\", "/");
