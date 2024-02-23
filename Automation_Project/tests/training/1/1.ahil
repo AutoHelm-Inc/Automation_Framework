@@ -1,0 +1,11 @@
+#GlobalDelay 200
+
+DirCreate "C:\Users\Hans\Documents\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\training\newdir"
+FileCreate "C:\Users\Hans\Documents\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\training\newdir\output1.txt"
+Run "wordpad.exe"
+For (5) {
+	WriteLine "hello world"
+}
+SaveAs "C:\Users\Hans\Documents\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\training\newdir\output2.txt"
+Close
+Del "C:\Users\Hans\Documents\Stuff\School\4A\ECE 498A\Automation_Framework\Automation_Project\tests\training\newdir"
