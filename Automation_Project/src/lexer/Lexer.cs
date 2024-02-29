@@ -54,14 +54,9 @@ namespace Automation_Project.src.ast
 
             this.keywords = new List<String>(Functions.GetNames(typeof(Functions)));
             this.keywords.AddRange(new List<String>(Keywords.GetNames(typeof(Keywords))));
+            this.keywords.AddRange(new List<String>(MacroKeyword.GetNames(typeof(MacroKeyword))));
             this.tokenize();
-            this.OCR();
             
-        }
-
-        public void OCR()
-        {
-
         }
 
         public void tokenize()

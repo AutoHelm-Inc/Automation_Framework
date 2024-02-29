@@ -1,5 +1,2 @@
-MouseMove 900, 500 
-Click
-Sleep 500
-Click 900, 500, "R"
-Click "L"
+Click 0, 1080, "R"
+Click 50, 970

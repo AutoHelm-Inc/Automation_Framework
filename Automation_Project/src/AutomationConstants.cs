@@ -20,7 +20,8 @@ namespace Automation_Project.src.ast
         MouseMove,
         Click,
         SaveAs,
-        Sleep
+        Sleep,
+        MouseToWord
     };
 
     public enum Keywords
@@ -31,6 +32,11 @@ namespace Automation_Project.src.ast
         For,
         True,
         False
+    }
+
+    public enum MacroKeyword
+    {
+        GlobalDelay
     }
 
     public static class Constants {

@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="tests\functions\run\" />
+    <Folder Include="tests\functions\FindWord\" />
+    <Folder Include="tests\functions\MouseToWord\" />
+    <Folder Include="tests\functions\Run\" />
   </ItemGroup>
 
 </Project>
