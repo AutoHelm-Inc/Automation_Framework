@@ -1,4 +1,5 @@
 ﻿using Automation_Project.src.ast;
+using Automation_Project.src.automation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,12 @@ using System.Threading.Tasks;
 
 namespace Automation_Project.src.parser
 {
+    public class ParserException : Exception
+    {
+        public ParserException(string message) : base(message)
+        {
+        }
+    }
     public class Parser
     {
         private Lexer lexer;
@@ -52,6 +59,11 @@ namespace Automation_Project.src.parser
                 }
             }
 
+            if (macroKeyword == null)
+            {
+                throw new ParserException("No matching macro keyword was found " + lexer.inspect());
+            }
+
             Macro m = new Macro(macroKeyword);
             while (lexer.inspectString() || lexer.inspectNumber())
             {
@@ -90,16 +102,55 @@ namespace Automation_Project.src.parser
         ForLoop forLoop()
         {
             ForLoop forLoop = new ForLoop();
+           
             lexer.consume("For");
-            lexer.consume("(");
-            forLoop.setRepititionCount(lexer.consumeNumber());
-            lexer.consume(")");
-            lexer.consume("{");
-            while (!lexer.inspect("}"))
+            if (lexer.inspect("("))
             {
-                forLoop.addStatement(statements());
+                lexer.consume("(");
+
+                if (lexer.inspectNumber())
+                {
+                    forLoop.setRepititionCount(lexer.consumeNumber());
+
+                    if (lexer.inspect(")"))
+                    {
+                        lexer.consume(")");
+                        if (lexer.inspect("{"))
+                        {
+                            lexer.consume("{");
+                            while (!lexer.inspect("}"))
+                            {
+                                if (lexer.inspectEOF() == true)
+                                {
+                                    throw new ParserException("Expected a } before EOF");
+                                }
+                                else
+                                {
+                                    forLoop.addStatement(statements());
+                                }
+                            }
+                            lexer.consume("}");
+                        }
+                        else
+                        {
+                            throw new ParserException("Expected a { before " + lexer.inspect());
+                        }
+                    }
+                    else
+                    {
+                        throw new ParserException("Expected a ) before " + lexer.inspect());
+                    }
+                }
+                else
+                {
+                    throw new ParserException("Expected a number before " + lexer.inspect());
+                }
             }
-            lexer.consume("}");
+            else
+            {
+                throw new ParserException("Expected a ( before " + lexer.inspect());
+            }
+            
             return forLoop;
         }
 
@@ -116,6 +167,11 @@ namespace Automation_Project.src.parser
                     function = (Functions)Enum.Parse(typeof(Functions), functionName);
                     break;
                 }
+            }
+
+            if (function == null)
+            {
+                throw new ParserException("No matching function keyword was found before " + lexer.inspect());
             }
 
             SimpleStatement simple = new SimpleStatement(function);
