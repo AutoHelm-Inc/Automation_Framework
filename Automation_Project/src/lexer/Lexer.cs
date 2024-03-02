@@ -129,7 +129,7 @@ namespace Automation_Project.src.ast
                         }
                     }
                     //Handle the case where we have numbers
-                    else if ((currentState == State.NUMBER || currentState == State.START) && Char.IsDigit(this.inputString[charIndex]))
+                    else if (((currentState == State.NUMBER || currentState == State.START) && Char.IsDigit(this.inputString[charIndex])) || ((charIndex < this.inputString.Length-1) && (currentState == State.START) && (this.inputString[charIndex] == '-') && Char.IsDigit(this.inputString[charIndex+1])))
                     {
 
                         //If we are still getting digits keep creating the number
