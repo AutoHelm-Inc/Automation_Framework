@@ -12,6 +12,12 @@ using Automation_Project.src;
 
 namespace Automation_Project.src.automation
 {
+    public struct AutomationProcessResult
+    {
+        public string output;
+        public string errors;
+    }
+
     public class AutomationHandler
     {
         private static string? pythonSourceLocation;
@@ -176,7 +182,7 @@ namespace Automation_Project.src.automation
         /// Execute generated python code in a new process.
         /// </summary>
         /// <returns></returns>
-        public Task execute()
+        public Task<AutomationProcessResult> execute()
         {
             if (pythonScriptLocation == null)
             {
@@ -203,24 +209,36 @@ namespace Automation_Project.src.automation
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
-            workflowProcess.Start();
-
 
             // Capture output and errors to c# console
             //commented out for now so the autohelm process isnt blocked while a workflow is run
-            // TODO make in new thread
 
-            //string output = workflowProcess.StandardOutput.ReadToEnd();
-            //string errors = workflowProcess.StandardError.ReadToEnd();
+            Task<AutomationProcessResult> automationTask = Task<AutomationProcessResult>.Factory.StartNew(() => {
+                workflowProcess.Start();
 
-            //workflowProcess.WaitForExit();
+                string output = workflowProcess.StandardOutput.ReadToEnd();
+                string errors = workflowProcess.StandardError.ReadToEnd();
 
-            //Console.WriteLine(output);
-            //Console.WriteLine(errors);
+                workflowProcess.WaitForExit();
 
-            
+                if (output != "")
+                {
+                    Console.WriteLine("#################### PYTHON OUTPUT #################### ");
+                    Console.WriteLine(output);
+                    Console.WriteLine("#################### END OF PYTHON OUTPUT #################### ");
 
-            return workflowProcess.WaitForExitAsync();
+                }
+                if (errors != "")
+                {
+                    Console.WriteLine("#################### PYTHON ERRORS #################### ");
+                    Console.WriteLine(errors);
+                    Console.WriteLine("#################### END OF PYTHON ERRORS #################### ");
+                }
+
+                return new AutomationProcessResult { output=output, errors=errors };
+            });
+
+            return automationTask;
         }
 
         public void killWorkflow()

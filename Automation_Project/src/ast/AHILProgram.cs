@@ -137,7 +137,7 @@ namespace Automation_Project.src.ast
         /// Call on the AutomationHandler to execute the automation code.
         /// </summary>
         /// <returns></returns>
-        public Task execute()
+        public Task<AutomationProcessResult> execute()
         {
             return auto.execute();
         }
