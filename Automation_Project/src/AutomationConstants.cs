@@ -15,8 +15,8 @@ namespace Automation_Project.src.ast
         WriteLine,
         Write,
         PressKey,
-        EmailsGet,
-        FilesGet,
+        //EmailsGet,
+        //FilesGet,
         MouseMove,
         Click,
         SaveAs,
@@ -26,12 +26,12 @@ namespace Automation_Project.src.ast
 
     public enum Keywords
     {
-        If,
-        Elif,
-        Else,
+        //If,
+        //Elif,
+        //Else,
         For,
-        True,
-        False
+        //True,
+        //False
     }
 
     public enum MacroKeyword

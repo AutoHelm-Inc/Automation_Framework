@@ -30,8 +30,8 @@ namespace Automation_Project.src.automation {
         private static readonly WriteLine _writeLineInstance = new WriteLine();
         private static readonly Write _writeInstance = new Write();
         private static readonly PressKey _pressKeyInstance = new PressKey();
-        private static readonly EmailsGet _emailsGetInstance = new EmailsGet();
-        private static readonly FilesGet _filesGetInstance = new FilesGet();
+        //private static readonly EmailsGet _emailsGetInstance = new EmailsGet();
+        //private static readonly FilesGet _filesGetInstance = new FilesGet();
         private static readonly MouseMove _mouseMoveInstance = new MouseMove();
         private static readonly Click _clickInstance = new Click();
         private static readonly SaveAs _saveAsInstance = new SaveAs();
@@ -51,8 +51,8 @@ namespace Automation_Project.src.automation {
                 Functions.WriteLine => _writeLineInstance,
                 Functions.Write => _writeInstance,
                 Functions.PressKey => _pressKeyInstance,
-                Functions.EmailsGet => _emailsGetInstance,
-                Functions.FilesGet => _filesGetInstance,
+                //Functions.EmailsGet => _emailsGetInstance,
+                //Functions.FilesGet => _filesGetInstance,
                 Functions.MouseMove => _mouseMoveInstance,
                 Functions.Click => _clickInstance,
                 Functions.SaveAs => _saveAsInstance,
