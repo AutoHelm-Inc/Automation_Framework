@@ -10,8 +10,11 @@ namespace Automation_Project.src.parser
 {
     public class ParserException : Exception
     {
+        string message;
+
         public ParserException(string message) : base(message)
         {
+            this.message = message;
         }
     }
     public class Parser
