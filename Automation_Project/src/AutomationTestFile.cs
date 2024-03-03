@@ -29,11 +29,12 @@ public class AutomationTestFile
         //System.Console.WriteLine("Is filename a next token? " + lex.inspectString());
         //lex.consumeString();
 
-        Parser parser = new Parser("../../../tests/functions/Close/Close.ahil");
+        Parser parser = new Parser("../../../tests/demo2/CurveGrades.ahil");
         AHILProgram program = parser.parse();
 
         //Parser parser = Parser.fromAHILCode("Run \"notepad.exe\"");
-        //AHILProgram program = parser.parse();
+        //AHILProgram program = parser.parse();+1
+
 
         System.Console.WriteLine("----------------\n");
         System.Console.WriteLine(program.generateProgramAHILCode());
