@@ -1,0 +1,5 @@
+Run "Notepad.exe" 
+For (5) { 
+    WriteLine "Hello World!" 
+} 
+SaveAs "hello.txt" 

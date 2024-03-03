@@ -196,13 +196,13 @@ namespace Automation_Project.src.automation
             //commented out for now so the autohelm process isnt blocked while a workflow is run
             // TODO make in new thread
 
-            //string output = workflowProcess.StandardOutput.ReadToEnd();
-            //string errors = workflowProcess.StandardError.ReadToEnd();
+            string output = workflowProcess.StandardOutput.ReadToEnd();
+            string errors = workflowProcess.StandardError.ReadToEnd();
 
-            //workflowProcess.WaitForExit();
+            workflowProcess.WaitForExit();
 
-            //Console.WriteLine(output);
-            //Console.WriteLine(errors);
+            Console.WriteLine(output);
+            Console.WriteLine(errors);
 
             return true;
         }

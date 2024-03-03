@@ -1,0 +1,5 @@
+For (5) {
+	MouseMove 1000, 500
+	MouseMove 500, 1000
+}
+MouseToWord "File", "True"

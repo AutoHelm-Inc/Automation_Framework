@@ -1,0 +1,10 @@
+FileCreate "newfile.txt"
+Run "newfile.txt", "wordpad.exe"
+For (5) {
+	WriteLine "Hello World"
+}
+MouseToWord "File"
+Sleep 20
+Save
+Close
+Del "newfile.txt"

@@ -29,7 +29,7 @@ public class AutomationTestFile
         //System.Console.WriteLine("Is filename a next token? " + lex.inspectString());
         //lex.consumeString();
 
-        Parser parser = new Parser("../../../tests/functions/MouseToWord/MouseToWord.ahil");
+        Parser parser = new Parser("../../../tests/benchmarks/file_system.ahil");
         AHILProgram program = parser.parse();
 
         System.Console.WriteLine("----------------\n");
