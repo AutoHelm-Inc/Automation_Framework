@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -136,12 +137,9 @@ namespace Automation_Project.src.ast
         /// Call on the AutomationHandler to execute the automation code.
         /// </summary>
         /// <returns></returns>
-        public void execute()
+        public Task<AutomationProcessResult> execute()
         {
-            if (!auto.execute())
-            {
-                throw new Exception("Failed to execute generated code");
-            }
+            return auto.execute();
         }
 
         public void killRunningProgram()
