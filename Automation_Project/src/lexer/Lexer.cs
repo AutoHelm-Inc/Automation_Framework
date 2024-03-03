@@ -45,6 +45,15 @@ namespace Automation_Project.src.ast
             STRING,
         }
 
+        public Lexer()
+        {
+            this.inputString = new char[0];
+            this.tokensList = new List<Token>();
+            this.tokensListLength = 0;
+            this.index = 0;
+            this.keywords = new List<String>();
+        }
+
         public Lexer(String fileName)
         {
             this.inputString = (File.ReadAllText(fileName)).ToCharArray();
@@ -57,6 +66,21 @@ namespace Automation_Project.src.ast
             this.keywords.AddRange(new List<String>(MacroKeyword.GetNames(typeof(MacroKeyword))));
             this.tokenize();
             
+        }
+
+        public static Lexer fromAHILCode(String AHILCode)
+        {
+            Lexer lexer = new Lexer();
+            lexer.inputString = AHILCode.ToCharArray();
+            lexer.tokensList = new List<Token>();
+            lexer.tokensListLength = 0;
+            lexer.index = 0;
+            
+            lexer.keywords = new List<String>(Functions.GetNames(typeof(Functions)));
+            lexer.keywords.AddRange(new List<String>(Keywords.GetNames(typeof(Keywords))));
+            lexer.keywords.AddRange(new List<String>(MacroKeyword.GetNames(typeof(MacroKeyword))));
+            lexer.tokenize();
+            return lexer;
         }
 
         public void tokenize()

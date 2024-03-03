@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,9 +13,21 @@ namespace Automation_Project.src.parser
         private Lexer lexer;
         private AHILProgram? ahilProgram;
 
+        public Parser()
+        {
+            this.lexer = new Lexer();
+        }
+
         public Parser(string fileName)
         {
             this.lexer = new Lexer(fileName);
+        }
+
+        public static Parser fromAHILCode(string AHILCode)
+        {
+            Parser parser = new Parser();
+            parser.lexer = Lexer.fromAHILCode(AHILCode);
+            return parser;
         }
 
         public AHILProgram parse()
