@@ -176,11 +176,11 @@ namespace Automation_Project.src.automation
         /// Execute generated python code in a new process.
         /// </summary>
         /// <returns></returns>
-        public bool execute()
+        public Task execute()
         {
             if (pythonScriptLocation == null)
             {
-                return false;
+                throw new Exception("No generated Python program found");
             }
             if (pythonSourceLocation == null)
             {
@@ -205,19 +205,22 @@ namespace Automation_Project.src.automation
             };
             workflowProcess.Start();
 
+
             // Capture output and errors to c# console
             //commented out for now so the autohelm process isnt blocked while a workflow is run
             // TODO make in new thread
 
-            string output = workflowProcess.StandardOutput.ReadToEnd();
-            string errors = workflowProcess.StandardError.ReadToEnd();
+            //string output = workflowProcess.StandardOutput.ReadToEnd();
+            //string errors = workflowProcess.StandardError.ReadToEnd();
 
-            workflowProcess.WaitForExit();
+            //workflowProcess.WaitForExit();
 
-            Console.WriteLine(output);
-            Console.WriteLine(errors);
+            //Console.WriteLine(output);
+            //Console.WriteLine(errors);
 
-            return true;
+            
+
+            return workflowProcess.WaitForExitAsync();
         }
 
         public void killWorkflow()
