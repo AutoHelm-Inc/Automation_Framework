@@ -387,6 +387,18 @@ namespace Automation_Project.src.ast
             }
         }
 
+        public String inspect()
+        {
+            if (index >= tokensListLength)
+            {
+                return "EOF";
+            }
+            else
+            {
+                return tokensList[index].tokenText;
+            }
+        }
+
         private int checkMatch(String compare)
         {
             for (int i = 0; i < this.keywords.Count; i++)
