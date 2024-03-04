@@ -1,17 +1,17 @@
-Run "outlook.exe"
-Sleep 1000
-
 Run "spotify.exe"
 Sleep 5000
 PressKey "^{l}"
 Sleep 500
-WriteLine "Ayaan"
+WriteLine "Zaid"
 Sleep 500
 For(6){
 	PressKey "{Tab}"
 	Sleep 500
 }
 PressKey "{Enter}"
+Sleep 1000
+
+Run "outlook.exe"
 Sleep 1000
 
 Run "C:\Users\zaidl\AppData\Local\Programs\Microsoft VS Code\Code.exe"
