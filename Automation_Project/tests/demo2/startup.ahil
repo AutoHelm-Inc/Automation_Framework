@@ -1,19 +1,19 @@
 Run "spotify.exe"
 Sleep 5000
 PressKey "^{l}"
-Sleep 500
-WriteLine "Zaid"
+Sleep 1000
+Write "Zaid"
 Sleep 500
 For(6){
 	PressKey "{Tab}"
 	Sleep 500
 }
 PressKey "{Enter}"
+Sleep 500
+PressKey "{Space}"
 Sleep 1000
-
 Run "outlook.exe"
 Sleep 1000
-
 Run "C:\Users\zaidl\AppData\Local\Programs\Microsoft VS Code\Code.exe"
 Sleep 7000
 PressKey "^{o}"
@@ -22,7 +22,6 @@ WriteLine "C:\\Users\\zaidl\\Desktop\\test.py"
 Sleep 100
 PressKey "{Enter}"
 Sleep 5000
-
 PressKey "#{Left}"
 Sleep 500
 PressKey"{Enter}"
