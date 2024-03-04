@@ -1,0 +1,83 @@
+
+For (3){
+    Run "C:/Users/zaidl/Desktop/pics/landscape_{i}.jpg"
+    Sleep 1000
+    PressKey "{Tab}"
+    PressKey "{Tab}"
+    PressKey "{Enter}"
+    Sleep 2000
+    For (7){
+        PressKey "{Tab}"
+        Sleep 500
+    }
+    For (200){
+        PressKey "{Right}"
+        Sleep 4
+    }
+    PressKey "{Tab}"
+    Sleep 500
+    For (200){
+        PressKey "{Left}"
+        Sleep 4
+    }
+    MouseToWord "Adjustment", "True"
+    Click 
+    For (4){
+        PressKey "{Tab}"
+    }
+    For (25){
+        PressKey "{Right}"
+    }
+    PressKey "{Tab}"
+    Sleep 500
+    For (65){
+        PressKey "{Left}"
+    }
+    PressKey "{Tab}"
+    Sleep 500
+    For (30){
+        PressKey "{Right}"
+    }
+    PressKey "{Tab}"
+    Sleep 500
+    For (50){
+        PressKey "{Right}"
+    }
+    PressKey "{Tab}"
+    Sleep 500
+    For (36){
+        PressKey "{Right}"
+    }
+    PressKey "{Tab}"
+    Sleep 500
+    For (70){
+        PressKey "{Right}"
+    }
+    PressKey "{Tab}"
+    Sleep 500
+    For (15){
+        PressKey "{Right}"
+    }
+    PressKey "{Tab}"
+    Sleep 500
+    For (10){
+        PressKey "{Left}"
+    }
+    PressKey "{Tab}"
+    Sleep 500
+    For (13){
+        PressKey "{Left}"
+    }
+    For (7){
+        PressKey "{Tab}"
+        Sleep 500
+    }
+    Sleep 500
+    PressKey "{Enter}"
+    Sleep 500
+    PressKey "{Tab}"
+    Sleep 500
+    PressKey "{Enter}"
+    Sleep 500
+    Close
+}
