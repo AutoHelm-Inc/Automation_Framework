@@ -1,0 +1,14 @@
+
+Run "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\RenameFilesTest\ECE498B"
+Sleep 2500
+PressKey "{Down}"
+PressKey "{Up}"  
+PressKey "^a"
+PressKey "^c"
+Del "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\BackupFiles"
+DirCreate "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\BackupFiles"
+DirCreate "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\BackupFiles\ECE498B"
+Run "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\BackupFiles\ECE498B"
+Sleep 2500
+PressKey "^v"
+

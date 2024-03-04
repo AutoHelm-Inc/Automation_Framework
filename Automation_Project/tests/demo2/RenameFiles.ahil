@@ -1,0 +1,12 @@
+
+Run "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\RenameFilesTest\ECE498B"
+Sleep 5000
+PressKey "{Down}"
+PressKey "{Up}"
+For (5){
+    PressKey "{F2}"
+    PressKey "{Left}"
+    Write "ECE498B - "
+    PressKey "{Enter}"
+    PressKey "{Down}"
+}
