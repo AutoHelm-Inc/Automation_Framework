@@ -1,8 +1,10 @@
+
 Del "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\student_grades"
 DirCreate "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\student_grades"
-For (3) {
+For (3){
     FileCreate "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\student_grades\student_{i}.csv"
     Run "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\student_grades\student_{i}.csv", "wordpad.exe"
+    Sleep 500
     WriteLine "Test,Score"
     WriteLine "Quiz1,86"
     WriteLine "Quiz2,77"
@@ -11,16 +13,15 @@ For (3) {
     WriteLine "Quiz4,64"
     WriteLine "Final,89"
     Sleep 500
-    Save
+    Save 
     Close
 }
-
-For (3) {
+For (3){
     Sleep 3000
     Run "..\..\..\..\..\Automation_Framework\Automation_Project\tests\demo2\student_grades\student_{i}.csv"
     Sleep 1000
     MouseToWord "Midterm"
-    Click
+    Click 
     PressKey "{Right}"
     PressKey "{F2}"
     PressKey "{Home}"
@@ -29,6 +30,6 @@ For (3) {
     Write "+1"
     PressKey "{Enter}"
     Sleep 200
-    Save
+    Save 
     Close
 }
