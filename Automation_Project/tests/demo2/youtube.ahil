@@ -1,3 +1,4 @@
+
 Run "chrome.exe"
 Sleep 5000
 PressKey "{Tab}"
@@ -8,122 +9,86 @@ WriteLine "https://studio.youtube.com/channel/UCA8KragrfTl4mn5E5dTE21w/videos/up
 Sleep 5000
 PressKey "{Enter}"
 Sleep 5000
-
-
-	
-	For(3){
-		PressKey "{Tab}"
-		Sleep 100
-	}
-
-	PressKey "{Enter}"
-	
-	For(9){
-		PressKey "{Tab}"
-		Sleep 100
-	}
-	
-	PressKey "{Enter}"
-	Sleep 5000
-
-
-	For(4){
-		PressKey "{Tab}"
-		Sleep 100
-	}
-	WriteLine "This is the new description."
-	Sleep 100
-
-	For(31){
-		PressKey "{Tab}"
-		Sleep 100
-	}
-	
-	PressKey "{Enter}"
-	Sleep 2000
-
-	For(2){
-		PressKey "{Tab}"
-		Sleep 100
-	}
-	
-	PressKey "{Enter}"
-	Sleep 3000
-
-	PressKey "!{Left}"
-	Sleep 3000
-
-		For(18){
-			PressKey "{Tab}"
-			Sleep 100
-		}
-
-		PressKey "{Enter}"
-		Sleep 5000
-
-		For(4){
-			PressKey "{Tab}"
-			Sleep 100
-		}
-	
-		WriteLine "This is the new description."
-		Sleep 100
-
-		For(31){
-			PressKey "{Tab}"
-			Sleep 100
-		}
-	
-		PressKey "{Enter}"
-		Sleep 2000
-
-		For(2){
-			PressKey "{Tab}"
-			Sleep 1000
-		}
-	
-		PressKey "{Enter}"
-		Sleep 3000
-
-		PressKey "!{Left}"
-		Sleep 3000
-
-			For(29){
-				PressKey "{Tab}"
-				Sleep 100
-			}
-
-			PressKey "{Enter}"
-			Sleep 5000
-
-			For(4){
-				PressKey "{Tab}"
-				Sleep 100
-			}
-		
-			WriteLine "This is the new description."
-			Sleep 1000
-
-			For(31){
-				PressKey "{Tab}"
-				Sleep 100
-			}
-		
-			PressKey "{Enter}"
-			Sleep 2000
-
-			For(2){
-				PressKey "{Tab}"
-				Sleep 100
-			}
-		
-			PressKey "{Enter}"
-			Sleep 3000
-
-			PressKey "!{Left}"
-			Sleep 3000
-		
-
-
-
-
+For (3){
+    PressKey "{Tab}"
+    Sleep 100
+}
+PressKey "{Enter}"
+For (9){
+    PressKey "{Tab}"
+    Sleep 100
+}
+PressKey "{Enter}"
+Sleep 5000
+For (4){
+    PressKey "{Tab}"
+    Sleep 100
+}
+WriteLine "This is the new description."
+Sleep 100
+For (31){
+    PressKey "{Tab}"
+    Sleep 100
+}
+PressKey "{Enter}"
+Sleep 2000
+For (2){
+    PressKey "{Tab}"
+    Sleep 100
+}
+PressKey "{Enter}"
+Sleep 3000
+PressKey "!{Left}"
+Sleep 3000
+For (18){
+    PressKey "{Tab}"
+    Sleep 100
+}
+PressKey "{Enter}"
+Sleep 5000
+For (4){
+    PressKey "{Tab}"
+    Sleep 100
+}
+WriteLine "This is the new description."
+Sleep 100
+For (31){
+    PressKey "{Tab}"
+    Sleep 100
+}
+PressKey "{Enter}"
+Sleep 2000
+For (2){
+    PressKey "{Tab}"
+    Sleep 1000
+}
+PressKey "{Enter}"
+Sleep 3000
+PressKey "!{Left}"
+Sleep 3000
+For (29){
+    PressKey "{Tab}"
+    Sleep 100
+}
+PressKey "{Enter}"
+Sleep 5000
+For (4){
+    PressKey "{Tab}"
+    Sleep 100
+}
+WriteLine "This is the new description."
+Sleep 1000
+For (31){
+    PressKey "{Tab}"
+    Sleep 100
+}
+PressKey "{Enter}"
+Sleep 2000
+For (2){
+    PressKey "{Tab}"
+    Sleep 100
+}
+PressKey "{Enter}"
+Sleep 3000
+PressKey "!{Left}"
+Sleep 3000
