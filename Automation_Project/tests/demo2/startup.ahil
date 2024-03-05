@@ -24,7 +24,10 @@ PressKey "{Enter}"
 Sleep 5000
 PressKey "#{Left}"
 Sleep 500
-PressKey"{Enter}"
+PressKey "{Enter}"
+PressKey "!{Tab}"
+Sleep 1000
+PressKey "#{Right}"
 
 
 
